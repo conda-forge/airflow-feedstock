@@ -12,9 +12,9 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   script: python setup.py install --single-version-externally-managed --record record.txt
-  skip: True  # [py3k or win]
+  skip: True  # [win or py>35]
 
 requirements:
   build:
@@ -31,7 +31,7 @@ requirements:
     - flask-login ==0.3.2
     - flask-swagger ==0.2.13
     - flask-wtf ==0.12
-    - funcsigs ==1.0.0
+    - funcsigs ==1.0.0  # [py<33]
     - future >=0.15.0,<0.16
     - gitpython >=2.0.2
     - gunicorn >=19.3.0,<19.4.0
