@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "1.8.0" %}
-{% set sha256 = "86a3099447e2f3e2c1a166f38996d5756c74c758aa3a87dc2a546aca80a91e7f" %}
+{% set version = "1.9.0" %}
+{% set sha256 = "14fb16e9a10a829d71e7106f178e54436c24ae23681d9879f4a7e97739818556" %}
 
 package:
   name: {{ name|lower }}
@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt
   skip: True  # [win or py>35]
 
