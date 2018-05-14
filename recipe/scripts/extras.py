@@ -6,14 +6,19 @@ async = [
     'eventlet>= 0.9.7',
     'gevent>=0.13'
 ]
+azure = ['azure-storage>=0.34.0']
 celery = [
-    'celery>=3.1.17',
+    'celery>=4.0.0',
     'flower>=0.7.3'
 ]
 cgroups = [
     'cgroupspy>=0.1.4',
 ]
 crypto = ['cryptography>=0.9.3']
+dask = [
+    'distributed>=1.15.2, <2'
+    ]
+databricks = ['requests>=2.5.1, <3']
 datadog = ['datadog>=0.14.0']
 doc = [
     'sphinx>=1.2.3',
@@ -22,13 +27,14 @@ doc = [
     'Sphinx-PyPI-upload>=0.2.1'
 ]
 docker = ['docker-py>=1.6.0']
-druid = ['pydruid>=0.2.1']
 emr = ['boto3>=1.0.0']
 gcp_api = [
     'httplib2',
     'google-api-python-client>=1.5.0, <1.6.0',
     'oauth2client>=2.0.2, <2.1.0',
     'PyOpenSSL',
+    'google-cloud-dataflow',
+    'pandas-gbq'
 ]
 hdfs = ['snakebite>=2.7.8']
 webhdfs = ['hdfs[dataframe,avro,kerberos]>=2.0.4']
@@ -39,12 +45,13 @@ hive = [
     'impyla>=0.13.3',
     'unicodecsv>=0.14.1'
 ]
-jdbc = ['jaydebeapi>=0.2.0']
+jdbc = ['jaydebeapi>=1.1.1']
 mssql = ['pymssql>=2.1.1', 'unicodecsv>=0.14.1']
 mysql = ['mysqlclient>=1.3.6']
 rabbitmq = ['librabbitmq>=1.6.1']
 oracle = ['cx_Oracle>=5.1.2']
-postgres = ['psycopg2>=2.6']
+postgres = ['psycopg2>=2.7.1']
+ssh = ['paramiko>=2.1.1']
 salesforce = ['simple-salesforce>=0.72']
 s3 = [
     'boto>=2.36.0',
@@ -65,8 +72,9 @@ password = [
     'flask-bcrypt>=0.7.1',
 ]
 github_enterprise = ['Flask-OAuthlib>=0.9.1']
-qds = ['qds-sdk>=1.9.0']
+qds = ['qds-sdk>=1.9.6']
 cloudant = ['cloudant>=0.5.9,<2.0'] # major update coming soon, clamp to 0.x
+redis = ['redis>=2.10.5']
 
 all_dbs = postgres + mysql + hive + mssql + hdfs + vertica + cloudant
 devel = [
@@ -75,29 +83,35 @@ devel = [
     'jira',
     'lxml>=3.3.4',
     'mock',
-    'moto',
+    'moto==1.1.19',
     'nose',
     'nose-ignore-docstring==0.2',
-    'nose-parameterized',
+    'nose-timer',
+    'parameterized',
+    'rednose',
+    'paramiko',
+    'requests_mock'
 ]
 devel_minreq = devel + mysql + doc + password + s3 + cgroups
 devel_hadoop = devel_minreq + hive + hdfs + webhdfs + kerberos
-devel_all = devel + all_dbs + doc + samba + s3 + slack + crypto + oracle + docker
+devel_all = devel + all_dbs + doc + samba + s3 + slack + crypto + oracle + docker + ssh
 
-require={
+extras_require={
             'all': devel_all,
             'all_dbs': all_dbs,
             'async': async,
+            'azure': azure,
             'celery': celery,
             'cgroups': cgroups,
             'cloudant': cloudant,
             'crypto': crypto,
+            'dask': dask,
+            'databricks': databricks,
             'datadog': datadog,
             'devel': devel_minreq,
             'devel_hadoop': devel_hadoop,
             'doc': doc,
             'docker': docker,
-            'druid': druid,
             'emr': emr,
             'gcp_api': gcp_api,
             'github_enterprise': github_enterprise,
@@ -117,14 +131,16 @@ require={
             'salesforce': salesforce,
             'samba': samba,
             'slack': slack,
+            'ssh': ssh,
             'statsd': statsd,
             'vertica': vertica,
             'webhdfs': webhdfs,
             'jira': jira,
+            'redis': redis,
         }
 
-for e in sorted(require.keys(), key=lambda x: (len(require[x]), x)):
+for e in sorted(extras_require.keys(), key=lambda x: (len(extras_require[x]), x)):
     print('{}:'.format(e))
-    for r in sorted(require[e]):
+    for r in sorted(extras_require[e]):
         print('    - {}'.format(r))
 
