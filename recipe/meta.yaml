@@ -136,7 +136,7 @@ outputs:
   - name: {{ name }}-with-async
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - greenlet >=0.4.9
         - evenlet >=0.9.7
         - gevent >=0.13
@@ -144,62 +144,62 @@ outputs:
   - name: {{ name }}-with-azure
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - azure-storage >=0.34.0
 
   - name: {{ name }}-with-celery
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - celery >=4.0.0
         - flower >=0.7.3
 
   - name: {{ name }}-with-cloudant
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - cloudant >=0.5.9,<2.0
 
   - name: {{ name }}-with-crypto
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - cryptography >=0.9.3
 
   - name: {{ name }}-with-dask
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - distributed >=1.15.2,<2
 
   - name: {{ name }}-with-databricks
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - requests >=2.5.1,<3
 
   - name: {{ name }}-with-datadog
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - datadog >=0.14.0
 
   - name: {{ name }}-with-docker
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - docker-py >=1.6.0
 
   - name: {{ name }}-with-emr
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - boto3 >=1.0.0
 
   - name: {{ name }}-with-gcp_api
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - httplib2
         - google-api-python-client >=1.5.0,<1.6.0
         - oauth2client >=2.0.2,<2.1.0
@@ -210,18 +210,19 @@ outputs:
   - name: {{ name }}-with-github_enterprise
     requirements:
       run:
+        - {{ pin_subpackage(name, exact=true) }}
         - flask-oauthlib >=0.9.1
 
   - name: {{ name }}-with-hdfs
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - snakebite >=2.7.8
 
   - name: {{ name }}-with-hive
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - hive-thrift-py >=0.0.1
         - pyhive >=0.1.3
         - impyla >=0.13.3
@@ -230,14 +231,14 @@ outputs:
   - name: {{ name }}-with-jira
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - jira >=1.0.7
 
   # We are missing python-krbv and apple/kerberos
   #- name: {{ name }}-with-kerberos
   #  requirements:
   #    run:
-  #      - {{ name }}
+  #      - {{ pin_subpackage(name, exact=true) }}
   #      - pykerberos >=1.1.13
   #      - requests-kerberos >=0.10.0
   #      - thrift_sasl >=0.2.0
@@ -248,12 +249,14 @@ outputs:
   - name: {{ name }}-with-ldap
     requirements:
       run:
+        - {{ pin_subpackage(name, exact=true) }}
         - {{ name }}
         - ldap3 >=0.9.9.1
 
   - name: {{ name }}-with-mssql
     requirements:
       run:
+        - {{ pin_subpackage(name, exact=true) }}
         - {{ name }}
         - pymssql >=2.1.1
         - unicodecsv >=0.14.1
@@ -261,94 +264,96 @@ outputs:
   #- name: {{ name }}-with-mysql
   #  requirements:
   #    run:
+  #      - {{ pin_subpackage(name, exact=true) }}
   #      - {{ name }}
   #      - mysqlclient >=1.3.6
 
   #- name: {{ name }}-with-oracle
   #  requirements:
   #    run:
+  #      - {{ pin_subpackage(name, exact=true) }}
   #      - {{ name }}
   #      - cx_oracle>=5.1.2
 
   - name: {{ name }}-with-password
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - bcrypt >=2.0.0
         - flask-bcrypt >=0.7.1
 
   - name: {{ name }}-with-postgres
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - psycopg2 >=2.7.1
 
   - name: {{ name }}-with-qds
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - qds-sdk>=1.9.6
 
   - name: {{ name }}-with-rabbitmq
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - librabbitmq >=1.6.1
 
   - name: {{ name }}-with-redis
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - redis-py >=2.10.5
 
   - name: {{ name }}-with-s3
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - boto >=2.36.0
         - filechunkio >=1.6
 
   - name: {{ name }}-with-samba
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - pysmbclient >=0.1.3
         - filechunkio >=1.6
 
   - name: {{ name }}-with-salesforce
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - simple-salesforce >=0.72
 
   - name: {{ name }}-with-slack
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - slackclient >=1.0.0
 
   - name: {{ name }}-with-ssh
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - paramiko >=2.1.1
 
   - name: {{ name }}-with-statsd
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - statsd >=3.0.1,<4.0
 
   - name: {{ name }}-with-vertica
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - vertica-python >=0.5.1
 
   - name: {{ name }}-with-webhdfs
     requirements:
       run:
-        - {{ name }}
+        - {{ pin_subpackage(name, exact=true) }}
         - python-hdfs >=0.5.1
 
 about:
@@ -358,14 +363,16 @@ about:
   summary: 'Airflow is a platform to programmatically author, schedule and monitor workflows'
 
   description: |
-      Use airflow to author workflows as directed acyclic graphs (DAGs) of tasks. The airflow
-      scheduler executes your tasks on an array of workers while following the specified
-      dependencies. Rich command line utilities make performing complex surgeries on DAGs a
-      snap. The rich user interface makes it easy to visualize pipelines running in
-      production, monitor progress, and troubleshoot issues when needed.
+      Use airflow to author workflows as directed acyclic graphs (DAGs)
+      of tasks. The airflow scheduler executes your tasks on an array of
+      workers while following the specified dependencies. Rich command
+      line utilities make performing complex surgeries on DAGs a snap.
+      The rich user interface makes it easy to visualize pipelines
+      running in production, monitor progress, and troubleshoot issues
+      when needed.
 
-      When workflows are defined as code, they become more maintainable, versionable,
-      testable, and collaborative.
+      When workflows are defined as code, they become more maintainable,
+      versionable, testable, and collaborative.
 
   doc_url: http://pythonhosted.org/airflow/profiling.html
   dev_url: https://github.com/apache/incubating-airflow
