@@ -31,6 +31,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-airflow-green.svg)](https://anaconda.org/conda-forge/airflow) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow.svg)](https://anaconda.org/conda-forge/airflow) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow.svg)](https://anaconda.org/conda-forge/airflow) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow.svg)](https://anaconda.org/conda-forge/airflow) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--async-green.svg)](https://anaconda.org/conda-forge/airflow-with-async) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-async.svg)](https://anaconda.org/conda-forge/airflow-with-async) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-async.svg)](https://anaconda.org/conda-forge/airflow-with-async) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-async.svg)](https://anaconda.org/conda-forge/airflow-with-async) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--azure-green.svg)](https://anaconda.org/conda-forge/airflow-with-azure) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-azure.svg)](https://anaconda.org/conda-forge/airflow-with-azure) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-azure.svg)](https://anaconda.org/conda-forge/airflow-with-azure) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-azure.svg)](https://anaconda.org/conda-forge/airflow-with-azure) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--celery-green.svg)](https://anaconda.org/conda-forge/airflow-with-celery) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-celery.svg)](https://anaconda.org/conda-forge/airflow-with-celery) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-celery.svg)](https://anaconda.org/conda-forge/airflow-with-celery) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-celery.svg)](https://anaconda.org/conda-forge/airflow-with-celery) |
@@ -71,16 +72,16 @@ Installing `airflow` from the `conda-forge` channel can be achieved by adding `c
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `airflow-with-async, airflow-with-azure, airflow-with-celery, airflow-with-cloudant, airflow-with-crypto, airflow-with-dask, airflow-with-databricks, airflow-with-datadog, airflow-with-docker, airflow-with-emr, airflow-with-gcp_api, airflow-with-github_enterprise, airflow-with-hdfs, airflow-with-hive, airflow-with-jira, airflow-with-ldap, airflow-with-mssql, airflow-with-password, airflow-with-postgres, airflow-with-qds, airflow-with-rabbitmq, airflow-with-redis, airflow-with-s3, airflow-with-salesforce, airflow-with-samba, airflow-with-slack, airflow-with-ssh, airflow-with-statsd, airflow-with-vertica, airflow-with-webhdfs` can be installed with:
+Once the `conda-forge` channel has been enabled, `airflow, airflow-with-async, airflow-with-azure, airflow-with-celery, airflow-with-cloudant, airflow-with-crypto, airflow-with-dask, airflow-with-databricks, airflow-with-datadog, airflow-with-docker, airflow-with-emr, airflow-with-gcp_api, airflow-with-github_enterprise, airflow-with-hdfs, airflow-with-hive, airflow-with-jira, airflow-with-ldap, airflow-with-mssql, airflow-with-password, airflow-with-postgres, airflow-with-qds, airflow-with-rabbitmq, airflow-with-redis, airflow-with-s3, airflow-with-salesforce, airflow-with-samba, airflow-with-slack, airflow-with-ssh, airflow-with-statsd, airflow-with-vertica, airflow-with-webhdfs` can be installed with:
 
 ```
-conda install airflow-with-async airflow-with-azure airflow-with-celery airflow-with-cloudant airflow-with-crypto airflow-with-dask airflow-with-databricks airflow-with-datadog airflow-with-docker airflow-with-emr airflow-with-gcp_api airflow-with-github_enterprise airflow-with-hdfs airflow-with-hive airflow-with-jira airflow-with-ldap airflow-with-mssql airflow-with-password airflow-with-postgres airflow-with-qds airflow-with-rabbitmq airflow-with-redis airflow-with-s3 airflow-with-salesforce airflow-with-samba airflow-with-slack airflow-with-ssh airflow-with-statsd airflow-with-vertica airflow-with-webhdfs
+conda install airflow airflow-with-async airflow-with-azure airflow-with-celery airflow-with-cloudant airflow-with-crypto airflow-with-dask airflow-with-databricks airflow-with-datadog airflow-with-docker airflow-with-emr airflow-with-gcp_api airflow-with-github_enterprise airflow-with-hdfs airflow-with-hive airflow-with-jira airflow-with-ldap airflow-with-mssql airflow-with-password airflow-with-postgres airflow-with-qds airflow-with-rabbitmq airflow-with-redis airflow-with-s3 airflow-with-salesforce airflow-with-samba airflow-with-slack airflow-with-ssh airflow-with-statsd airflow-with-vertica airflow-with-webhdfs
 ```
 
-It is possible to list all of the versions of `airflow-with-async` available on your platform with:
+It is possible to list all of the versions of `airflow` available on your platform with:
 
 ```
-conda search airflow-with-async --channel conda-forge
+conda search airflow --channel conda-forge
 ```
 
 
