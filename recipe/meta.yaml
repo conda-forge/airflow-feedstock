@@ -53,6 +53,45 @@ requirements:
     - thrift >=0.9.2
     - zope.deprecation >=4.0,<5.0
 
+test:
+  imports:
+    - airflow
+    - airflow.api
+    - airflow.api.auth
+    - airflow.api.auth.backend
+    - airflow.api.client
+    - airflow.api.common
+    - airflow.api.common.experimental
+    - airflow.bin
+    - airflow.contrib
+    - airflow.contrib.auth
+    - airflow.contrib.auth.backends
+    - airflow.contrib.executors
+    - airflow.contrib.hooks
+    - airflow.contrib.operators
+    - airflow.contrib.sensors
+    - airflow.contrib.task_runner
+    - airflow.dag
+    - airflow.example_dags
+    - airflow.example_dags.subdags
+    - airflow.executors
+    - airflow.hooks
+    - airflow.macros
+    - airflow.migrations
+    - airflow.migrations.versions
+    - airflow.operators
+    - airflow.security
+    - airflow.task_runner
+    - airflow.ti_deps
+    - airflow.ti_deps.deps
+    - airflow.utils
+    - airflow.www
+    - airflow.www.api
+    - airflow.www.api.experimental
+
+  commands:
+    - airflow initdb
+
 outputs:
   - name: {{ name }}-with-async
     requirements:
@@ -259,46 +298,6 @@ outputs:
       run:
         - {{ name }}
         - python-hdfs >=0.5.1
-
-
-test:
-  imports:
-    - airflow
-    - airflow.api
-    - airflow.api.auth
-    - airflow.api.auth.backend
-    - airflow.api.client
-    - airflow.api.common
-    - airflow.api.common.experimental
-    - airflow.bin
-    - airflow.contrib
-    - airflow.contrib.auth
-    - airflow.contrib.auth.backends
-    - airflow.contrib.executors
-    - airflow.contrib.hooks
-    - airflow.contrib.operators
-    - airflow.contrib.sensors
-    - airflow.contrib.task_runner
-    - airflow.dag
-    - airflow.example_dags
-    - airflow.example_dags.subdags
-    - airflow.executors
-    - airflow.hooks
-    - airflow.macros
-    - airflow.migrations
-    - airflow.migrations.versions
-    - airflow.operators
-    - airflow.security
-    - airflow.task_runner
-    - airflow.ti_deps
-    - airflow.ti_deps.deps
-    - airflow.utils
-    - airflow.www
-    - airflow.www.api
-    - airflow.www.api.experimental
-
-  commands:
-    - airflow initdb
 
 about:
   home: http://airflow.apache.org 
