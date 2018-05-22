@@ -14,8 +14,6 @@ source:
 build:
   skip: True  # [win or not py27]
   number: 0
-  script:
-    - true
 
 test:
   imports:
