@@ -17,11 +17,6 @@ build:
   script:
     - true
 
-requirements:
-  run:
-    - {{ pin_subpackage(name, exact=true) }}
-    - {{ name }}-core 
-
 test:
   imports:
     - airflow
@@ -62,7 +57,7 @@ test:
     - airflow initdb
 
 outputs:
-  - name: {{ name }}-core
+  - name: {{ name }}
     script: {{ name }}-build.sh
     requirements:
       build:
@@ -121,6 +116,12 @@ outputs:
         - {{ pin_subpackage(name, exact=true) }}
         - celery >=4.0.0
         - flower >=0.7.3
+
+  - name: {{ name }}-with-cgroups
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - flower >=0.1.4
 
   - name: {{ name }}-with-cloudant
     requirements:
