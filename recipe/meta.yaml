@@ -194,6 +194,12 @@ outputs:
         - impyla >=0.13.3
         - unicodecsv >=0.14.1
 
+  - name: {{ name }}-with-jdbc
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - jaydebeapi >=1.1.1
+
   - name: {{ name }}-with-jira
     requirements:
       run:
