@@ -15,6 +15,10 @@ build:
   skip: True  # [win or not py27]
   number: 1
 
+test:
+  commands:
+    - echo 'Keep lint happy'
+
 outputs:
   - name: {{ name }}
     script: install_airflow.sh  # [unix]
