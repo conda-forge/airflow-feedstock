@@ -3,7 +3,7 @@
 {% set sha256 = "14fb16e9a10a829d71e7106f178e54436c24ae23681d9879f4a7e97739818556" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name|lower }}-split
   version: {{ version }}
 
 source:
@@ -13,52 +13,13 @@ source:
 
 build:
   skip: True  # [win or not py27]
-  number: 0
-
-test:
-  imports:
-    - airflow
-    - airflow.api
-    - airflow.api.auth
-    - airflow.api.auth.backend
-    - airflow.api.client
-    - airflow.api.common
-    - airflow.api.common.experimental
-    - airflow.bin
-    - airflow.contrib
-    - airflow.contrib.auth
-    - airflow.contrib.auth.backends
-    - airflow.contrib.executors
-    - airflow.contrib.hooks
-    - airflow.contrib.operators
-    - airflow.contrib.sensors
-    - airflow.contrib.task_runner
-    - airflow.dag
-    - airflow.example_dags
-    - airflow.example_dags.subdags
-    - airflow.executors
-    - airflow.hooks
-    - airflow.macros
-    - airflow.migrations
-    - airflow.migrations.versions
-    - airflow.operators
-    - airflow.security
-    - airflow.task_runner
-    - airflow.ti_deps
-    - airflow.ti_deps.deps
-    - airflow.utils
-    - airflow.www
-    - airflow.www.api
-    - airflow.www.api.experimental
-
-  commands:
-    - airflow initdb
+  number: 1
 
 outputs:
-  - name: {{ name }}
-    script: {{ name }}-build.sh
+  - name: {{ name }}-core
+    script: install_airflow.sh  # [unix]
     requirements:
-      build:
+      host:
         - python
         - pip
       run:
@@ -93,6 +54,44 @@ outputs:
         - tabulate >=0.7.5,<0.8.0
         - thrift >=0.9.2
         - zope.deprecation >=4.0,<5.0
+    test:
+      commands:
+        - airflow initdb
+      imports:
+        - airflow
+        - airflow.api
+        - airflow.api.auth
+        - airflow.api.auth.backend
+        - airflow.api.client
+        - airflow.api.common
+        - airflow.api.common.experimental
+        - airflow.bin
+        - airflow.contrib
+        - airflow.contrib.auth
+        - airflow.contrib.auth.backends
+        - airflow.contrib.executors
+        - airflow.contrib.hooks
+        - airflow.contrib.operators
+        - airflow.contrib.sensors
+        - airflow.contrib.task_runner
+        - airflow.dag
+        - airflow.example_dags
+        - airflow.example_dags.subdags
+        - airflow.executors
+        - airflow.hooks
+        - airflow.macros
+        - airflow.migrations
+        - airflow.migrations.versions
+        - airflow.operators
+        - airflow.security
+        - airflow.task_runner
+        - airflow.ti_deps
+        - airflow.ti_deps.deps
+        - airflow.utils
+        - airflow.www
+        - airflow.www.api
+        - airflow.www.api.experimental
+
 
   - name: {{ name }}-with-async
     requirements:
