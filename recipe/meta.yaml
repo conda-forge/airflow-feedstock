@@ -12,8 +12,8 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  skip: True  # [win or not py27]
-  number: 1
+  skip: True  # [win]
+  number: 2
 
 test:
   commands:
@@ -30,7 +30,7 @@ outputs:
         - python
         - alembic >=0.8.3,<0.9
         - bleach ==2.1.2
-        - configparser >=3.5.0, <3.6.0
+        - configparser >=3.5.0, <3.6.0  # [py<36]
         - croniter >=0.3.17,<0.4
         - dill >=0.2.2,<0.3
         - flask >=0.11,<0.12
