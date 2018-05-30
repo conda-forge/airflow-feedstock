@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  skip: True  # [win]
+  skip: True  # [win or py35]
   number: 2
 
 test:
