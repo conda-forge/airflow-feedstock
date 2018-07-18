@@ -102,7 +102,7 @@ outputs:
       run:
         - {{ pin_subpackage(name, exact=true) }}
         - greenlet >=0.4.9
-        - evenlet >=0.9.7
+        - eventlet >=0.9.7
         - gevent >=0.13
 
   - name: {{ name }}-with-azure
