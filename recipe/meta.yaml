@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "1.9.0" %}
-{% set sha256 = "14fb16e9a10a829d71e7106f178e54436c24ae23681d9879f4a7e97739818556" %}
+{% set version = "1.10.0" %}
+{% set sha256 = "cf4f67ca53d471db44d8b1620dbef22210299f5de55ce72a3b9981e7d6ae6636" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: True  # [win]
-  number: 2
+  number: 0
 
 test:
   commands:
@@ -33,30 +33,37 @@ outputs:
         - configparser >=3.5.0, <3.6.0  # [py<35]
         - croniter >=0.3.17,<0.4
         - dill >=0.2.2,<0.3
-        - flask >=0.11,<0.12
+        - flask >=0.12.4,<0.13
+        - flask-appbuilder >=1.11.1,<2.0.0
         - flask-admin ==1.4.1
-        - flask-cache >=0.13.1,<0.14
+        - flask-caching >=1.3.3,<1.4.0
         - flask-login ==0.2.11
         - flask-swagger ==0.2.13
-        - flask-wtf 0.14.*
+        - flask-wtf >=0.14.2,<0.15
         - funcsigs ==1.0.0  # [py<33]
         - future >=0.16.0,<0.17
         - gitpython >=2.0.2
         - gunicorn >=19.4.0,<20.0
+        - iso8601 >=0.1.12
         - jinja2 >=2.7.3,<2.9.0
         - lxml >=3.6.0,<4.0
         - markdown >=2.5.2,<3.0
         - pandas >=0.17.1,<1.0.0
+        - pendulum ==1.4.4
         - psutil >=4.2.0,<5.0.0
         - pygments >=2.0.1,<3.0
         - python-daemon >=2.1.1,<2.2
         - python-dateutil >=2.3,<3
-        - python-nvd3 ==0.14.2
+        - python-nvd3 ==0.15.0
         - requests >=2.5.1,<3
         - setproctitle >=1.1.8,<2
-        - sqlalchemy >=0.9.8
+        - sqlalchemy >=1.1.15,<1.2.0
         - tabulate >=0.7.5,<0.8.0
+        - tenacity ==4.8.0
         - thrift >=0.9.2
+        - tzlocal >=1.4
+        - unicodecsv >=0.14.1
+        - werkzeug>=0.14.1,<0.15.0
         - zope.deprecation >=4.0,<5.0
     test:
       commands:
@@ -105,18 +112,39 @@ outputs:
         - eventlet >=0.9.7
         - gevent >=0.13
 
-  - name: {{ name }}-with-azure
+  # - name: {{ name }}-with-atlas
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - atlasclient >=0.1.2
+
+  - name: {{ name }}-with-azure_blob_storage
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
         - azure-storage >=0.34.0
 
+  # we are missing azure-mgmt-datalake-store and azure-datalake-store
+  # - name: {{ name }}-with-azure_data_lake
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - azure-mgmt-resource ==1.2.2
+  #       - azure-mgmt-datalake-store ==0.4.0
+  #       - azure-datalake-store ==0.0.19
+
+  - name: {{ name }}-with-cassandra
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - cassandra-driver >=3.13.0
+
   - name: {{ name }}-with-celery
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
-        - celery >=4.0.0
-        - flower >=0.7.3
+        - celery >=4.1.1,<4.2.0
+        - flower >=0.7.3,<1.0
 
   - name: {{ name }}-with-cgroups
     requirements:
@@ -140,7 +168,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
-        - distributed >=1.15.2,<2
+        - distributed >=1.17.1,<2
 
   - name: {{ name }}-with-databricks
     requirements:
@@ -158,7 +186,20 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
-        - docker-py >=1.6.0
+        - docker-py >=2.0.0
+
+  - name: {{ name }}-with-druid
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - pydruid >=0.4.1
+
+  - name: {{ name }}-with-elasticsearch
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - elasticsearch >=5.0.0,<6.0.0
+        - elasticsearch-dsl >=5.0.0,<6.0.0
 
   - name: {{ name }}-with-emr
     requirements:
@@ -166,16 +207,18 @@ outputs:
         - {{ pin_subpackage(name, exact=true) }}
         - boto3 >=1.0.0
 
-  - name: {{ name }}-with-gcp_api
-    requirements:
-      run:
-        - {{ pin_subpackage(name, exact=true) }}
-        - httplib2
-        - google-api-python-client >=1.5.0,<1.6.0
-        - oauth2client >=2.0.2,<2.1.0
-        - pyopenssl
-        - google-cloud-dataflow
-        - pandas-gbq
+  # we are missing google-cloud-container
+  # - name: {{ name }}-with-gcp_api
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - httplib2 >=0.9.2
+  #       - google-api-python-client >=1.6.0,<2.0.0dev
+  #       - google-auth >=1.0.0,<2.0.0dev
+  #       - google-auth-httplib2 >=0.0.1
+  #       - google-cloud-container >=0.1.1
+  #       - pyopenssl
+  #       - pandas-gbq
 
   - name: {{ name }}-with-github_enterprise
     requirements:
@@ -189,20 +232,24 @@ outputs:
         - {{ pin_subpackage(name, exact=true) }}
         - snakebite >=2.7.8
 
-  - name: {{ name }}-with-hive
-    requirements:
-      run:
-        - {{ pin_subpackage(name, exact=true) }}
-        - hive-thrift-py >=0.0.1
-        - pyhive >=0.1.3
-        - impyla >=0.13.3
-        - unicodecsv >=0.14.1
+  # - name: {{ name }}-with-hive
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - hmsclient >=0.1.0
+  #       - pyhive >=0.6.0
 
   - name: {{ name }}-with-jdbc
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
         - jaydebeapi >=1.1.1
+
+  - name: {{ name }}-with-jenkins
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - python-jenkins >=0.4.15
 
   - name: {{ name }}-with-jira
     requirements:
@@ -222,6 +269,13 @@ outputs:
   #      - python-krbv
   #      - kerberos >=1.2.5
 
+  - name: {{ name }}-with-kubernetes
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - python-kubernetes >=3.0.0
+        - cryptography >=2.0.0
+
   - name: {{ name }}-with-ldap
     requirements:
       run:
@@ -229,13 +283,18 @@ outputs:
         - {{ name }}
         - ldap3 >=0.9.9.1
 
+  - name: {{ name }}-with-mongo
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - pymongo >=3.6.0
+
   - name: {{ name }}-with-mssql
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
         - {{ name }}
         - pymssql >=2.1.1
-        - unicodecsv >=0.14.1
 
   #- name: {{ name }}-with-mysql
   #  requirements:
@@ -258,11 +317,17 @@ outputs:
         - bcrypt >=2.0.0
         - flask-bcrypt >=0.7.1
 
+  # - name: {{ name }}-with-pinot
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - pinotdb >=0.1.1
+
   - name: {{ name }}-with-postgres
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
-        - psycopg2 >=2.7.1
+        - psycopg2 >=2.7.4
 
   - name: {{ name }}-with-qds
     requirements:
@@ -286,15 +351,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
-        - boto >=2.36.0
-        - filechunkio >=1.6
-
-  - name: {{ name }}-with-samba
-    requirements:
-      run:
-        - {{ pin_subpackage(name, exact=true) }}
-        - pysmbclient >=0.1.3
-        - filechunkio >=1.6
+        - boto3 >=1.7.0
 
   - name: {{ name }}-with-salesforce
     requirements:
@@ -302,17 +359,43 @@ outputs:
         - {{ pin_subpackage(name, exact=true) }}
         - simple-salesforce >=0.72
 
+  - name: {{ name }}-with-samba
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - pysmbclient >=0.1.3
+
+  # - name: {{ name }}-with-segment
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - analytics-python >=1.2.9
+
+  - name: {{ name }}-with-sendgrid
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - sendgrid >=5.2.0
+
   - name: {{ name }}-with-slack
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
         - slackclient >=1.0.0
 
+  # - name: {{ name }}-with-snowflake
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - snowflake-connector-python >=1.5.2
+  #       - snowflake-sqlalchemy >=1.1.0
+
   - name: {{ name }}-with-ssh
     requirements:
       run:
         - {{ pin_subpackage(name, exact=true) }}
         - paramiko >=2.1.1
+        - pysftp >=0.2.9
 
   - name: {{ name }}-with-statsd
     requirements:
@@ -332,8 +415,20 @@ outputs:
         - {{ pin_subpackage(name, exact=true) }}
         - python-hdfs >=0.5.1
 
+  - name: {{ name }}-with-winrm
+    requirements:
+      run:
+        - {{ pin_subpackage(name, exact=true) }}
+        - pywinrm ==0.2.2
+
+  # - name: {{ name }}-with-zendesk
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - zdesk
+
 about:
-  home: http://airflow.apache.org 
+  home: http://airflow.apache.org
   license: Apache 2.0
   license_file: LICENSE
   summary: 'Airflow is a platform to programmatically author, schedule and monitor workflows'
