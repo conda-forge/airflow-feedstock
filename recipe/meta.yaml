@@ -78,31 +78,44 @@ outputs:
         - airflow.api.common
         - airflow.api.common.experimental
         - airflow.bin
+        - airflow.config_templates
         - airflow.contrib
         - airflow.contrib.auth
         - airflow.contrib.auth.backends
         - airflow.contrib.executors
         - airflow.contrib.hooks
+        - airflow.contrib.kubernetes
+        - airflow.contrib.kubernetes.kubernetes_request_factory
         - airflow.contrib.operators
         - airflow.contrib.sensors
         - airflow.contrib.task_runner
+        - airflow.contrib.utils
         - airflow.dag
         - airflow.example_dags
         - airflow.example_dags.subdags
         - airflow.executors
         - airflow.hooks
+        - airflow.lineage
+        - airflow.lineage.backend
+        - airflow.lineage.backend.atlas
         - airflow.macros
         - airflow.migrations
         - airflow.migrations.versions
         - airflow.operators
         - airflow.security
-        - airflow.task_runner
+        - airflow.sensors
+        - airflow.task
+        - airflow.task.task_runner
         - airflow.ti_deps
         - airflow.ti_deps.deps
         - airflow.utils
+        - airflow.utils.log
         - airflow.www
         - airflow.www.api
         - airflow.www.api.experimental
+        - airflow.www_rbac
+        - airflow.www_rbac.api
+        - airflow.www_rbac.api.experimental
 
 
   - name: {{ name }}-with-async
