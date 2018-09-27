@@ -118,116 +118,133 @@ outputs:
 
 
   - name: {{ name }}-with-async
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - greenlet >=0.4.9
         - eventlet >=0.9.7
         - gevent >=0.13
 
   # - name: {{ name }}-with-atlas
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - atlasclient >=0.1.2
   #   test:
   #     imports:
   #       - airflow.lineage.backend.atlas
 
   - name: {{ name }}-with-azure_blob_storage
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - azure-storage >=0.34.0
 
   # we are missing azure-mgmt-datalake-store and azure-datalake-store
   # - name: {{ name }}-with-azure_data_lake
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - azure-mgmt-resource ==1.2.2
   #       - azure-mgmt-datalake-store ==0.4.0
   #       - azure-datalake-store ==0.0.19
 
   - name: {{ name }}-with-cassandra
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cassandra-driver >=3.13.0
 
   - name: {{ name }}-with-celery
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - celery >=4.1.1,<4.2.0
         - flower >=0.7.3,<1.0
 
   - name: {{ name }}-with-cgroups
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cgroupspy >=0.1.4
 
   - name: {{ name }}-with-cloudant
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cloudant >=0.5.9,<2.0
 
   - name: {{ name }}-with-crypto
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cryptography >=0.9.3
 
   - name: {{ name }}-with-dask
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - distributed >=1.17.1,<2
 
   - name: {{ name }}-with-databricks
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - requests >=2.5.1,<3
 
   - name: {{ name }}-with-datadog
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - datadog >=0.14.0
 
   - name: {{ name }}-with-docker
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - docker-py >=2.0.0
 
   - name: {{ name }}-with-druid
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pydruid >=0.4.1
 
   - name: {{ name }}-with-elasticsearch
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - elasticsearch >=5.0.0,<6.0.0
         - elasticsearch-dsl >=5.0.0,<6.0.0
 
   - name: {{ name }}-with-emr
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - boto3 >=1.0.0
 
   # we are missing google-cloud-container
   # - name: {{ name }}-with-gcp_api
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - httplib2 >=0.9.2
   #       - google-api-python-client >=1.6.0,<2.0.0dev
   #       - google-auth >=1.0.0,<2.0.0dev
@@ -237,47 +254,54 @@ outputs:
   #       - pandas-gbq
 
   - name: {{ name }}-with-github_enterprise
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - flask-oauthlib >=0.9.1
 
   - name: {{ name }}-with-hdfs
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - snakebite >=2.7.8
 
   # - name: {{ name }}-with-hive
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - hmsclient >=0.1.0
   #       - pyhive >=0.6.0
 
   - name: {{ name }}-with-jdbc
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - jaydebeapi >=1.1.1
 
   - name: {{ name }}-with-jenkins
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - python-jenkins >=0.4.15
 
   - name: {{ name }}-with-jira
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - jira >=1.0.7
 
   # We are missing python-krbv and apple/kerberos
   #- name: {{ name }}-with-kerberos
+  #  noarch: generic
   #  requirements:
   #    run:
-  #      - {{ pin_subpackage(name, exact=true) }}
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #      - pykerberos >=1.1.13
   #      - requests-kerberos >=0.10.0
   #      - thrift_sasl >=0.2.0
@@ -286,161 +310,186 @@ outputs:
   #      - kerberos >=1.2.5
 
   - name: {{ name }}-with-kubernetes
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - python-kubernetes >=3.0.0
         - cryptography >=2.0.0
 
   - name: {{ name }}-with-ldap
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - {{ name }}
         - ldap3 >=0.9.9.1
 
   - name: {{ name }}-with-mongo
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pymongo >=3.6.0
 
   - name: {{ name }}-with-mssql
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - {{ name }}
         - pymssql >=2.1.1
 
   #- name: {{ name }}-with-mysql
+  #  noarch: generic
   #  requirements:
   #    run:
-  #      - {{ pin_subpackage(name, exact=true) }}
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #      - {{ name }}
   #      - mysqlclient >=1.3.6
 
   #- name: {{ name }}-with-oracle
+  #  noarch: generic
   #  requirements:
   #    run:
-  #      - {{ pin_subpackage(name, exact=true) }}
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #      - {{ name }}
   #      - cx_oracle>=5.1.2
 
   - name: {{ name }}-with-password
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - bcrypt >=2.0.0
         - flask-bcrypt >=0.7.1
 
   # - name: {{ name }}-with-pinot
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - pinotdb >=0.1.1
 
   - name: {{ name }}-with-postgres
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - psycopg2 >=2.7.4
 
   - name: {{ name }}-with-qds
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - qds-sdk>=1.9.6
 
   - name: {{ name }}-with-rabbitmq
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - librabbitmq >=1.6.1
 
   - name: {{ name }}-with-redis
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - redis-py >=2.10.5
 
   - name: {{ name }}-with-s3
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - boto3 >=1.7.0
 
   - name: {{ name }}-with-salesforce
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - simple-salesforce >=0.72
 
   - name: {{ name }}-with-samba
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pysmbclient >=0.1.3
 
   # - name: {{ name }}-with-segment
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - analytics-python >=1.2.9
 
   - name: {{ name }}-with-sendgrid
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - sendgrid >=5.2.0
 
   - name: {{ name }}-with-slack
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - slackclient >=1.0.0
 
   # - name: {{ name }}-with-snowflake
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - snowflake-connector-python >=1.5.2
   #       - snowflake-sqlalchemy >=1.1.0
 
   - name: {{ name }}-with-ssh
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - paramiko >=2.1.1
         - pysftp >=0.2.9
 
   - name: {{ name }}-with-statsd
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - statsd >=3.0.1,<4.0
 
   - name: {{ name }}-with-vertica
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - vertica-python >=0.5.1
 
   - name: {{ name }}-with-webhdfs
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - python-hdfs >=0.5.1
 
   - name: {{ name }}-with-winrm
+    noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage(name, exact=true) }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pywinrm ==0.2.2
 
   # - name: {{ name }}-with-zendesk
+  #   noarch: generic
   #   requirements:
   #     run:
-  #       - {{ pin_subpackage(name, exact=true) }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - zdesk
 
 about:
