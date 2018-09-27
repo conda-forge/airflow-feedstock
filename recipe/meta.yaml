@@ -31,7 +31,7 @@ outputs:
         - python
         - alembic >=0.8.3,<0.9
         - bleach ==2.1.2
-        - configparser >=3.5.0, <3.6.0  # [py<35]
+        - configparser >=3.5.0,<3.6.0
         - croniter >=0.3.17,<0.4
         - dill >=0.2.2,<0.3
         - flask >=0.12.4,<0.13
@@ -97,7 +97,6 @@ outputs:
         - airflow.hooks
         - airflow.lineage
         - airflow.lineage.backend
-        - airflow.lineage.backend.atlas
         - airflow.macros
         - airflow.migrations
         - airflow.migrations.versions
@@ -131,6 +130,9 @@ outputs:
   #     run:
   #       - {{ pin_subpackage(name, exact=true) }}
   #       - atlasclient >=0.1.2
+  #   test:
+  #     imports:
+  #       - airflow.lineage.backend.atlas
 
   - name: {{ name }}-with-azure_blob_storage
     requirements:
