@@ -462,7 +462,7 @@ about:
       versionable, testable, and collaborative.
 
   doc_url: http://pythonhosted.org/airflow/profiling.html
-  dev_url: https://github.com/apache/incubating-airflow
+  dev_url: https://github.com/apache/airflow
 
 extra:
   recipe-maintainers:
