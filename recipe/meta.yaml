@@ -1,6 +1,5 @@
 {% set name = "airflow" %}
 {% set version = "1.10.1" %}
-{% set sha256 = "9fe8def33ba50e9f6c3f53ef25dbf986ebf6ed857409a338208c29b08de200e4" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,8 +7,8 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/apache/incubator-{{ name }}/archive/{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://github.com/apache/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: cbe7e6ebee190d58b8660635fb5c338f1bfef14e8d53966edeb42526ce5d8366
 
 build:
   skip: True  # [win]
