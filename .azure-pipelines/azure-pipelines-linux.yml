@@ -3,15 +3,21 @@
 # -*- mode: yaml -*-
 
 jobs:
-- job: linux_64
+- job: linux
   pool:
     vmImage: ubuntu-16.04
   timeoutInMinutes: 240
   strategy:
     maxParallel: 8
     matrix:
-      linux_:
-        CONFIG: linux_
+      linux_python2.7:
+        CONFIG: linux_python2.7
+        UPLOAD_PACKAGES: False
+      linux_python3.6:
+        CONFIG: linux_python3.6
+        UPLOAD_PACKAGES: False
+      linux_python3.7:
+        CONFIG: linux_python3.7
         UPLOAD_PACKAGES: False
   steps:
   - script: |
@@ -29,3 +35,5 @@ jobs:
 
   - script: .azure-pipelines/run_docker_build.sh
     displayName: Run docker build
+    env:
+      BINSTAR_TOKEN: $(BINSTAR_TOKEN)
