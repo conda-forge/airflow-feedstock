@@ -41,7 +41,8 @@ outputs:
         - flask-login >=0.3,<0.5
         - flask-swagger ==0.2.13
         - flask-wtf >=0.14.2,<0.15
-        - funcsigs ==1.0.0  # [py<33]
+        # funcsigs ==1.0.0 not available on conda-forge
+        - funcsigs ==1.0.2  # [py<33]
         - future >=0.16.0,<0.17
         - gitpython >=2.0.2
         - gunicorn >=19.5.0,<20.0
@@ -218,7 +219,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - docker-py >=2.0.0
+        - docker-py >=3.0.0
 
   - name: {{ name }}-with-druid
     requirements:
@@ -237,7 +238,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - boto3 >=1.0.0
+        - boto3 >=1.0.0,<1.8.0
 
   # we are missing google-cloud-container
   # - name: {{ name }}-with-gcp_api
@@ -307,7 +308,7 @@ outputs:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - {{ name }}
-        - ldap3 >=0.9.9.1
+        - ldap3 >=2.5.1
 
   - name: {{ name }}-with-mongo
     requirements:
@@ -371,7 +372,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - redis-py ~=3.2
+        - redis-py >=3.2.0,<3.3.0
 
   - name: {{ name }}-with-s3
     requirements:
