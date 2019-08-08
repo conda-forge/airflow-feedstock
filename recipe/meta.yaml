@@ -24,11 +24,11 @@ outputs:
     script: install_airflow.sh  # [unix]
     requirements:
       host:
-        - python
+        - python >=3.5
         - pip
         - docutils >=0.14,<1.0
       run:
-        - python
+        - python >=3.5
         - alembic >=1.0,<2.0
         - cached_property >=1.5.0,<1.6.0
         - colorlog ==4.0.2
