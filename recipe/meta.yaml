@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  skip: True  # [win]
+  skip: True  # [win or py<35]
   number: 0
 
 test:
@@ -24,11 +24,11 @@ outputs:
     script: install_airflow.sh  # [unix]
     requirements:
       host:
-        - python >=3.5
+        - python
         - pip
         - docutils >=0.14,<1.0
       run:
-        - python >=3.5
+        - python
         - alembic >=1.0,<2.0
         - cached_property >=1.5.0,<1.6.0
         - colorlog ==4.0.2
