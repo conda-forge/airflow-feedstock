@@ -26,6 +26,7 @@ outputs:
       host:
         - python
         - pip
+        - gitpython >=2.0.2
         - docutils >=0.14,<1.0
       run:
         - python
