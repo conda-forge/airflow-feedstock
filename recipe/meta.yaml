@@ -48,7 +48,7 @@ outputs:
         # funcsigs ==1.0.0 not available on conda-forge
         - funcsigs ==1.0.2  # [py<33]
         - future >=0.16.0,<0.17
-        - graphviz >=0.12
+        - python-graphviz >=0.12
         - gunicorn >=19.5.0,<20.0
         - iso8601 >=0.1.12
         - json-merge-patch ==0.2
