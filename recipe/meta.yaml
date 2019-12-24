@@ -134,6 +134,7 @@ outputs:
         - greenlet >=0.4.9
         - eventlet >=0.9.7
         - gevent >=0.13
+        - greenlet >=0.4.9
 
   # - name: {{ name }}-with-atlas
   #   requirements:
@@ -149,6 +150,7 @@ outputs:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - azure-storage >=0.34.0
+        - azure-storage-blob <12.0
 
   # we are missing azure-mgmt-datalake-store and azure-datalake-store
   # - name: {{ name }}-with-azure_data_lake
@@ -196,7 +198,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cloudant >=0.5.9,<2.0
+        - cloudant >=2.0
 
   - name: {{ name }}-with-crypto
     requirements:
@@ -226,7 +228,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - docker-py >=3.0.0
+        - docker-py >=3.0.0,<3.1.0
 
   - name: {{ name }}-with-druid
     requirements:
@@ -329,7 +331,7 @@ outputs:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - {{ name }}
-        - pymssql >=2.1.1
+        - pymssql >=2.1.1,<2.2.0
 
   - name: {{ name }}-with-mysql
     requirements:
@@ -362,13 +364,13 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - psycopg2 >=2.7.4,<2.8
+        - psycopg2 >=2.7.4
 
   - name: {{ name }}-with-qds
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - qds-sdk>=1.9.6
+        - qds-sdk >=1.10.4
 
   - name: {{ name }}-with-rabbitmq
     requirements:
@@ -381,12 +383,6 @@ outputs:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - redis-py >=3.2.0,<3.3.0
-
-  - name: {{ name }}-with-s3
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - boto3 >=1.7.0
 
   - name: {{ name }}-with-salesforce
     requirements:
@@ -410,7 +406,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - sendgrid >=5.2.0,<6
+        - sendgrid >=6.0.0,<7
 
   - name: {{ name }}-with-slack
     requirements:
@@ -431,6 +427,7 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - paramiko >=2.1.1
         - pysftp >=0.2.9
+        - sshtunnel >=0.1.4,<0.2
 
   - name: {{ name }}-with-statsd
     requirements:
@@ -448,13 +445,15 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        # note: upstream dependency is hdfs[avro,dataframe,kerberos] >=2.0.4
+        #       not sure if this needs to be updated here.
         - python-hdfs >=0.5.1
 
   - name: {{ name }}-with-winrm
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pywinrm ==0.2.2
+        - pywinrm >=0.4.0,<0.5.0
 
   # - name: {{ name }}-with-zendesk
   #   requirements:
