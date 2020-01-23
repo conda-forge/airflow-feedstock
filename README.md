@@ -62,6 +62,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_python3.8</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=master&jobName=linux&configuration=linux_python3.8" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>osx_python2.7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=master">
@@ -80,6 +87,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=master">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=master&jobName=osx&configuration=osx_python3.7" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_python3.8</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=master&jobName=osx&configuration=osx_python3.8" alt="variant">
                 </a>
               </td>
             </tr>
@@ -138,7 +152,6 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--qds-green.svg)](https://anaconda.org/conda-forge/airflow-with-qds) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-qds.svg)](https://anaconda.org/conda-forge/airflow-with-qds) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-qds.svg)](https://anaconda.org/conda-forge/airflow-with-qds) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-qds.svg)](https://anaconda.org/conda-forge/airflow-with-qds) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--rabbitmq-green.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-rabbitmq.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-rabbitmq.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-rabbitmq.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--redis-green.svg)](https://anaconda.org/conda-forge/airflow-with-redis) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-redis.svg)](https://anaconda.org/conda-forge/airflow-with-redis) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-redis.svg)](https://anaconda.org/conda-forge/airflow-with-redis) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-redis.svg)](https://anaconda.org/conda-forge/airflow-with-redis) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--s3-green.svg)](https://anaconda.org/conda-forge/airflow-with-s3) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-s3.svg)](https://anaconda.org/conda-forge/airflow-with-s3) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-s3.svg)](https://anaconda.org/conda-forge/airflow-with-s3) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-s3.svg)](https://anaconda.org/conda-forge/airflow-with-s3) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--salesforce-green.svg)](https://anaconda.org/conda-forge/airflow-with-salesforce) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-salesforce.svg)](https://anaconda.org/conda-forge/airflow-with-salesforce) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-salesforce.svg)](https://anaconda.org/conda-forge/airflow-with-salesforce) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-salesforce.svg)](https://anaconda.org/conda-forge/airflow-with-salesforce) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--samba-green.svg)](https://anaconda.org/conda-forge/airflow-with-samba) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-samba.svg)](https://anaconda.org/conda-forge/airflow-with-samba) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-samba.svg)](https://anaconda.org/conda-forge/airflow-with-samba) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-samba.svg)](https://anaconda.org/conda-forge/airflow-with-samba) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--sendgrid-green.svg)](https://anaconda.org/conda-forge/airflow-with-sendgrid) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-sendgrid.svg)](https://anaconda.org/conda-forge/airflow-with-sendgrid) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-sendgrid.svg)](https://anaconda.org/conda-forge/airflow-with-sendgrid) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-sendgrid.svg)](https://anaconda.org/conda-forge/airflow-with-sendgrid) |
@@ -158,10 +171,10 @@ Installing `airflow-split` from the `conda-forge` channel can be achieved by add
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `airflow, airflow-with-async, airflow-with-azure-mgmt-containerinstance, airflow-with-azure_blob_storage, airflow-with-azure_cosmos, airflow-with-cassandra, airflow-with-celery, airflow-with-cgroups, airflow-with-cloudant, airflow-with-crypto, airflow-with-dask, airflow-with-databricks, airflow-with-datadog, airflow-with-docker, airflow-with-druid, airflow-with-elasticsearch, airflow-with-emr, airflow-with-hdfs, airflow-with-jdbc, airflow-with-jenkins, airflow-with-jira, airflow-with-kubernetes, airflow-with-ldap, airflow-with-mongo, airflow-with-mssql, airflow-with-mysql, airflow-with-password, airflow-with-postgres, airflow-with-qds, airflow-with-rabbitmq, airflow-with-redis, airflow-with-s3, airflow-with-salesforce, airflow-with-samba, airflow-with-sendgrid, airflow-with-slack, airflow-with-ssh, airflow-with-statsd, airflow-with-vertica, airflow-with-webhdfs, airflow-with-winrm` can be installed with:
+Once the `conda-forge` channel has been enabled, `airflow, airflow-with-async, airflow-with-azure-mgmt-containerinstance, airflow-with-azure_blob_storage, airflow-with-azure_cosmos, airflow-with-cassandra, airflow-with-celery, airflow-with-cgroups, airflow-with-cloudant, airflow-with-crypto, airflow-with-dask, airflow-with-databricks, airflow-with-datadog, airflow-with-docker, airflow-with-druid, airflow-with-elasticsearch, airflow-with-emr, airflow-with-hdfs, airflow-with-jdbc, airflow-with-jenkins, airflow-with-jira, airflow-with-kubernetes, airflow-with-ldap, airflow-with-mongo, airflow-with-mssql, airflow-with-mysql, airflow-with-password, airflow-with-postgres, airflow-with-qds, airflow-with-rabbitmq, airflow-with-redis, airflow-with-salesforce, airflow-with-samba, airflow-with-sendgrid, airflow-with-slack, airflow-with-ssh, airflow-with-statsd, airflow-with-vertica, airflow-with-webhdfs, airflow-with-winrm` can be installed with:
 
 ```
-conda install airflow airflow-with-async airflow-with-azure-mgmt-containerinstance airflow-with-azure_blob_storage airflow-with-azure_cosmos airflow-with-cassandra airflow-with-celery airflow-with-cgroups airflow-with-cloudant airflow-with-crypto airflow-with-dask airflow-with-databricks airflow-with-datadog airflow-with-docker airflow-with-druid airflow-with-elasticsearch airflow-with-emr airflow-with-hdfs airflow-with-jdbc airflow-with-jenkins airflow-with-jira airflow-with-kubernetes airflow-with-ldap airflow-with-mongo airflow-with-mssql airflow-with-mysql airflow-with-password airflow-with-postgres airflow-with-qds airflow-with-rabbitmq airflow-with-redis airflow-with-s3 airflow-with-salesforce airflow-with-samba airflow-with-sendgrid airflow-with-slack airflow-with-ssh airflow-with-statsd airflow-with-vertica airflow-with-webhdfs airflow-with-winrm
+conda install airflow airflow-with-async airflow-with-azure-mgmt-containerinstance airflow-with-azure_blob_storage airflow-with-azure_cosmos airflow-with-cassandra airflow-with-celery airflow-with-cgroups airflow-with-cloudant airflow-with-crypto airflow-with-dask airflow-with-databricks airflow-with-datadog airflow-with-docker airflow-with-druid airflow-with-elasticsearch airflow-with-emr airflow-with-hdfs airflow-with-jdbc airflow-with-jenkins airflow-with-jira airflow-with-kubernetes airflow-with-ldap airflow-with-mongo airflow-with-mssql airflow-with-mysql airflow-with-password airflow-with-postgres airflow-with-qds airflow-with-rabbitmq airflow-with-redis airflow-with-salesforce airflow-with-samba airflow-with-sendgrid airflow-with-slack airflow-with-ssh airflow-with-statsd airflow-with-vertica airflow-with-webhdfs airflow-with-winrm
 ```
 
 It is possible to list all of the versions of `airflow` available on your platform with:
