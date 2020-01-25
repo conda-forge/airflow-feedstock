@@ -35,7 +35,7 @@ outputs:
         - cached-property >=1.5.0,<1.6.0
         - cattrs >=0.9,<0.10.0  # [py<38]
         # Earlier versions are not py38 compatible
-        - cattrs >=0.10,<0.11   # [py>=38]
+        - cattrs >=1.0,<1.1.0  # [py>=38]
         - colorlog ==4.0.2
         - configparser >=3.5.0,<3.6.0
         - croniter >=0.3.17,<0.4
