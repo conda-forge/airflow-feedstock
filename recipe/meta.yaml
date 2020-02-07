@@ -81,6 +81,8 @@ outputs:
         - thrift >=0.9.2c
         - tzlocal >=1.4,<2.0.0
         - unicodecsv >=0.14.1
+        # werkzeug 1.0 was just released and seems not to work with flask-wtf
+        - werkzeug<1.0
         - zope.deprecation >=4.0,<5.0
     test:
       commands:
