@@ -80,7 +80,7 @@ outputs:
         - text-unidecode ==1.2
         - typing  # [py<35]
         - typing_extensions >=3.7.4
-        - thrift >=0.9.2c
+        - thrift >=0.9.2
         - tzlocal >=1.4,<2.0.0
         - unicodecsv >=0.14.1
         # werkzeug 1.0 was just released and seems not to work with flask-wtf
