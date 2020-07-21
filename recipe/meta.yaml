@@ -154,6 +154,12 @@ outputs:
   #   test:
   #     imports:
   #       - airflow.lineage.backend.atlas
+  - name: {{ name }}-with-aws
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - boto3 >=1.12.0,<2.0.0
+        - watchtower 0.7.3
 
   - name: {{ name }}-with-azure_blob_storage
     requirements:
