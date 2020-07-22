@@ -142,23 +142,25 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - greenlet >=0.4.9
         - eventlet >=0.9.7
         - gevent >=0.13
         - greenlet >=0.4.9
 
-  # - name: {{ name }}-with-atlas
-  #   requirements:
-  #     run:
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - atlasclient >=0.1.2
-  #   test:
-  #     imports:
-  #       - airflow.lineage.backend.atlas
+  - name: {{ name }}-with-atlas
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - atlasclient >=0.1.2
+    test:
+      imports:
+        - airflow.lineage.backend.atlas
+
   - name: {{ name }}-with-aws
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        # leaving this as is because it was just added, but noting that upstream
+        # constraint is boto3~=1.10 and no watchtower
         - boto3 >=1.12.0,<2.0.0
         - watchtower 0.7.3
 
@@ -166,29 +168,28 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - azure-storage >=0.34.0
+        - azure-storage >=0.34.0,<0.37.0
         - azure-storage-blob <12.0
 
-  # we are missing azure-mgmt-datalake-store and azure-datalake-store
-  # - name: {{ name }}-with-azure_data_lake
-  #   requirements:
-  #     run:
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - azure-mgmt-resource ==1.2.2
-  #       - azure-mgmt-datalake-store ==0.4.0
-  #       - azure-datalake-store ==0.0.19
+  - name: {{ name }}-with-azure_data_lake
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - azure-datalake-store >=0.0.45
+        - azure-mgmt-datalake-store >=0.5.0
+        - azure-mgmt-resource >=2.2.0
 
   - name: {{ name }}-with-azure_cosmos
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - azure-cosmos >=3.0.1
+        - azure-cosmos >=3.0.1,<4
 
   - name: {{ name }}-with-azure-mgmt-containerinstance
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - azure-mgmt-containerinstance >=1.5.0
+        - azure-mgmt-containerinstance >=1.5.0,<2
 
   - name: {{ name }}-with-cassandra
     requirements:
@@ -215,6 +216,8 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        # leaving as is because older versions are not build with py>27 but
+        # upstream constraint is cloudant>=0.5.9,<2.0
         - cloudant >=2.0
 
   - name: {{ name }}-with-crypto
@@ -260,31 +263,69 @@ outputs:
         - elasticsearch >=5.0.0,<6.0.0
         - elasticsearch-dsl >=5.0.0,<6.0.0
 
+  # same as aws, but I'm taking upstream literally this time and leaving out
+  # watchtower
   - name: {{ name }}-with-emr
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - boto3 >=1.0.0,<1.8.0
+        - boto3 >=1.10.0,<1.11.0
 
-  # we are missing google-cloud-container
-  # - name: {{ name }}-with-gcp_api
-  #   requirements:
-  #     run:
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - httplib2 >=0.9.2
-  #       - google-api-python-client >=1.6.0,<2.0.0dev
-  #       - google-auth >=1.0.0,<2.0.0dev
-  #       - google-auth-httplib2 >=0.0.1
-  #       - google-cloud-container >=0.1.1
-  #       - pyopenssl
-  #       - pandas-gbq
+  - name: {{ name }}-with-flask_oauth
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - flask-oauthlib >=0.9.1
+        - oauthlib !=2.0.3,!=2.0.4,!=2.0.5,<3.0.0,>=1.1.2
+        - requests-oauthlib 1.1.0
 
+ # google-cloud-spanner is too out of date
+ # google-cloud-secret-manager does not have a feedstock
+ # google-cloud-speech does not have a feedstock
+ # - name: {{ name }}-with-gcp
+ #   requirements:
+ #     run:
+ #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+ #       - pyopenssl
+ #       - google-api-python-client >=1.6.0,<2.0.0dev
+ #       - google-auth >=1.0.0,<2.0.0dev
+ #       - google-auth-httplib2 >=0.0.1
+ #       - google-cloud-bigtable >=1.0.0
+ #       - google-cloud-container >=0.1.1
+ #       - google-cloud-dlp >=0.11.0
+ #       - google-cloud-language >=1.1.1
+ #       - google-cloud-secret-manager >=0.2.0
+ #       - google-cloud-spanner >=1.10.0
+ #       - google-cloud-speech >=0.36.3
+ #       - google-cloud-storage >=1.16
+ #       - google-cloud-texttospeech >=0.4.0,<2
+ #       - google-cloud-translate >=1.3.3
+ #       - google-cloud-videointelligence >=1.7.0
+ #       - google-cloud-vision >=0.35.2
+ #       - grpcio-gcp >=0.2.2
+ #       - pandas-gbq
+
+  - name: {{ name }}-with-grpc
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - grpcio >=1.15.0
+
+  - name: {{ name }}-with-hashicorp
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - hvac >=0.10.0,<0.11.0
+
+  # this is unlikely to remain useful since snakebite only supports py<=27
+  # and hasn't been updated in 4 years
   - name: {{ name }}-with-hdfs
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - snakebite >=2.7.8
 
+  # no hmsclient feedstock
   # - name: {{ name }}-with-hive
   #   requirements:
   #     run:
@@ -296,6 +337,8 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        # upstream pin jpype1==0.7.1 was not built on conda-forge
+        # - jpype1 0.7.1
         - jaydebeapi >=1.1.1
 
   - name: {{ name }}-with-jenkins
@@ -310,17 +353,14 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - jira >=1.0.7
 
-  # We are missing python-krbv and apple/kerberos
-  #- name: {{ name }}-with-kerberos
-  #  requirements:
-  #    run:
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - pykerberos >=1.1.13
-  #      - requests-kerberos >=0.10.0
-  #      - thrift_sasl >=0.2.0
-  #      - sasl
-  #      - python-krbv
-  #      - kerberos >=1.2.5
+  - name: {{ name }}-with-kerberos
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - pykerberos >=1.1.13
+        - requests-kerberos >=0.10.0
+        - snakebite[kerberos] >=2.7.8
+        - thrift_sasl >=0.2.0
 
   - name: {{ name }}-with-kubernetes
     requirements:
@@ -333,7 +373,6 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - {{ name }}
         - ldap3 >=2.5.1
 
   - name: {{ name }}-with-mongo
@@ -347,22 +386,33 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - {{ name }}
         - pymssql >=2.1.1,<2.2.0
 
   - name: {{ name }}-with-mysql
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - {{ name }}
         - mysqlclient >=1.3.6,<1.4
 
-  #- name: {{ name }}-with-oracle
-  #  requirements:
-  #    run:
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - {{ name }}
-  #      - cx_oracle>=5.1.2
+  - name: {{ name }}-with-oracle
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - cx_oracle >=5.1.2,<8.0.0  # py<30
+        - cx_oracle >=5.1.2  # py>=30
+
+  - name: {{ name }}-with-pagerduty
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - pypd >=1.1.0
+
+  - name: {{ name }}-with-papermill
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - papermill[all] >=1.0.0
+        - nteract-scrapbook[all] >=0.2.1
 
   - name: {{ name }}-with-password
     requirements:
@@ -371,17 +421,25 @@ outputs:
         - bcrypt >=2.0.0
         - flask-bcrypt >=0.7.1
 
+  # no pinotdb feedstock
   # - name: {{ name }}-with-pinot
   #   requirements:
   #     run:
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - pinotdb >=0.1.1
+  #       - pinotdb 0.1.1
 
   - name: {{ name }}-with-postgres
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - psycopg2 >=2.7.4
+
+  # not presto-python-client feedstock
+  # - name: {{ name }}-with-presto
+  #   requirements:
+  #     run:
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - presto-python-client >=0.7.0,<0.8
 
   - name: {{ name }}-with-qds
     requirements:
@@ -393,7 +451,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - librabbitmq >=1.6.1
+        - amqp
 
   - name: {{ name }}-with-redis
     requirements:
@@ -413,17 +471,24 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pysmbclient >=0.1.3
 
-  # - name: {{ name }}-with-segment
-  #   requirements:
-  #     run:
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - analytics-python >=1.2.9
+  - name: {{ name }}-with-segment
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - analytics-python >=1.2.9
 
   - name: {{ name }}-with-sendgrid
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - sendgrid >=6.0.0,<7
+        - sendgrid >=5.2.0,<6
+
+  - name: {{ name }}-with-sentry
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - blinker >=1.1
+        - sentry-sdk >=0.8.0
 
   - name: {{ name }}-with-slack
     requirements:
@@ -431,12 +496,12 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - slackclient >=1.0.0,<2.0.0
 
-  # - name: {{ name }}-with-snowflake
-  #   requirements:
-  #     run:
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - snowflake-connector-python >=1.5.2
-  #       - snowflake-sqlalchemy >=1.1.0
+  - name: {{ name }}-with-snowflake
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - snowflake-connector-python >=1.5.2
+        - snowflake-sqlalchemy >=1.1.0
 
   - name: {{ name }}-with-ssh
     requirements:
@@ -458,6 +523,12 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - vertica-python >=0.5.1
 
+  - name: {{ name }}-with-virtualenv
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - virtualenv
+
   - name: {{ name }}-with-webhdfs
     requirements:
       run:
@@ -472,6 +543,7 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pywinrm >=0.4.0,<0.5.0
 
+  # no zdest feedstock
   # - name: {{ name }}-with-zendesk
   #   requirements:
   #     run:
