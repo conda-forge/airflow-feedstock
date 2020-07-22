@@ -479,7 +479,7 @@ outputs:
 
 about:
   home: http://airflow.apache.org
-  license: Apache 2.0
+  license: Apache-2.0
   license_file: LICENSE
   summary: |
     Airflow is a platform to programmatically author, schedule and monitor
