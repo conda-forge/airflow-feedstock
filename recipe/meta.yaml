@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win or py<35]
-  number: 1
+  number: 2
 
 test:
   commands:
@@ -321,13 +321,16 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - snakebite >=2.7.8
 
-  # no hmsclient feedstock
-  # - name: {{ name }}-with-hive
-  #   requirements:
-  #     run:
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - hmsclient >=0.1.0
-  #       - pyhive >=0.6.0
+  - name: {{ name }}-with-hive
+    requirements:
+      run:
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - hmsclient >=0.1.0
+        - pyhive >=0.6.0
+    test:
+      imports:
+        - airflow
+        - pyhive
 
   - name: {{ name }}-with-jdbc
     requirements:
