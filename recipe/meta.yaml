@@ -89,7 +89,7 @@ outputs:
     test:
       commands:
         - airflow initdb
-        - test -f $STDLIB_DIR/airflow/www_rbac/static/dist/manifest.json
+        - test -f $STDLIB_DIR/site-packages/airflow/www_rbac/static/dist/manifest.json
       imports:
         - airflow
         - airflow.api
