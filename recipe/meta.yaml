@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win or py<35]
-  number: 2
+  number: 3
 
 test:
   commands:
@@ -28,6 +28,7 @@ outputs:
         - pip
         - gitpython >=2.0.2
         - docutils >=0.14,<1.0
+        - yarn
       run:
         - python
         - alembic >=1.0,<2.0
@@ -88,6 +89,7 @@ outputs:
     test:
       commands:
         - airflow initdb
+        - test -f $STDLIB_DIR/site-packages/airflow/www_rbac/static/dist/manifest.json
       imports:
         - airflow
         - airflow.api
