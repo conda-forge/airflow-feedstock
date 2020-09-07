@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "1.10.11" %}
-{% set sha256 = "1faa174ca7420a65175c57e9731f4e53cbe108729e3adb6a26601ea9b6a09407" %}
+{% set version = "1.10.12" %}
+{% set sha256 = "9a281d4f2aff0a791646a64b226664bcfb9bce7749f7944684df5ead87074c1b" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win or py<35]
-  number: 3
+  number: 0
 
 test:
   commands:
@@ -48,14 +48,14 @@ outputs:
         - flask-appbuilder >=2.2,<2.3  # [py>=36]
         - flask-caching >=1.3.3,<1.4.0
         - flask-login >=0.3,<0.5
-        - flask-swagger 0.2.13
+        - flask-swagger 0.2.13,<0.3
         - flask-wtf >=0.14.2,<0.15
         - funcsigs >=1.0.0,<2.0.0
         - future >=0.16.0,<0.19
         - python-graphviz >=0.12
-        - gunicorn >=19.5.0,<20.0
+        - gunicorn >=19.5.0,<21.0
         - iso8601 >=0.1.12
-        - jinja2 >=2.10.1,<2.11.0
+        - jinja2 >=2.10.1,<2.12.0
         - json-merge-patch 0.2
         - jsonschema >=3.0.0,<3.1.0  # [py<38]
         # Earlier versions were not build with py38, so this is newer than upstream spec
@@ -143,6 +143,12 @@ outputs:
         - eventlet >=0.9.7
         - gevent >=0.13
         - greenlet >=0.4.9
+    test:
+      imports:
+        - airflow
+        - eventlet
+        - gevent
+        - greenlet
 
   - name: {{ name }}-with-atlas
     requirements:
@@ -161,6 +167,12 @@ outputs:
         # constraint is boto3~=1.10 and no watchtower
         - boto3 >=1.12.0,<2.0.0
         - watchtower 0.7.3
+    test:
+      imports:
+        - airflow
+        - boto3
+        - watchtower
+        - airflow.contrib.hooks.aws_hook
 
   - name: {{ name }}-with-azure_blob_storage
     requirements:
@@ -168,6 +180,13 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - azure-storage >=0.34.0,<0.37.0
         - azure-storage-blob <12.0
+    test:
+      imports:
+        - airflow
+        - azure
+        - azure.storage
+        - azure.storage.blob
+        - airflow.contrib.hooks.wasb_hook
 
   - name: {{ name }}-with-azure_data_lake
     requirements:
@@ -176,24 +195,44 @@ outputs:
         - azure-datalake-store >=0.0.45
         - azure-mgmt-datalake-store >=0.5.0
         - azure-mgmt-resource >=2.2.0
+    test:
+      imports:
+        - airflow
+        - azure.datalake.store
+        - airflow.contrib.hooks.azure_data_lake_hook
 
   - name: {{ name }}-with-azure_cosmos
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - azure-cosmos >=3.0.1,<4
+    test:
+      imports:
+        - airflow
+        - azure.cosmos
+        - airflow.contrib.hooks.azure_cosmos_hook
 
-  - name: {{ name }}-with-azure-mgmt-containerinstance
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - azure-mgmt-containerinstance >=1.5.0,<2
+  # Note: no azure-mgmt-containerinstance feedstock
+  #- name: {{ name }}-with-azure-mgmt-containerinstance
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - azure-mgmt-containerinstance >=1.5.0,<2
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - azure.mgmt.containerinstance
 
   - name: {{ name }}-with-cassandra
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cassandra-driver >=3.13.0,<3.21.0
+    test:
+      imports:
+        - airflow
+        - cassandra
+        - airflow.contrib.hooks.cassandra_hook
 
   - name: {{ name }}-with-celery
     requirements:
@@ -203,12 +242,22 @@ outputs:
         - flower >=0.7.3,<1.0
         - tornado >=4.2.0,<6.0
         - kombu ==4.6.3  # [py<30]
+    test:
+      imports:
+        - airflow
+        - celery
+        - airflow.executors.celery_executor
 
   - name: {{ name }}-with-cgroups
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cgroupspy >=0.1.4
+    test:
+      imports:
+        - airflow
+        - cgroupspy
+        - airflow.contrib.task_runner.cgroup_task_runner
 
   - name: {{ name }}-with-cloudant
     requirements:
@@ -217,49 +266,95 @@ outputs:
         # leaving as is because older versions are not build with py>27 but
         # upstream constraint is cloudant>=0.5.9,<2.0
         - cloudant >=2.0
+    test:
+      imports:
+        - airflow
+        - cloudant
+        - airflow.contrib.hooks.cloudant_hook
 
   - name: {{ name }}-with-crypto
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cryptography >=0.9.3
+    test:
+      imports:
+        - airflow
+        - cryptography
+        - airflow.models.crypto
 
-  - name: {{ name }}-with-dask
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - distributed >=1.17.1,<2
+  # note: the older version of distributed pinned here is not available for
+  # py38
+  #- name: {{ name }}-with-dask
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - distributed >=1.17.1,<2
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - distributed
+  #      - airflow.executors.dask_executor
 
   - name: {{ name }}-with-databricks
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - requests >=2.20.0,<3
+    test:
+      imports:
+        - airflow
+        - requests
+        - airflow.contrib.hooks.databricks_hook
 
   - name: {{ name }}-with-datadog
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - datadog >=0.14.0
+    test:
+      imports:
+        - airflow
+        - datadog
+        - airflow.contrib.hooks.datadog_hook
 
-  - name: {{ name }}-with-docker
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - docker-py >=3.0.0,<3.1.0
+  # note: the older version of docker-py pinned here is not available for
+  # py38
+  #- name: {{ name }}-with-docker
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - docker-py >=3.0.0,<3.1.0
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - docker
+  #      - airflow.hooks.docker_hook
+  #      - airflow.operators.docker_operator
 
   - name: {{ name }}-with-druid
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pydruid >=0.4.1,<=0.5.8
+    test:
+      imports:
+        - airflow
+        - pydruid
+        - airflow.hooks.druid_hook
 
-  - name: {{ name }}-with-elasticsearch
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - elasticsearch >=5.0.0,<6.0.0
-        - elasticsearch-dsl >=5.0.0,<6.0.0
+  # note: the older version of elasticsearch-dsl pinned here is not available
+  # for py38
+  #- name: {{ name }}-with-elasticsearch
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - elasticsearch >=5.0.0,<6.0.0
+  #      - elasticsearch-dsl >=5.0.0,<6.0.0
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - elasticsearch
 
   # same as aws, but I'm taking upstream literally this time and leaving out
   # watchtower
@@ -268,6 +363,11 @@ outputs:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - boto3 >=1.10.0,<1.11.0
+    test:
+      imports:
+        - airflow
+        - boto3
+        - airflow.contrib.hooks.aws_hook
 
   - name: {{ name }}-with-flask_oauth
     requirements:
@@ -276,6 +376,10 @@ outputs:
         - flask-oauthlib >=0.9.1
         - oauthlib !=2.0.3,!=2.0.4,!=2.0.5,<3.0.0,>=1.1.2
         - requests-oauthlib 1.1.0
+    test:
+      imports:
+        - airflow
+        - flask_oauthlib
 
  # google-cloud-spanner is too out of date
  # google-cloud-secret-manager does not have a feedstock
@@ -285,21 +389,21 @@ outputs:
  #     run:
  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
  #       - pyopenssl
- #       - google-api-python-client >=1.6.0,<2.0.0dev
- #       - google-auth >=1.0.0,<2.0.0dev
+ #       - google-api-python-client >=1.6.0,<2.0.0
+ #       - google-auth >=1.0.0,<2.0.0
  #       - google-auth-httplib2 >=0.0.1
- #       - google-cloud-bigtable >=1.0.0
- #       - google-cloud-container >=0.1.1
- #       - google-cloud-dlp >=0.11.0
- #       - google-cloud-language >=1.1.1
- #       - google-cloud-secret-manager >=0.2.0
- #       - google-cloud-spanner >=1.10.0
- #       - google-cloud-speech >=0.36.3
- #       - google-cloud-storage >=1.16
+ #       - google-cloud-bigtable >=1.0.0,<2.0.0
+ #       - google-cloud-container >=0.1.1,<2.0.0
+ #       - google-cloud-dlp >=0.11.0,<2.0.0
+ #       - google-cloud-language >=1.1.1,<2.0.0
+ #       - google-cloud-secret-manager >=0.2.0,<2.0.0
+ #       - google-cloud-spanner >=1.10.0,<2.0.0
+ #       - google-cloud-speech >=0.36.3,<2.0.0
+ #       - google-cloud-storage >=1.16,<2.0.0
  #       - google-cloud-texttospeech >=0.4.0,<2
- #       - google-cloud-translate >=1.3.3
- #       - google-cloud-videointelligence >=1.7.0
- #       - google-cloud-vision >=0.35.2
+ #       - google-cloud-translate >=1.3.3,<2.0.0
+ #       - google-cloud-videointelligence >=1.7.0,<2.0.0
+ #       - google-cloud-vision >=0.35.2,<2.0.0
  #       - grpcio-gcp >=0.2.2
  #       - pandas-gbq
 
@@ -307,21 +411,36 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - google-auth >=1.0.0,<2.0.0dev
         - grpcio >=1.15.0
+    test:
+      imports:
+        - airflow
+        - grpc
+        - airflow.contrib.hooks.grpc_hook
 
   - name: {{ name }}-with-hashicorp
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - hvac >=0.10.0,<0.11.0
+    test:
+      imports:
+        - airflow
+        - hvac
+        - airflow.contrib.secrets.hashicorp_vault
 
   # this is unlikely to remain useful since snakebite only supports py<=27
   # and hasn't been updated in 4 years
-  - name: {{ name }}-with-hdfs
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - snakebite >=2.7.8
+  #- name: {{ name }}-with-hdfs
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - snakebite >=2.7.8
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - airflow.hooks.hdfs_hook
 
   - name: {{ name }}-with-hive
     requirements:
@@ -333,35 +452,57 @@ outputs:
       imports:
         - airflow
         - pyhive
+        - airflow.hooks.hive_hooks
 
-  - name: {{ name }}-with-jdbc
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        # upstream pin jpype1==0.7.1 was not built on conda-forge
-        # - jpype1 0.7.1
-        - jaydebeapi >=1.1.1
+  # note: upstream pin jpype1==0.7.1 was not built on conda-forge
+  #- name: {{ name }}-with-jdbc
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - jpype1 0.7.1
+  #      - jaydebeapi >=1.1.1
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - airflow.hooks.jdbc_hook
 
   - name: {{ name }}-with-jenkins
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - python-jenkins >=1.0.0
+    test:
+      imports:
+        - airflow
+        - jenkins
+        - airflow.contrib.hooks.jenkins_hook
 
   - name: {{ name }}-with-jira
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - jira >=1.0.7
+    test:
+      imports:
+        - airflow
+        - jira
+        - airflow.contrib.hooks.jira_hook
 
-  - name: {{ name }}-with-kerberos
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pykerberos >=1.1.13
-        - requests-kerberos >=0.10.0
-        - snakebite[kerberos] >=2.7.8
-        - thrift_sasl >=0.2.0
+  # this is unlikely to be useful since snakebite only supports py<=27
+  # and hasn't been updated in 4 years
+  #- name: {{ name }}-with-kerberos
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - pykerberos >=1.1.13
+  #      - requests-kerberos >=0.10.0
+  #      - snakebite[kerberos] >=2.7.8
+  #      - thrift_sasl >=0.2.0
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - kerberos
+  #      - airflow.api.auth.backend.kerberos_auth
 
   - name: {{ name }}-with-kubernetes
     requirements:
@@ -369,44 +510,81 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - python-kubernetes >=3.0.0
         - cryptography >=2.0.0
+    test:
+      imports:
+        - airflow
+        - kubernetes
+        - airflow.executors.kubernetes_executor
 
   - name: {{ name }}-with-ldap
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - ldap3 >=2.5.1
+    test:
+      imports:
+        - airflow
+        - ldap3
+        - airflow.contrib.auth.backends.ldap_auth
 
   - name: {{ name }}-with-mongo
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pymongo >=3.6.0
+        - pymongo >=3.6.0,<3.11.0
         - dnspython >=1.13.0,<2.0.0
+    test:
+      imports:
+        - airflow
+        - pymongo
+        - airflow.contrib.hooks.mongo_hook
 
-  - name: {{ name }}-with-mssql
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pymssql >=2.1.1,<2.2.0
+  # note: the version of pymssql pinned here is not available for py38 and
+  # newer builds are not getting merged
+  #- name: {{ name }}-with-mssql
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - pymssql >=2.1.1,<2.2.0
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - pymssql
+  #      - airflow.hooks.mssql_hook
 
-  - name: {{ name }}-with-mysql
-    requirements:
-      run:
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - mysqlclient >=1.3.6,<1.4
+  # note: the older version of mysqlclient pinned here is not available for py38
+  #- name: {{ name }}-with-mysql
+  #  requirements:
+  #    run:
+  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #      - mysqlclient >=1.3.6,<1.4
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - MySQLdb
+  #      - airflow.hooks.mysql_hook
 
   - name: {{ name }}-with-oracle
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cx_oracle >=5.1.2,<8.0.0  # py<30
-        - cx_oracle >=5.1.2  # py>=30
+        - cx_oracle >=5.1.2,<8.0.0  # [py<30]
+        - cx_oracle >=5.1.2  # [py>=30]
+    test:
+      imports:
+        - airflow
+        - cx_Oracle
+        - airflow.hooks.oracle_hook
 
   - name: {{ name }}-with-pagerduty
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pypd >=1.1.0
+    test:
+      imports:
+        - airflow
+        - pypd
 
   - name: {{ name }}-with-papermill
     requirements:
@@ -414,6 +592,13 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - papermill[all] >=1.0.0
         - nteract-scrapbook[all] >=0.2.1
+        - pyarrow <1.0.0
+        - fsspec <0.8.0  # [py35]
+    test:
+      imports:
+        - airflow
+        - papermill
+        - airflow.operators.papermill_operator
 
   - name: {{ name }}-with-password
     requirements:
@@ -421,6 +606,11 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - bcrypt >=2.0.0
         - flask-bcrypt >=0.7.1
+    test:
+      imports:
+        - airflow
+        - flask_bcrypt
+        - airflow.contrib.auth.backends.password_auth
 
   # no pinotdb feedstock
   # - name: {{ name }}-with-pinot
@@ -428,12 +618,22 @@ outputs:
   #     run:
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - pinotdb 0.1.1
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - pinotdb
+  #      - airflow.contrib.hooks.pinot_hook
 
   - name: {{ name }}-with-postgres
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - psycopg2 >=2.7.4
+    test:
+      imports:
+        - airflow
+        - psycopg2
+        - airflow.hooks.postgres_hook
 
   # not presto-python-client feedstock
   # - name: {{ name }}-with-presto
@@ -441,17 +641,31 @@ outputs:
   #     run:
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - presto-python-client >=0.7.0,<0.8
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - prestodb
+  #      - airflow.hooks.presto_hook
 
   - name: {{ name }}-with-qds
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - qds-sdk >=1.10.4
+    test:
+      imports:
+        - airflow
+        - qds_sdk
+        - airflow.contrib.hooks.qubole_hook
 
   - name: {{ name }}-with-rabbitmq
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - amqp
+    test:
+      imports:
+        - airflow
         - amqp
 
   - name: {{ name }}-with-redis
@@ -459,30 +673,55 @@ outputs:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - redis-py >=3.2.0,<3.3.0
+    test:
+      imports:
+        - airflow
+        - redis
+        - airflow.contrib.hooks.redis_hook
 
   - name: {{ name }}-with-salesforce
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - simple-salesforce >=0.72,<1.0.0
+    test:
+      imports:
+        - airflow
+        - simple_salesforce
+        - airflow.contrib.hooks.salesforce_hook
 
   - name: {{ name }}-with-samba
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pysmbclient >=0.1.3
+    test:
+      imports:
+        - airflow
+        - smbclient
+        - airflow.hooks.samba_hook
 
   - name: {{ name }}-with-segment
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - analytics-python >=1.2.9
+    test:
+      imports:
+        - airflow
+        - analytics
+        - airflow.contrib.hooks.segment_hook
 
   - name: {{ name }}-with-sendgrid
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - sendgrid >=5.2.0,<6
+    test:
+      imports:
+        - airflow
+        - sendgrid
+        - airflow.contrib.utils.sendgrid
 
   - name: {{ name }}-with-sentry
     requirements:
@@ -490,12 +729,22 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - blinker >=1.1
         - sentry-sdk >=0.8.0
+    test:
+      imports:
+        - airflow
+        - sentry_sdk
+        - airflow.sentry
 
   - name: {{ name }}-with-slack
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - slackclient >=1.0.0,<2.0.0
+    test:
+      imports:
+        - airflow
+        - slackclient
+        - airflow.hooks.slack_hook
 
   - name: {{ name }}-with-snowflake
     requirements:
@@ -503,6 +752,11 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - snowflake-connector-python >=1.5.2
         - snowflake-sqlalchemy >=1.1.0
+    test:
+      imports:
+        - airflow
+        - snowflake
+        - airflow.contrib.hooks.snowflake_hook
 
   - name: {{ name }}-with-ssh
     requirements:
@@ -511,38 +765,65 @@ outputs:
         - paramiko >=2.1.1
         - pysftp >=0.2.9
         - sshtunnel >=0.1.4,<0.2
+    test:
+      imports:
+        - airflow
+        - sshtunnel
+        - pysftp
+        - airflow.contrib.hooks.ssh_hook
 
   - name: {{ name }}-with-statsd
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - statsd >=3.3.0,<4.0
+    test:
+      imports:
+        - airflow
+        - statsd
 
   - name: {{ name }}-with-vertica
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - vertica-python >=0.5.1
+    test:
+      imports:
+        - airflow
+        - vertica_python
+        - airflow.contrib.hooks.vertica_hook
 
   - name: {{ name }}-with-virtualenv
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - virtualenv
+    test:
+      imports:
+        - airflow
+        - virtualenv
 
   - name: {{ name }}-with-webhdfs
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        # note: upstream dependency is hdfs[avro,dataframe,kerberos] >=2.0.4
-        #       not sure if this needs to be updated here.
-        - python-hdfs >=0.5.1
+        - python-hdfs >=2.0.4
+    test:
+      imports:
+        - airflow
+        - hdfs
+        - airflow.hooks.webhdfs_hook
 
   - name: {{ name }}-with-winrm
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pywinrm >=0.4.0,<0.5.0
+    test:
+      imports:
+        - airflow
+        - winrm
+        - airflow.contrib.hooks.winrm_hook
 
   # no zdest feedstock
   # - name: {{ name }}-with-zendesk
@@ -550,6 +831,11 @@ outputs:
   #     run:
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
   #       - zdesk
+  #  test:
+  #    imports:
+  #      - airflow
+  #      - zdesk
+  #      - airflow.hooks.zendesk_hook
 
 about:
   home: http://airflow.apache.org
