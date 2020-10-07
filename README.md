@@ -5,11 +5,15 @@ Home: http://airflow.apache.org
 
 Package license: Apache-2.0
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/airflow-feedstock/blob/master/LICENSE.txt)
 
 Summary: Airflow is a platform to programmatically author, schedule and monitor
 workflows
 
+
+Development: https://github.com/apache/airflow
+
+Documentation: http://pythonhosted.org/airflow/profiling.html
 
 Use airflow to author workflows as directed acyclic graphs (DAGs)
 of tasks. The airflow scheduler executes your tasks on an array of
