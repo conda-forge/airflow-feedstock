@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win or py<35]
-  number: 1
+  number: 2
 
 test:
   commands:
@@ -137,6 +137,8 @@ outputs:
 
 
   - name: {{ name }}-with-async
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -151,6 +153,8 @@ outputs:
         - greenlet
 
   - name: {{ name }}-with-atlas
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -160,6 +164,8 @@ outputs:
         - airflow.lineage.backend.atlas
 
   - name: {{ name }}-with-aws
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -175,6 +181,8 @@ outputs:
         - airflow.contrib.hooks.aws_hook
 
   - name: {{ name }}-with-azure_blob_storage
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -189,6 +197,8 @@ outputs:
         - airflow.contrib.hooks.wasb_hook
 
   - name: {{ name }}-with-azure_data_lake
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -202,6 +212,8 @@ outputs:
         - airflow.contrib.hooks.azure_data_lake_hook
 
   - name: {{ name }}-with-azure_cosmos
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -214,6 +226,8 @@ outputs:
 
   # Note: no azure-mgmt-containerinstance feedstock
   #- name: {{ name }}-with-azure-mgmt-containerinstance
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -224,6 +238,8 @@ outputs:
   #      - azure.mgmt.containerinstance
 
   - name: {{ name }}-with-cassandra
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -235,6 +251,8 @@ outputs:
         - airflow.contrib.hooks.cassandra_hook
 
   - name: {{ name }}-with-celery
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -250,6 +268,8 @@ outputs:
         - airflow.executors.celery_executor
 
   - name: {{ name }}-with-cgroups
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -261,6 +281,8 @@ outputs:
         - airflow.contrib.task_runner.cgroup_task_runner
 
   - name: {{ name }}-with-cloudant
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -274,6 +296,8 @@ outputs:
         - airflow.contrib.hooks.cloudant_hook
 
   - name: {{ name }}-with-crypto
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -287,6 +311,8 @@ outputs:
   # note: the older version of distributed pinned here is not available for
   # py38
   #- name: {{ name }}-with-dask
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -298,6 +324,8 @@ outputs:
   #      - airflow.executors.dask_executor
 
   - name: {{ name }}-with-databricks
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -309,6 +337,8 @@ outputs:
         - airflow.contrib.hooks.databricks_hook
 
   - name: {{ name }}-with-datadog
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -322,6 +352,8 @@ outputs:
   # note: the older version of docker-py pinned here is not available for
   # py38
   #- name: {{ name }}-with-docker
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -334,6 +366,8 @@ outputs:
   #      - airflow.operators.docker_operator
 
   - name: {{ name }}-with-druid
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -347,6 +381,8 @@ outputs:
   # note: the older version of elasticsearch-dsl pinned here is not available
   # for py38
   #- name: {{ name }}-with-elasticsearch
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -360,6 +396,8 @@ outputs:
   # same as aws, but I'm taking upstream literally this time and leaving out
   # watchtower
   - name: {{ name }}-with-emr
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -371,6 +409,8 @@ outputs:
         - airflow.contrib.hooks.aws_hook
 
   - name: {{ name }}-with-flask_oauth
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -386,6 +426,8 @@ outputs:
  # google-cloud-secret-manager does not have a feedstock
  # google-cloud-speech does not have a feedstock
  # - name: {{ name }}-with-gcp
+ #   build:
+ #     skip: true  # [py!=38]
  #   requirements:
  #     run:
  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -409,6 +451,8 @@ outputs:
  #       - pandas-gbq
 
   - name: {{ name }}-with-grpc
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -421,6 +465,8 @@ outputs:
         - airflow.contrib.hooks.grpc_hook
 
   - name: {{ name }}-with-hashicorp
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -434,6 +480,8 @@ outputs:
   # this is unlikely to remain useful since snakebite only supports py<=27
   # and hasn't been updated in 4 years
   #- name: {{ name }}-with-hdfs
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -444,6 +492,8 @@ outputs:
   #      - airflow.hooks.hdfs_hook
 
   - name: {{ name }}-with-hive
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -457,6 +507,8 @@ outputs:
 
   # note: upstream pin jpype1==0.7.1 was not built on conda-forge
   #- name: {{ name }}-with-jdbc
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -468,6 +520,8 @@ outputs:
   #      - airflow.hooks.jdbc_hook
 
   - name: {{ name }}-with-jenkins
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -479,6 +533,8 @@ outputs:
         - airflow.contrib.hooks.jenkins_hook
 
   - name: {{ name }}-with-jira
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -492,6 +548,8 @@ outputs:
   # this is unlikely to be useful since snakebite only supports py<=27
   # and hasn't been updated in 4 years
   #- name: {{ name }}-with-kerberos
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -506,6 +564,8 @@ outputs:
   #      - airflow.api.auth.backend.kerberos_auth
 
   - name: {{ name }}-with-kubernetes
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -518,6 +578,8 @@ outputs:
         - airflow.executors.kubernetes_executor
 
   - name: {{ name }}-with-ldap
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -529,6 +591,8 @@ outputs:
         - airflow.contrib.auth.backends.ldap_auth
 
   - name: {{ name }}-with-mongo
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -543,6 +607,8 @@ outputs:
   # note: the version of pymssql pinned here is not available for py38 and
   # newer builds are not getting merged
   #- name: {{ name }}-with-mssql
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -555,6 +621,8 @@ outputs:
 
   # note: the older version of mysqlclient pinned here is not available for py38
   #- name: {{ name }}-with-mysql
+  #  build:
+  #    skip: true  # [py!=38]
   #  requirements:
   #    run:
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -566,6 +634,8 @@ outputs:
   #      - airflow.hooks.mysql_hook
 
   - name: {{ name }}-with-oracle
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -578,6 +648,8 @@ outputs:
         - airflow.hooks.oracle_hook
 
   - name: {{ name }}-with-pagerduty
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -588,6 +660,8 @@ outputs:
         - pypd
 
   - name: {{ name }}-with-papermill
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -602,6 +676,8 @@ outputs:
         - airflow.operators.papermill_operator
 
   - name: {{ name }}-with-password
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -615,6 +691,8 @@ outputs:
 
   # no pinotdb feedstock
   # - name: {{ name }}-with-pinot
+  #  build:
+  #    skip: true  # [py!=38]
   #   requirements:
   #     run:
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -626,6 +704,8 @@ outputs:
   #      - airflow.contrib.hooks.pinot_hook
 
   - name: {{ name }}-with-postgres
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -638,6 +718,8 @@ outputs:
 
   # not presto-python-client feedstock
   # - name: {{ name }}-with-presto
+  #  build:
+  #    skip: true  # [py!=38]
   #   requirements:
   #     run:
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -649,6 +731,8 @@ outputs:
   #      - airflow.hooks.presto_hook
 
   - name: {{ name }}-with-qds
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -660,6 +744,8 @@ outputs:
         - airflow.contrib.hooks.qubole_hook
 
   - name: {{ name }}-with-rabbitmq
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -670,6 +756,8 @@ outputs:
         - amqp
 
   - name: {{ name }}-with-redis
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -681,6 +769,8 @@ outputs:
         - airflow.contrib.hooks.redis_hook
 
   - name: {{ name }}-with-salesforce
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -692,6 +782,8 @@ outputs:
         - airflow.contrib.hooks.salesforce_hook
 
   - name: {{ name }}-with-samba
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -703,6 +795,8 @@ outputs:
         - airflow.hooks.samba_hook
 
   - name: {{ name }}-with-segment
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -714,6 +808,8 @@ outputs:
         - airflow.contrib.hooks.segment_hook
 
   - name: {{ name }}-with-sendgrid
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -725,6 +821,8 @@ outputs:
         - airflow.contrib.utils.sendgrid
 
   - name: {{ name }}-with-sentry
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -737,6 +835,8 @@ outputs:
         - airflow.sentry
 
   - name: {{ name }}-with-slack
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -748,6 +848,8 @@ outputs:
         - airflow.hooks.slack_hook
 
   - name: {{ name }}-with-snowflake
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -760,6 +862,8 @@ outputs:
         - airflow.contrib.hooks.snowflake_hook
 
   - name: {{ name }}-with-ssh
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -774,6 +878,8 @@ outputs:
         - airflow.contrib.hooks.ssh_hook
 
   - name: {{ name }}-with-statsd
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -784,6 +890,8 @@ outputs:
         - statsd
 
   - name: {{ name }}-with-vertica
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -795,6 +903,8 @@ outputs:
         - airflow.contrib.hooks.vertica_hook
 
   - name: {{ name }}-with-virtualenv
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -805,6 +915,8 @@ outputs:
         - virtualenv
 
   - name: {{ name }}-with-webhdfs
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -816,6 +928,8 @@ outputs:
         - airflow.hooks.webhdfs_hook
 
   - name: {{ name }}-with-winrm
+    build:
+      skip: true  # [py!=38]
     requirements:
       run:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -828,6 +942,8 @@ outputs:
 
   # no zdest feedstock
   # - name: {{ name }}-with-zendesk
+  #  build:
+  #    skip: true  # [py!=38]
   #   requirements:
   #     run:
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
