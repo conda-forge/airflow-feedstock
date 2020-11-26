@@ -138,6 +138,8 @@ outputs:
 
   - name: {{ name }}-with-async
     requirements:
+      host:
+        - python
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -153,6 +155,8 @@ outputs:
 
   - name: {{ name }}-with-atlas
     requirements:
+      host:
+        - python
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
