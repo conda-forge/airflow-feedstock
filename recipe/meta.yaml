@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "1.10.12" %}
-{% set sha256 = "9a281d4f2aff0a791646a64b226664bcfb9bce7749f7944684df5ead87074c1b" %}
+{% set version = "1.10.13" %}
+{% set sha256 = "fecde45943b7a99dba30acd902f1311bc238bb8d975c98102a453c6f795ba48c" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win or py<35]
-  number: 2
+  number: 0
 
 test:
   commands:
