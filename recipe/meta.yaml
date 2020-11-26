@@ -296,19 +296,18 @@ outputs:
         - cryptography
         - airflow.models.crypto
 
-  # note: the older version of distributed pinned here is not available for
-  # py38
-  #- name: {{ name }}-with-dask
-  #  requirements:
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - distributed >=1.17.1,<2
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - distributed
-  #      - airflow.executors.dask_executor
+  - name: {{ name }}-with-dask
+    requirements:
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - cloudpickle >=1.4.1,<1.5.0
+        - distributed >=2.11.1,<2.20
+    test:
+      imports:
+        - airflow
+        - distributed
+        - airflow.executors.dask_executor
 
   - name: {{ name }}-with-databricks
     requirements:
