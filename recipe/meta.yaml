@@ -453,14 +453,13 @@ outputs:
         - hvac
         - airflow.contrib.secrets.hashicorp_vault
 
-  # this is unlikely to remain useful since snakebite only supports py<=27
-  # and hasn't been updated in 4 years
+  # Need a snakebite-py3 recipe
   #- name: {{ name }}-with-hdfs
   #  requirements:
   #    run:
   #      - python
   #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - snakebite >=2.7.8
+  #      - snakebite-py3
   #  test:
   #    imports:
   #      - airflow
@@ -538,7 +537,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - python-kubernetes >=3.0.0
+        - python-kubernetes >=3.0.0,<12.0.0
         - cryptography >=2.0.0
     test:
       imports:
