@@ -60,7 +60,7 @@ outputs:
         - jinja2 >=2.10.1,<2.12.0
         - json-merge-patch 0.2
         - jsonschema >=3.0,<4.0
-        - lazy_object_proxy <1.5.0
+        - lazy-object-proxy <1.5.0
         - markdown >=2.5.2,<3.0
         - marshmallow-sqlalchemy >=0.16.1,<0.24.0
         - packaging
