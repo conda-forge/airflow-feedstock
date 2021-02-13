@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "1.10.14" %}
-{% set sha256 = "f5e5a872788248b178b5dfc822bde7ced5e65b3b3436483a4e352d746cacc28b" %}
+{% set version = "2.0.1" %}
+{% set sha256 = "b5d597a96c395a06e435fc31a91256973855b87c3580caf5a93160cfecd69144" %}
 
 package:
   name: {{ name|lower }}-split
@@ -12,86 +12,87 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  skip: true  # [win or py<35]
+  skip: true  # [win]
   number: 0
-
-test:
-  commands:
-    - echo 'Keep lint happy'
 
 outputs:
   - name: {{ name }}
-    script: install_airflow.sh  # [unix]
+    script: install_airflow.sh
+    build:
+      entry_points:
+        - airflow=airflow.__main__:main
     requirements:
       host:
         - python
         - pip
-        - gitpython >=2.0.2
-        - docutils >=0.14,<1.0
+        - gitpython
+        - docutils
         - yarn
       run:
         - python
-        - alembic >=1.0,<2.0
+        - alembic >=1.2,<2.0
         - argcomplete >=1.10,<2.0
         - attrs >=20.0,<21.0
         - cached-property >=1.5,<2.0
         - cattrs >=1.0,<1.1.0  # [py<=36]
         - cattrs >=1.0,<2.0  # [py>36]
-        - colorlog 4.0.2
-        - configparser >=3.5.0,<3.6.0
+        - colorlog >=4.0.2
+        - connexion >=2.6.0,<3
+        # swagger-ui-bundle required by connexion extra
+        - swagger-ui-bundle >=0.0.2
         - croniter >=0.3.17,<0.4
-        - cryptography>=0.9.3
+        - cryptography >=0.9.3
         - dill >=0.2.2,<0.4
-        - email-validator
         - flask >=1.1.0,<2.0
-        - flask-admin 1.5.4
-        - flask-appbuilder >=2.2,<3.0
-        - flask-caching >=1.3.3,<1.4.0
+        - flask-appbuilder >=3.1.1,<3.2.0
+        - flask-caching >=1.5.0,<2.0.0
         - flask-login >=0.3,<0.5
-        - flask-swagger 0.2.13,<0.3
-        - flask-wtf >=0.14.2,<0.15
-        - funcsigs >=1.0.0,<2.0.0
-        - future >=0.16.0,<0.19
+        - flask-wtf >=0.14.3,<0.15
         - python-graphviz >=0.12
-        - gunicorn >=19.5.0,<21.0
-        - importlib-metadata >=2.0,<3.0  # [py<38]
+        - gunicorn >=19.5.0,<20.0
+        - importlib_metadata >=1.7,<2.0  # [py<39]
         - importlib_resources >=1.4,<2.0
         - iso8601 >=0.1.12
+        - itsdangerous >=1.1.0
         - jinja2 >=2.10.1,<2.12.0
-        - json-merge-patch 0.2
         - jsonschema >=3.0,<4.0
-        - lazy-object-proxy <1.5.0
-        - markdown >=2.5.2,<3.0
-        - marshmallow-sqlalchemy >=0.16.1,<0.24.0
-        - packaging
-        - pandas >=0.17.1,<2.0.0
-        - pendulum 1.4.4
-        # not available on conda-forge yet
-        # - pep562 >=1.0,<2.0  # [py<37]
+        - lazy-object-proxy
+        - lockfile >=0.12.2
+        - markdown >=2.5.2,<4.0
+        - markupsafe >=1.1.1,<2.0
+        - marshmallow-oneofschema >=2.0.1
+        - pandas >=0.17.1,<2.0
+        - pendulum >=2.0,<3.0
+        - pep562 >=1.0,<2.0  # [py<37]
         - psutil >=4.2.0,<6.0.0
         - pygments >=2.0.1,<3.0
-        - python-daemon >=2.1.1
+        - pyjwt <2
+        - python-daemon >=2.2.4
         - python-dateutil >=2.3,<3
         - python-nvd3 >=0.15.0,<0.16.0
         - python-slugify >=3.0.0,<5.0
-        - requests >=2.20.0,<2.24.0
+        - python3-openid >=3.2,<4.0
+        - requests >=2.20.0
+        - rich 9.2.0
         - setproctitle >=1.1.8,<2
-        - sqlalchemy >=1.3,<2.0
-        - sqlalchemy-jsonfield >=0.9,<1.0
+        - sqlalchemy >=1.3.18,<2
+        - sqlalchemy-jsonfield >=1.0,<2.0
         - tabulate >=0.7.5,<0.9
-        - tenacity 4.12.0
-        - thrift >=0.11.0
-        - typing  # [py<35]
-        # contrary to upstream spec, this seems to be needed for py=38 as well
-        - typing_extensions >=3.7.4
-        - tzlocal >=1.4,<2.0.0
+        - tenacity >=6.2.0,<6.3.0
+        - termcolor >=1.1.0
+        - typing-extensions >=3.7.4  # [py<38]
         - unicodecsv >=0.14.1
-        - werkzeug<1.0.0
-        - zope.deprecation >=4.0,<5.0
+        - werkzeug >=1.0.1,<2.0
+        - apache-airflow-providers-ftp
+        - apache-airflow-providers-http
+        - apache-airflow-providers-imap
+        - apache-airflow-providers-sqlite
+
     test:
       commands:
-        - airflow initdb
-        - test -f $STDLIB_DIR/site-packages/airflow/www_rbac/static/dist/manifest.json
+        - pip check
+        - airflow --help
+        - airflow db init
       imports:
         - airflow
         - airflow.api
@@ -100,30 +101,36 @@ outputs:
         - airflow.api.client
         - airflow.api.common
         - airflow.api.common.experimental
-        - airflow.bin
+        - airflow.api_connexion
+        - airflow.cli
+        - airflow.cli.commands
         - airflow.config_templates
         - airflow.contrib
-        - airflow.contrib.auth
-        - airflow.contrib.auth.backends
         - airflow.contrib.hooks
-        - airflow.contrib.kubernetes
         - airflow.contrib.operators
+        - airflow.contrib.secrets
         - airflow.contrib.sensors
         - airflow.contrib.task_runner
         - airflow.contrib.utils
-        - airflow.dag
         - airflow.example_dags
         - airflow.example_dags.subdags
         - airflow.executors
         - airflow.hooks
+        - airflow.jobs
+        - airflow.kubernetes
         - airflow.lineage
-        - airflow.lineage.backend
         - airflow.macros
         - airflow.migrations
         - airflow.migrations.versions
+        - airflow.models
+        - airflow.mypy
+        - airflow.mypy.plugin
         - airflow.operators
+        - airflow.secrets
         - airflow.security
         - airflow.sensors
+        - airflow.serialization
+        - airflow.smart_sensor_dags
         - airflow.task
         - airflow.task.task_runner
         - airflow.ti_deps
@@ -133,10 +140,78 @@ outputs:
         - airflow.www
         - airflow.www.api
         - airflow.www.api.experimental
-        - airflow.www_rbac
-        - airflow.www_rbac.api
-        - airflow.www_rbac.api.experimental
+      requires:
+        - pip
 
+  # alternative name for the core package
+  - name: apache-airflow
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - pip
+
+  - name: {{ name }}-with-apache-atlas
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - atlasclient >=0.1.2
+    test:
+      imports:
+        - airflow.lineage
+        - airflow.lineage.entities
+      commands:
+        - pip check
+      requires:
+        - pip
+
+  - name: {{ name }}-with-apache-beam
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-beam
+    test:
+      imports:
+        - airflow
+        - apache_beam
+      commands:
+        - pip check
+      requires:
+        - pip
+
+#  apache-airflow-providers-apache-hdfs is not yet available
+#  - name: {{ name }}-with-apache-webhdfs
+#    requirements:
+#      host:
+#        - python
+#      run:
+#        - python
+#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+#        - python-hdfs >=2.0.4
+#        - apache-airflow-providers-apache-hdfs
+#    test:
+#      imports:
+#        - airflow
+#        - hdfs
+#        - airflow.hooks.webhdfs_hook
+#      commands:
+#        - pip check
+#      requires:
+#        - pip
 
   - name: {{ name }}-with-async
     requirements:
@@ -154,129 +229,10 @@ outputs:
         - eventlet
         - gevent
         - greenlet
-
-  - name: {{ name }}-with-atlas
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - atlasclient >=0.1.2
-    test:
-      imports:
-        - airflow.lineage.backend.atlas
-
-  - name: {{ name }}-with-aws
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        # leaving this as is because it was just added, but noting that upstream
-        # constraint is boto3~=1.10<1.11 and no watchtower
-        - boto3 >=1.12.0,<2.0.0
-        - watchtower 0.7.3
-    test:
-      imports:
-        - airflow
-        - boto3
-        - watchtower
-        - airflow.contrib.hooks.aws_hook
-
-  - name: {{ name }}-with-azure_blob_storage
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - azure-storage >=0.34.0,<0.37.0
-        - azure-storage-common
-
-    test:
-      imports:
-        - airflow
-        - azure
-        - azure.storage
-        - azure.storage.blob
-        - airflow.contrib.hooks.wasb_hook
-
-  - name: {{ name }}-with-azure_data_lake
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - azure-datalake-store >=0.0.45
-        - azure-mgmt-datalake-store >=0.5.0
-        - azure-mgmt-resource >=2.2.0
-    test:
-      imports:
-        - airflow
-        - azure.datalake.store
-        - airflow.contrib.hooks.azure_data_lake_hook
-
-  - name: {{ name }}-with-azure_cosmos
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - azure-cosmos >=3.0.1,<4
-    test:
-      imports:
-        - airflow
-        - azure.cosmos
-        - airflow.contrib.hooks.azure_cosmos_hook
-
-  # Note: no azure-mgmt-containerinstance feedstock
-  #- name: {{ name }}-with-azure-mgmt-containerinstance
-  #  requirements:
-  #    host:
-  #      - python
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - azure-mgmt-containerinstance >=1.5.0,<2
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - azure.mgmt.containerinstance
-
-  - name: {{ name }}-with-cassandra
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cassandra-driver >=3.13.0,<3.21.0
-    test:
-      imports:
-        - airflow
-        - cassandra
-        - airflow.contrib.hooks.cassandra_hook
-
-  - name: {{ name }}-with-celery
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - celery >=4.3.0,<4.4.0
-        - vine >=1.3.0,<2.0.0
-        - flower >=0.7.3,<1.0
-        - tornado >=4.2.0,<6.0
-    test:
-      imports:
-        - airflow
-        - celery
-        - airflow.executors.celery_executor
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-cgroups
     requirements:
@@ -291,36 +247,10 @@ outputs:
         - airflow
         - cgroupspy
         - airflow.contrib.task_runner.cgroup_task_runner
-
-  - name: {{ name }}-with-cloudant
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        # leaving as is because older versions are not build with py>27 but
-        # upstream constraint is cloudant>=0.5.9,<2.0
-        - cloudant >=2.0
-    test:
-      imports:
-        - airflow
-        - cloudant
-        - airflow.contrib.hooks.cloudant_hook
-
-  - name: {{ name }}-with-crypto
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cryptography >=0.9.3
-    test:
-      imports:
-        - airflow
-        - cryptography
-        - airflow.models.crypto
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-dask
     requirements:
@@ -336,242 +266,48 @@ outputs:
         - airflow
         - distributed
         - airflow.executors.dask_executor
+      commands:
+        - pip check
+      requires:
+        - pip
 
-  - name: {{ name }}-with-databricks
+  - name: {{ name }}-with-github_enterprise
     requirements:
       host:
         - python
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - requests >=2.20.0,<3
-    test:
-      imports:
-        - airflow
-        - requests
-        - airflow.contrib.hooks.databricks_hook
-
-  - name: {{ name }}-with-datadog
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - datadog >=0.14.0
-    test:
-      imports:
-        - airflow
-        - datadog
-        - airflow.contrib.hooks.datadog_hook
-
-  # note: the older version of docker-py pinned here is not available for
-  # py38
-  #- name: {{ name }}-with-docker
-  #  requirements:
-  #    host:
-  #      - python
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - docker-py >=3.0.0,<3.1.0
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - docker
-  #      - airflow.hooks.docker_hook
-  #      - airflow.operators.docker_operator
-
-  - name: {{ name }}-with-druid
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pydruid >=0.4.1,<=0.5.8
-    test:
-      imports:
-        - airflow
-        - pydruid
-        - airflow.hooks.druid_hook
-
-  # note: the older version of elasticsearch-dsl pinned here is not available
-  # for py38
-  #- name: {{ name }}-with-elasticsearch
-  #  requirements:
-  #    host:
-  #      - python
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - elasticsearch >=5.0.0,<6.0.0
-  #      - elasticsearch-dsl >=5.0.0,<6.0.0
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - elasticsearch
-
-  # same as aws, but I'm taking upstream literally this time and leaving out
-  # watchtower
-  - name: {{ name }}-with-emr
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - boto3 >=1.10.0,<1.11.0
-    test:
-      imports:
-        - airflow
-        - boto3
-        - airflow.contrib.hooks.aws_hook
-
-  - name: {{ name }}-with-flask_oauth
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-oauthlib >=0.9.1
+        - flask-oauthlib >=0.9.1,<0.9.6
         - oauthlib !=2.0.3,!=2.0.4,!=2.0.5,<3.0.0,>=1.1.2
-        - requests-oauthlib 1.1.0
+        - requests-oauthlib <1.2.0
     test:
       imports:
         - airflow
         - flask_oauthlib
+      commands:
+        - pip check
+      requires:
+        - pip
 
- # google-cloud-spanner is too out of date
- # google-cloud-secret-manager does not have a feedstock
- # google-cloud-speech does not have a feedstock
- # - name: {{ name }}-with-gcp
- #   requirements:
- #     host:
- #       - python
- #     run:
- #       - python
- #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
- #       - pyopenssl
- #       - google-api-python-client >=1.6.0,<2.0.0
- #       - google-auth >=1.0.0,<2.0.0
- #       - google-auth-httplib2 >=0.0.1
- #       - google-cloud-bigtable >=1.0.0,<2.0.0
- #       - google-cloud-container >=0.1.1,<2.0.0
- #       - google-cloud-dlp >=0.11.0,<2.0.0
- #       - google-cloud-language >=1.1.1,<2.0.0
- #       - google-cloud-secret-manager >=0.2.0,<2.0.0
- #       - google-cloud-spanner >=1.10.0,<2.0.0
- #       - google-cloud-speech >=0.36.3,<2.0.0
- #       - google-cloud-storage >=1.16,<2.0.0
- #       - google-cloud-texttospeech >=0.4.0,<2
- #       - google-cloud-translate >=1.3.3,<2.0.0
- #       - google-cloud-videointelligence >=1.7.0,<2.0.0
- #       - google-cloud-vision >=0.35.2,<2.0.0
- #       - grpcio-gcp >=0.2.2
- #       - pandas-gbq
-
-  - name: {{ name }}-with-grpc
+  - name: {{ name }}-with-google_auth
     requirements:
       host:
         - python
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - google-auth >=1.0.0,<2.0.0dev
-        - grpcio >=1.15.0
+        - flask-oauthlib >=0.9.1,<0.9.6
+        - oauthlib !=2.0.3,!=2.0.4,!=2.0.5,<3.0.0,>=1.1.2
+        - requests-oauthlib <1.2.0
     test:
       imports:
         - airflow
-        - grpc
-        - airflow.contrib.hooks.grpc_hook
-
-  - name: {{ name }}-with-hashicorp
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - hvac >=0.10.0,<0.11.0
-    test:
-      imports:
-        - airflow
-        - hvac
-        - airflow.contrib.secrets.hashicorp_vault
-
-  # Need a snakebite-py3 recipe
-  #- name: {{ name }}-with-hdfs
-  #  requirements:
-  #    host:
-  #      - python
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - snakebite-py3
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - airflow.hooks.hdfs_hook
-
-  - name: {{ name }}-with-hive
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - hmsclient >=0.1.0
-        - pyhive >=0.6.0
-    test:
-      imports:
-        - airflow
-        - pyhive
-        - airflow.hooks.hive_hooks
-
-  # note: upstream pin jpype1==0.7.1 was not built on conda-forge
-  #- name: {{ name }}-with-jdbc
-  #  requirements:
-  #    host:
-  #      - python
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - jpype1 0.7.1
-  #      - jaydebeapi >=1.1.1
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - airflow.hooks.jdbc_hook
-
-  - name: {{ name }}-with-jenkins
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - python-jenkins >=1.0.0
-    test:
-      imports:
-        - airflow
-        - jenkins
-        - airflow.contrib.hooks.jenkins_hook
-
-  - name: {{ name }}-with-jira
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - jira >=1.0.7
-    test:
-      imports:
-        - airflow
-        - jira
-        - airflow.contrib.hooks.jira_hook
+        - flask_oauthlib
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-kerberos
     requirements:
@@ -588,21 +324,10 @@ outputs:
         - airflow
         - kerberos
         - airflow.api.auth.backend.kerberos_auth
-
-  - name: {{ name }}-with-kubernetes
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - python-kubernetes >=3.0.0,<12.0.0
-        - cryptography >=2.0.0
-    test:
-      imports:
-        - airflow
-        - kubernetes
-        - airflow.executors.kubernetes_executor
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-ldap
     requirements:
@@ -612,103 +337,15 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - ldap3 >=2.5.1
+        - python-ldap
     test:
       imports:
         - airflow
         - ldap3
-        - airflow.contrib.auth.backends.ldap_auth
-
-  - name: {{ name }}-with-mongo
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pymongo >=3.6.0,<3.11.0
-        - dnspython >=1.13.0,<2.0.0
-    test:
-      imports:
-        - airflow
-        - pymongo
-        - airflow.contrib.hooks.mongo_hook
-
-  # note: the version of pymssql pinned here is not available for py38 and
-  # newer builds are not getting merged
-  #- name: {{ name }}-with-mssql
-  #  requirements:
-  #    host:
-  #      - python
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - pymssql >=2.1.1,<2.2.0
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - pymssql
-  #      - airflow.hooks.mssql_hook
-
-  # note: the older version of mysqlclient pinned here is not available for py38
-  #- name: {{ name }}-with-mysql
-  #  requirements:
-  #    host:
-  #      - python
-  #    run:
-  #      - python
-  #      - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #      - mysqlclient >=1.3.6,<1.4
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - MySQLdb
-  #      - airflow.hooks.mysql_hook
-
-  - name: {{ name }}-with-oracle
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cx_oracle >=5.1.2,<8.0.0  # [py<30]
-        - cx_oracle >=5.1.2  # [py>=30]
-    test:
-      imports:
-        - airflow
-        - cx_Oracle
-        - airflow.hooks.oracle_hook
-
-  - name: {{ name }}-with-pagerduty
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pypd >=1.1.0
-    test:
-      imports:
-        - airflow
-        - pypd
-
-  - name: {{ name }}-with-papermill
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - papermill[all] >=1.0.0
-        - nteract-scrapbook[all] >=0.2.1
-        - pyarrow <1.0.0
-        # not on conda-forge
-        # - black 20.8b0
-    test:
-      imports:
-        - airflow
-        - papermill
-        - airflow.operators.papermill_operator
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-password
     requirements:
@@ -723,65 +360,10 @@ outputs:
       imports:
         - airflow
         - flask_bcrypt
-        - airflow.contrib.auth.backends.password_auth
-
-  # no pinotdb feedstock
-  # - name: {{ name }}-with-pinot
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - pinotdb 0.1.1
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - pinotdb
-  #      - airflow.contrib.hooks.pinot_hook
-
-  - name: {{ name }}-with-postgres
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - psycopg2 >=2.7.4
-    test:
-      imports:
-        - airflow
-        - psycopg2
-        - airflow.hooks.postgres_hook
-
-  # not presto-python-client feedstock
-  # - name: {{ name }}-with-presto
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - presto-python-client >=0.7.0,<0.8
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - prestodb
-  #      - airflow.hooks.presto_hook
-
-  - name: {{ name }}-with-qds
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - qds-sdk >=1.10.4
-    test:
-      imports:
-        - airflow
-        - qds_sdk
-        - airflow.contrib.hooks.qubole_hook
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-rabbitmq
     requirements:
@@ -790,83 +372,17 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        # this did not pass tests (No module named 'vine.five')
-        # - amqp <5.0.0
-        - amqp
+        - amqp <5.0.0
+        # needed to prevent "No module named 'vine.five'"
+        - vine>=1.1.3, <5.0.0a1
     test:
       imports:
         - airflow
         - amqp
-
-  - name: {{ name }}-with-redis
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - redis-py >=3.2.0,<3.3.0
-    test:
-      imports:
-        - airflow
-        - redis
-        - airflow.contrib.hooks.redis_hook
-
-  - name: {{ name }}-with-salesforce
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - simple-salesforce >=0.72,<1.0.0
-    test:
-      imports:
-        - airflow
-        - simple_salesforce
-        - airflow.contrib.hooks.salesforce_hook
-
-  - name: {{ name }}-with-samba
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pysmbclient >=0.1.3
-    test:
-      imports:
-        - airflow
-        - smbclient
-        - airflow.hooks.samba_hook
-
-  - name: {{ name }}-with-segment
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - analytics-python >=1.2.9
-    test:
-      imports:
-        - airflow
-        - analytics
-        - airflow.contrib.hooks.segment_hook
-
-  - name: {{ name }}-with-sendgrid
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - sendgrid >=5.2.0,<6
-    test:
-      imports:
-        - airflow
-        - sendgrid
-        - airflow.contrib.utils.sendgrid
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-sentry
     requirements:
@@ -882,55 +398,10 @@ outputs:
         - airflow
         - sentry_sdk
         - airflow.sentry
-
-  - name: {{ name }}-with-slack
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - slackclient >=1.0.0,<2.0.0
-        - websocket-client <0.55.0
-    test:
-      imports:
-        - airflow
-        - slackclient
-        - airflow.hooks.slack_hook
-
-  - name: {{ name }}-with-snowflake
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        # see https://github.com/apache/airflow/pull/13286/files
-        - boto3 <1.11.0
-        - snowflake-connector-python >=1.5.2
-        - snowflake-sqlalchemy >=1.1.0
-    test:
-      imports:
-        - airflow
-        - snowflake
-        - airflow.contrib.hooks.snowflake_hook
-
-  - name: {{ name }}-with-ssh
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - paramiko >=2.1.1
-        - pysftp >=0.2.9
-        - sshtunnel >=0.1.4,<0.2
-    test:
-      imports:
-        - airflow
-        - sshtunnel
-        - pysftp
-        - airflow.contrib.hooks.ssh_hook
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-statsd
     requirements:
@@ -944,20 +415,27 @@ outputs:
       imports:
         - airflow
         - statsd
+      commands:
+        - pip check
+      requires:
+        - pip
 
-  - name: {{ name }}-with-vertica
+  - name: {{ name }}-with-tableau
     requirements:
       host:
         - python
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - vertica-python >=0.5.1
+        - tableauserverclient >=0.12,<1.0
     test:
       imports:
         - airflow
-        - vertica_python
-        - airflow.contrib.hooks.vertica_hook
+        - tableauserverclient
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-virtualenv
     requirements:
@@ -971,49 +449,45 @@ outputs:
       imports:
         - airflow
         - virtualenv
+      commands:
+        - pip check
+      requires:
+        - pip
 
-  - name: {{ name }}-with-webhdfs
+  # deprecated aliases
+  - name: {{ name }}-with-atlas
     requirements:
       host:
         - python
       run:
         - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - python-hdfs >=2.0.4
+        - {{ pin_subpackage('airflow-with-apache-atlas', max_pin='x.x.x.x.x.x') }}
     test:
       imports:
-        - airflow
-        - hdfs
-        - airflow.hooks.webhdfs_hook
+        - airflow.lineage
+        - airflow.lineage.entities
+      commands:
+        - pip check
+      requires:
+        - pip
 
-  - name: {{ name }}-with-winrm
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pywinrm >=0.4.0,<0.5.0
-    test:
-      imports:
-        - airflow
-        - winrm
-        - airflow.contrib.hooks.winrm_hook
-
-  # no zdest feedstock
-  # - name: {{ name }}-with-zendesk
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - zdesk
-  #  test:
-  #    imports:
-  #      - airflow
-  #      - zdesk
-  #      - airflow.hooks.zendesk_hook
+#  apache-airflow-providers-apache-hdfs is not yet available
+#  - name: {{ name }}-with-webhdfs
+#    requirements:
+#      host:
+#        - python
+#      run:
+#        - python
+#        - {{ pin_subpackage('airflow-with-apache-webhdfs', max_pin='x.x.x.x.x.x') }}
+#    test:
+#      imports:
+#        - airflow
+#        - hdfs
+#        - airflow.hooks.webhdfs_hook
+#      commands:
+#        - pip check
+#      requires:
+#        - pip
 
 about:
   home: http://airflow.apache.org
