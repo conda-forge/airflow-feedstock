@@ -1,0 +1,33 @@
+diff -ur airflow-2.0.1/airflow/www/ask_for_recompile_assets_if_needed.sh airflow-2.0.1-patch/airflow/www/ask_for_recompile_assets_if_needed.sh
+--- airflow/www/ask_for_recompile_assets_if_needed.sh	2021-02-04 22:05:19.000000000 +0100
++++ airflow/www/ask_for_recompile_assets_if_needed.sh	2021-02-14 09:41:02.770851091 +0100
+@@ -26,7 +26,7 @@
+ YELLOW='\033[1;33m'
+ NO_COLOR='\033[0m'
+ 
+-md5sum=$(find package.json yarn.lock static/css static/js -type f | sort | xargs md5sum)
++md5sum=$(find package.json yarn.lock static/css static/js -type f | sort | xargs md5 -r)
+ old_md5sum=$(cat "${MD5SUM_FILE}" 2>/dev/null || true)
+ if [[ ${old_md5sum} != "${md5sum}" ]]; then
+     echo
+diff -ur airflow-2.0.1/airflow/www/compile_assets.sh airflow-2.0.1-patch/airflow/www/compile_assets.sh
+--- airflow/www/compile_assets.sh	2021-02-04 22:05:19.000000000 +0100
++++ airflow/www/compile_assets.sh	2021-02-14 09:41:28.650850149 +0100
+@@ -31,4 +31,4 @@
+ yarn install --frozen-lockfile
+ yarn run build
+ 
+-find package.json yarn.lock static/css static/js -type f | sort | xargs md5sum > "${MD5SUM_FILE}"
++find package.json yarn.lock static/css static/js -type f | sort | xargs md5 -r > "${MD5SUM_FILE}"
+diff -ur airflow-2.0.1/scripts/docker/compile_www_assets.sh airflow-2.0.1-patch/scripts/docker/compile_www_assets.sh
+--- scripts/docker/compile_www_assets.sh	2021-02-04 22:05:19.000000000 +0100
++++ scripts/docker/compile_www_assets.sh	2021-02-14 09:42:03.710853807 +0100
+@@ -40,7 +40,7 @@
+         pushd ${www_dir} || exit 1
+         yarn install --frozen-lockfile --no-cache
+         yarn run prod
+-        find package.json yarn.lock static/css static/js -type f | sort | xargs md5sum > "${md5sum_file}"
++        find package.json yarn.lock static/css static/js -type f | sort | xargs md5 -r > "${md5sum_file}"
+         rm -rf "${www_dir}/node_modules"
+         rm -vf "${www_dir}"/{package.json,yarn.lock,.eslintignore,.eslintrc,.stylelintignore,.stylelintrc,compile_assets.sh,webpack.config.js}
+         popd || exit 1
