@@ -196,25 +196,24 @@ outputs:
       requires:
         - pip
 
-#  apache-airflow-providers-apache-hdfs is not yet available
-#  - name: {{ name }}-with-apache-webhdfs
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - python-hdfs >=2.0.4
-#        - apache-airflow-providers-apache-hdfs
-#    test:
-#      imports:
-#        - airflow
-#        - hdfs
-#        - airflow.hooks.webhdfs_hook
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-apache-webhdfs
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python-hdfs >=2.0.4
+        - apache-airflow-providers-apache-hdfs
+    test:
+      imports:
+        - airflow
+        - hdfs
+        - airflow.hooks.webhdfs_hook
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-async
     requirements:
@@ -474,23 +473,22 @@ outputs:
       requires:
         - pip
 
-#  apache-airflow-providers-apache-hdfs is not yet available
-#  - name: {{ name }}-with-webhdfs
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage('airflow-with-apache-webhdfs', max_pin='x.x.x.x.x.x') }}
-#    test:
-#      imports:
-#        - airflow
-#        - hdfs
-#        - airflow.hooks.webhdfs_hook
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-webhdfs
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage('airflow-with-apache-webhdfs', max_pin='x.x.x.x.x.x') }}
+    test:
+      imports:
+        - airflow
+        - hdfs
+        - airflow.hooks.webhdfs_hook
+      commands:
+        - pip check
+      requires:
+        - pip
 
 about:
   home: http://airflow.apache.org
