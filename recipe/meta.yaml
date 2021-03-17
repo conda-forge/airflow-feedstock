@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "1.10.14" %}
-{% set sha256 = "f5e5a872788248b178b5dfc822bde7ced5e65b3b3436483a4e352d746cacc28b" %}
+{% set version = "1.10.15" %}
+{% set sha256 = "a890c247f64f7af1d101fe3eec254da0fab966ecf3026379be2aa61ddf6becbc" %}
 
 package:
   name: {{ name|lower }}-split
@@ -54,7 +54,7 @@ outputs:
         - future >=0.16.0,<0.19
         - python-graphviz >=0.12
         - gunicorn >=19.5.0,<21.0
-        - importlib-metadata >=2.0,<3.0  # [py<38]
+        - importlib-metadata >=2.0,<3.0  # [py<39]
         - importlib_resources >=1.4,<2.0
         - iso8601 >=0.1.12
         - jinja2 >=2.10.1,<2.12.0
