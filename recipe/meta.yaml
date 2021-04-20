@@ -267,6 +267,9 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cloudpickle >=1.4.1,<1.5.0
+        # dask stopped supporting python 3.6 in 2021.3.1 version
+        - dask >=2.9.0,<2021.3.1   # [py<37] 
+        - dask >=2.9.0  # [py>=37]
         - distributed >=2.11.1,<2.20
     test:
       imports:
