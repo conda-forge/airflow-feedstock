@@ -36,6 +36,7 @@ outputs:
         - alembic >=1.2,<2.0
         - argcomplete >=1.10,<2.0
         - attrs >=20.0,<21.0
+        - blinker
         - cached-property >=1.5,<2.0
         - cattrs >=1.0,<1.1.0  # [py<=36]
         - cattrs >=1.0,<2.0  # [py>36]
@@ -64,7 +65,10 @@ outputs:
         - markdown >=2.5.2,<4.0
         - markupsafe >=1.1.1,<2.0
         - marshmallow-oneofschema >=2.0.1
-        - pandas >=0.17.1,<2.0
+        - numpy
+        # From upstream: Pandas stopped releasing 3.6 binaries for 1.2.* series.
+        - pandas >=0.17.1,<2.0  # [py>=37]
+        - pandas >=0.17.1,<1.2  # [py<37]
         - pendulum >=2.0,<3.0
         - pep562 >=1.0,<2.0  # [py<37]
         - psutil >=4.2.0,<6.0.0
@@ -78,7 +82,8 @@ outputs:
         - requests >=2.20.0
         - rich 9.2.0
         - setproctitle >=1.1.8,<2
-        - sqlalchemy >=1.3.18,<2
+        # From upstream: SQLAlchemy 1.4 breaks sqlalchemy-utils https://github.com/kvesteri/sqlalchemy-utils/issues/505
+        - sqlalchemy >=1.3.18,<1.4
         - sqlalchemy-jsonfield >=1.0,<2.0
         - tabulate >=0.7.5,<0.9
         - tenacity >=6.2.0,<6.3.0
