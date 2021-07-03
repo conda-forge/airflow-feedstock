@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.1.0" %}
-{% set sha256 = "9b57e71359d58bc8a94a876da9ad7c4904006ada7f1324e4a108701be88f9938" %}
+{% set version = "2.1.1" %}
+{% set sha256 = "9879c903b999b17f9ae21b15650a975416749ff0cadea7e3dd08aa516a8f250b" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,7 +8,7 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/apache/incubator-{{ name }}/archive/{{ version }}.tar.gz
+  url: https://github.com/apache/{{ name }}/archive/{{ version }}.tar.gz
   sha256: {{ sha256 }}
   patches:
     # OSX uses md5 -r instead of md5sum
@@ -37,15 +37,16 @@ outputs:
         - argcomplete >=1.10,<2.0
         - attrs >=20.0,<21.0
         - blinker
-        - cached-property >=1.5,<2.0
+        - cached-property >=1.5,<2.0  # [py<=37]
         - cattrs >=1.0,<1.1.0  # [py<=36]
-        - cattrs >=1.0,<2.0  # [py>36]
+        - cattrs >=1.1,<1.7.0  # [py>36]
         - clickclick >=1.2
         - colorlog >=4.0.2
         - croniter >=0.3.17,<1.1
         - cryptography >=0.9.3
         - dataclasses  # [py<37]
         - dill >=0.2.2,<0.4
+        - docutils <0.17
         - flask >=1.1.0,<2.0
         - flask-appbuilder >=3.3,<4.0
         - flask-caching >=1.5.0,<2.0.0
@@ -71,8 +72,8 @@ outputs:
         - numpy  # [py>=37]
         - openapi-spec-validator >=0.2.4
         # From upstream: Pandas stopped releasing 3.6 binaries for 1.2.* series.
-        - pandas >=0.17.1,<2.0  # [py>=37]
         - pandas >=0.17.1,<1.2  # [py<37]
+        - pandas >=0.17.1,<2.0  # [py>=37]
         - pendulum >=2.0,<3.0
         - pep562 >=1.0,<2.0  # [py<37]
         - psutil >=4.2.0,<6.0.0
@@ -274,8 +275,9 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cloudpickle >=1.4.1,<1.5.0
         # dask stopped supporting python 3.6 in 2021.3.1 version
-        - dask <2021.3.1   # [py<37]
-        - dask >=2.9.0  # [py>=37]
+        - dask <2021.3.1  # [py<37]
+        # dask 2021.6.1 does not work with `distributed`
+        - dask >=2.9.0,<2021.6.1  # [py>=37]
         - distributed >=2.11.1,<2.20
     test:
       imports:
@@ -358,6 +360,23 @@ outputs:
       imports:
         - airflow
         - ldap3
+      commands:
+        - pip check
+      requires:
+        - pip
+
+  - name: {{ name }}-with-leveldb
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - plyvel
+    test:
+      imports:
+        - airflow
+        - plyvel
       commands:
         - pip check
       requires:
