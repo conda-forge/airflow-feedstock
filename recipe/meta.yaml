@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.1.1" %}
-{% set sha256 = "9879c903b999b17f9ae21b15650a975416749ff0cadea7e3dd08aa516a8f250b" %}
+{% set version = "2.1.2" %}
+{% set sha256 = "c4058a1b84032b366987d74275f861f2ddac93cfe2559813f16c30aa9fb47ecd" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,9 +13,10 @@ source:
   patches:
     # OSX uses md5 -r instead of md5sum
     - 0001-osx-fix-md5.patch  # [osx]
+    - 0002-remove-import-resources-py39.patch
 
 build:
-  skip: true  # [win or py>=39]
+  skip: true  # [win]
   number: 0
 
 outputs:
@@ -55,8 +56,11 @@ outputs:
         - python-graphviz >=0.12
         - gunicorn >=19.5.0
         - httpx
-        - importlib_metadata >=1.7,<2.0  # [py<39]
-        - importlib_resources >=1.4,<2.0
+        - importlib_metadata >=1.7  # [py<39]
+        # This package is also in place for py39 upstream but versions below
+        # 3.x have not been build for py39 on conda-forge and the backport
+        # isn't needed anyway
+        - importlib_resources >=1.4,<2.0  # [py<39]
         - inflection >=0.3.1
         - iso8601 >=0.1.12
         - itsdangerous >=1.1.0,<2.0
