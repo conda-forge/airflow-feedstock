@@ -338,6 +338,9 @@ outputs:
         - pip
 
   - name: {{ name }}-with-kerberos
+    build:
+      # thrift_sasl has not yet been built for py39
+      skip: true  # [py>=39]
     requirements:
       host:
         - python
