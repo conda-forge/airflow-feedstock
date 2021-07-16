@@ -196,6 +196,9 @@ outputs:
         - pip
 
   - name: {{ name }}-with-apache-beam
+    build:
+      # apache-beam doesn't support py39 yet
+      skip: true  # [py>=39]
     requirements:
       host:
         - python
