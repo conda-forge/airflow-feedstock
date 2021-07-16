@@ -1,0 +1,12 @@
+diff -ruN airflow-2.1.2/setup.cfg airflow-2.1.2-patch/setup.cfg
+--- airflow-2.1.2/setup.cfg	2021-07-10 10:47:14.000000000 +0200
++++ airflow-2.1.2-patch/setup.cfg	2021-07-16 13:46:47.774807263 +0200
+@@ -108,7 +108,7 @@
+     gunicorn>=19.5.0
+     httpx
+     importlib_metadata>=1.7;python_version<"3.9"
+-    importlib_resources~=1.4
++    importlib_resources~=1.4;python_version<"3.9"
+     # Required by vendored-in connexion
+     inflection>=0.3.1
+     iso8601>=0.1.12
