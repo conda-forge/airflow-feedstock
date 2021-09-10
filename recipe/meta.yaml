@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.1.2" %}
-{% set sha256 = "c4058a1b84032b366987d74275f861f2ddac93cfe2559813f16c30aa9fb47ecd" %}
+{% set version = "2.1.3" %}
+{% set sha256 = "2ce013ae358757bcf42f0b807c2c9086b848f6d7e8e65d409b10b8a77e98770c" %}
 
 package:
   name: {{ name|lower }}-split
@@ -29,7 +29,8 @@ outputs:
       host:
         - python
         - pip
-        - gitpython
+        - gitpython <3.1.22  # [py<37]
+        - gitpython  # [py>=37]
         - docutils
         - yarn
       run:
@@ -49,7 +50,7 @@ outputs:
         - dill >=0.2.2,<0.4
         - docutils <0.17
         - flask >=1.1.0,<2.0
-        - flask-appbuilder >=3.3,<4.0
+        - flask-appbuilder >=3.3.2,<4.0.0
         - flask-caching >=1.5.0,<2.0.0
         - flask-login >=0.3,<0.5
         - flask-wtf >=0.14.3,<0.15
@@ -64,7 +65,7 @@ outputs:
         - inflection >=0.3.1
         - iso8601 >=0.1.12
         - itsdangerous >=1.1.0,<2.0
-        - jinja2 >=2.10.1,<2.12.0
+        - jinja2 >=2.10.1,<4
         - jsonschema >=3.0,<4.0
         - lazy-object-proxy
         - lockfile >=0.12.2
@@ -91,8 +92,7 @@ outputs:
         - pyyaml >=5.1
         - rich >=9.2.0
         - setproctitle >=1.1.8,<2
-        # From upstream: SQLAlchemy 1.4 breaks sqlalchemy-utils https://github.com/kvesteri/sqlalchemy-utils/issues/505
-        - sqlalchemy >=1.3.18,<1.4
+        - sqlalchemy >=1.3.18
         - sqlalchemy-jsonfield >=1.0,<2.0
         - swagger-ui-bundle >=0.0.2
         - tabulate >=0.7.5,<0.9
@@ -102,8 +102,7 @@ outputs:
         - unicodecsv >=0.14.1
         - werkzeug >=1.0.1,<2.0
         - apache-airflow-providers-ftp
-        # From upstream, it seems there is a licensing issue with including this provider by default
-        #- apache-airflow-providers-http
+        - apache-airflow-providers-http
         - apache-airflow-providers-imap
         - apache-airflow-providers-sqlite
 
@@ -306,13 +305,11 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-oauthlib >=0.9.1,<0.9.6
-        - oauthlib !=2.0.3,!=2.0.4,!=2.0.5,<3.0.0,>=1.1.2
-        - requests-oauthlib <1.2.0
+        - authlib
     test:
       imports:
         - airflow
-        - flask_oauthlib
+        - authlib
       commands:
         - pip check
       requires:
@@ -325,13 +322,11 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-oauthlib >=0.9.1,<0.9.6
-        - oauthlib !=2.0.3,!=2.0.4,!=2.0.5,<3.0.0,>=1.1.2
-        - requests-oauthlib <1.2.0
+        - authlib
     test:
       imports:
         - airflow
-        - flask_oauthlib
+        - authlib
       commands:
         - pip check
       requires:
