@@ -29,7 +29,8 @@ outputs:
       host:
         - python
         - pip
-        - gitpython
+        - gitpython <3.1.22  # [py<37]
+        - gitpython  # [py>=37]
         - docutils
         - yarn
       run:
