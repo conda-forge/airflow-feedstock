@@ -13,7 +13,6 @@ source:
   patches:
     # OSX uses md5 -r instead of md5sum
     - 0001-osx-fix-md5.patch  # [osx]
-    - 0002-remove-import-resources-py39.patch
 
 build:
   skip: true  # [win]
