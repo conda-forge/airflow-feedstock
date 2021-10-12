@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.1.4" %}
-{% set sha256 = "cced921ad42dc7fcc6c7dead56987264621c71fcf39e30c8f4f4f355e9915268" %}
+{% set version = "2.2.0" %}
+{% set sha256 = "f53d7fafec8ffe7ce87b39be7842adca67b1215f841a2390dd2e5d17b4a0161d" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,6 @@ source:
   patches:
     # OSX uses md5 -r instead of md5sum
     - 0001-osx-fix-md5.patch  # [osx]
-    - 0002-remove-import-resources-py39.patch
 
 build:
   skip: true  # [win]
@@ -33,6 +32,9 @@ outputs:
         - gitpython  # [py>=37]
         - docutils
         - yarn
+        # seems to be having trouble with openssl 3.
+        # By including it as a dependency, we can explicitly check
+        - openssl
       run:
         - python
         - alembic >=1.2,<2.0
@@ -58,10 +60,6 @@ outputs:
         - gunicorn >=19.5.0
         - httpx
         - importlib_metadata >=1.7  # [py<39]
-        # This package is also in place for py39 upstream but versions below
-        # 3.x have not been build for py39 on conda-forge and the backport
-        # isn't needed anyway
-        - importlib_resources >=1.4,<2.0  # [py<39]
         - inflection >=0.3.1
         - iso8601 >=0.1.12
         - itsdangerous >=1.1.0,<2.0
@@ -72,13 +70,8 @@ outputs:
         - markdown >=2.5.2,<4.0
         - markupsafe >=1.1.1,<2.0
         - marshmallow-oneofschema >=2.0.1
-        # From upstream: Numpy stopped releasing 3.6 binaries for 1.20.* series.
-        - numpy <1.20  # [py<37]
-        - numpy  # [py>=37]
         - openapi-spec-validator >=0.2.4
-        # From upstream: Pandas stopped releasing 3.6 binaries for 1.2.* series.
-        - pandas >=0.17.1,<1.2  # [py<37]
-        - pandas >=0.17.1,<2.0  # [py>=37]
+        - packaging >=21.0,<22.0
         - pendulum >=2.0,<3.0
         - pep562 >=1.0,<2.0  # [py<37]
         - psutil >=4.2.0,<6.0.0
@@ -96,7 +89,7 @@ outputs:
         - sqlalchemy-jsonfield >=1.0,<2.0
         - swagger-ui-bundle >=0.0.2
         - tabulate >=0.7.5,<0.9
-        - tenacity >=6.2.0,<6.3.0
+        - tenacity >=6.2.0
         - termcolor >=1.1.0
         - typing-extensions >=3.7.4  # [py<38]
         - unicodecsv >=0.14.1
@@ -105,6 +98,9 @@ outputs:
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
         - apache-airflow-providers-sqlite
+        # seems to be having trouble with openssl 3.
+        # By including it as a dependency, we can explicitly check
+        - openssl
 
     test:
       commands:
@@ -284,10 +280,8 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cloudpickle >=1.4.1,<1.5.0
-        # dask stopped supporting python 3.6 in 2021.3.1 version
-        - dask <2021.3.1  # [py<37]
         # dask 2021.6.1 does not work with `distributed`
-        - dask >=2.9.0,<2021.6.1  # [py>=37]
+        - dask >=2.9.0,<2021.6.1
         - distributed >=2.11.1,<2.20
     test:
       imports:
@@ -391,6 +385,23 @@ outputs:
       requires:
         - pip
 
+  - name: {{ name }}-with-pandas
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - pandas >=0.17.1,<2.0
+    test:
+      imports:
+        - airflow
+        - pandas
+      commands:
+        - pip check
+      requires:
+        - pip
+
   - name: {{ name }}-with-password
     requirements:
       host:
@@ -416,9 +427,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - amqp <5.0.0
-        # needed to prevent "No module named 'vine.five'"
-        - vine>=1.1.3, <5.0.0a1
+        - amqp
     test:
       imports:
         - airflow
