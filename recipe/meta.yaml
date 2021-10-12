@@ -68,7 +68,7 @@ outputs:
         - markupsafe >=1.1.1,<2.0
         - marshmallow-oneofschema >=2.0.1
         - openapi-spec-validator >=0.2.4
-        - packaging 21.0>=,<22.0
+        - packaging >=21.0,<22.0
         - pendulum >=2.0,<3.0
         - pep562 >=1.0,<2.0  # [py<37]
         - psutil >=4.2.0,<6.0.0
