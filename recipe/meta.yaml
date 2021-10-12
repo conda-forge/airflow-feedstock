@@ -32,6 +32,9 @@ outputs:
         - gitpython  # [py>=37]
         - docutils
         - yarn
+        # seems to be having trouble with openssl 3.
+        # By including it as a dependency, we can explicitly check
+        - openssl
       run:
         - python
         - alembic >=1.2,<2.0
