@@ -16,7 +16,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ name }}
@@ -32,9 +32,6 @@ outputs:
         - gitpython  # [py>=37]
         - docutils
         - yarn
-        # seems to be having trouble with openssl 3.
-        # By including it as a dependency, we can explicitly check
-        - openssl
       run:
         - python
         - alembic >=1.2,<2.0
@@ -98,9 +95,6 @@ outputs:
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
         - apache-airflow-providers-sqlite
-        # seems to be having trouble with openssl 3.
-        # By including it as a dependency, we can explicitly check
-        - openssl
 
     test:
       commands:
