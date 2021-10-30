@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.2.0" %}
-{% set sha256 = "f53d7fafec8ffe7ce87b39be7842adca67b1215f841a2390dd2e5d17b4a0161d" %}
+{% set version = "2.2.1" %}
+{% set sha256 = "8cbd8a056ea299f11e235dda9604a88a1cd3afcc1b156c662a66a0fa8ad73f41" %}
 
 package:
   name: {{ name|lower }}-split
@@ -71,7 +71,7 @@ outputs:
         - markupsafe >=1.1.1,<2.0
         - marshmallow-oneofschema >=2.0.1
         - openapi-spec-validator >=0.2.4
-        - packaging >=21.0,<22.0
+        - packaging >=14.0
         - pendulum >=2.0,<3.0
         - pep562 >=1.0,<2.0  # [py<37]
         - psutil >=4.2.0,<6.0.0
@@ -328,9 +328,6 @@ outputs:
         - pip
 
   - name: {{ name }}-with-kerberos
-    build:
-      # thrift_sasl has not yet been built for py39
-      skip: true  # [py>=39]
     requirements:
       host:
         - python
@@ -340,6 +337,10 @@ outputs:
         - pykerberos >=1.1.13
         - requests-kerberos >=0.10.0
         - thrift_sasl >=0.2.0
+        # temporary dependencies because of bad build of thrift_sasl
+        - thrift >=0.13
+        - pure-sasl >=0.6.2
+        - six >=1.13.0
     test:
       imports:
         - airflow
