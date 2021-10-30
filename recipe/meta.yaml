@@ -328,9 +328,6 @@ outputs:
         - pip
 
   - name: {{ name }}-with-kerberos
-    build:
-      # thrift_sasl has not yet been built for py39
-      skip: true  # [py>=39]
     requirements:
       host:
         - python
@@ -340,6 +337,10 @@ outputs:
         - pykerberos >=1.1.13
         - requests-kerberos >=0.10.0
         - thrift_sasl >=0.2.0
+        # temporary dependencies because of bad build of thrift_sasl
+        - thrift >=0.13
+        - pure-sasl >=0.6.2
+        - six >=1.13.0
     test:
       imports:
         - airflow
