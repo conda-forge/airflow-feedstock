@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.2.1" %}
-{% set sha256 = "8cbd8a056ea299f11e235dda9604a88a1cd3afcc1b156c662a66a0fa8ad73f41" %}
+{% set version = "2.2.2" %}
+{% set sha256 = "6a8441edbdb3eee9531228c134e9227947917bff69dd0a4e37e9de3809e67ff4" %}
 
 package:
   name: {{ name|lower }}-split
@@ -94,6 +94,7 @@ outputs:
         - typing-extensions >=3.7.4  # [py<38]
         - unicodecsv >=0.14.1
         - werkzeug >=1.0.1,<2.0
+        - wtforms <3.0.0
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
