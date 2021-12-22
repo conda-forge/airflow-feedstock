@@ -37,7 +37,7 @@ outputs:
         - openssl
       run:
         - python
-        - alembic >=1.2,<2.0
+        - alembic >=1.5.1,<2.0
         - argcomplete >=1.10,<2.0
         - attrs >=20.0,<21.0
         - blinker
@@ -58,8 +58,9 @@ outputs:
         - flask-wtf >=0.14.3,<0.15
         - python-graphviz >=0.12
         - gunicorn >=19.5.0
-        - httpx
+        - httpx <0.20.0
         - importlib_metadata >=1.7  # [py<39]
+        - importlib_resources >=5.2,<6.0  # [py<39]
         - inflection >=0.3.1
         - iso8601 >=0.1.12
         - itsdangerous >=1.1.0,<2.0
@@ -68,7 +69,7 @@ outputs:
         - lazy-object-proxy
         - lockfile >=0.12.2
         - markdown >=2.5.2,<4.0
-        - markupsafe >=1.1.1,<2.0
+        - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
         - openapi-spec-validator >=0.2.4
         - packaging >=14.0
