@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.2.3" %}
-{% set sha256 = "73a4309709268cb928602fd628ba9798a1bbe74b2ef0109f7b46df980720c235" %}
+{% set version = "2.2.4" %}
+{% set sha256 = "42967ad8e37c48d76862615e27591e4861f8ef12cb2ab53702619c398ab2e17a" %}
 
 package:
   name: {{ name|lower }}-split
@@ -28,8 +28,7 @@ outputs:
       host:
         - python
         - pip
-        - gitpython <3.1.22  # [py<37]
-        - gitpython  # [py>=37]
+        - gitpython
         - docutils
         - yarn
         # seems to be having trouble with openssl 3.
@@ -38,57 +37,60 @@ outputs:
       run:
         - python
         - alembic >=1.5.1,<2.0
-        - argcomplete >=1.10,<2.0
+        - argcomplete >=1.10,<3.0
         - attrs >=20.0,<21.0
         - blinker
         - cached-property >=1.5,<2.0  # [py<=37]
-        - cattrs >=1.0,<1.1.0  # [py<=36]
-        - cattrs >=1.1,<1.7.0  # [py>36]
+        - cattrs >=1.1,<2,!=1.7.*
         - clickclick >=1.2
-        - colorlog >=4.0.2,<6.0
-        - croniter >=0.3.17,<1.1
+        - colorlog >=4.0.2,<7.0
+        - connexion >=2.10.0
+
+        # connection[swagger-ui] dependencies
+        - swagger-ui-bundle >=0.0.2,<0.1
+        # connection[flask] dependencies
+        - flask >=1.0.4,<3
+        - itsdangerous >=0.24
+
+        - croniter >=0.3.17
         - cryptography >=0.9.3
-        - dataclasses  # [py<37]
+        - deprecated >=1.2.13
         - dill >=0.2.2,<0.4
         - docutils <0.17
         - flask >=1.1.0,<2.0
-        - flask-appbuilder >=3.3.2,<4.0.0
+        - flask-appbuilder 3.4.4
         - flask-caching >=1.5.0,<2.0.0
         - flask-login >=0.3,<0.5
         - flask-wtf >=0.14.3,<0.15
+        - flask-session >=0.3.1,<0.4.0
         - python-graphviz >=0.12
         - gunicorn >=19.5.0
-        - httpx <0.20.0
+        - httpx
         - importlib_metadata >=1.7  # [py<39]
         - importlib_resources >=5.2,<6.0  # [py<39]
-        - inflection >=0.3.1
         - iso8601 >=0.1.12
         - itsdangerous >=1.1.0,<2.0
-        - jinja2 >=2.10.1,<4
+        - jinja2 >=2.10.1,<3.1
         - jsonschema >=3.0,<4.0
         - lazy-object-proxy
         - lockfile >=0.12.2
         - markdown >=2.5.2,<4.0
-        - markupsafe >=1.1.1
+        - markupsafe >=1.1.1,<2.1.0
         - marshmallow-oneofschema >=2.0.1
-        - openapi-spec-validator >=0.2.4
         - packaging >=14.0
         - pendulum >=2.0,<3.0
-        - pep562 >=1.0,<2.0  # [py<37]
         - psutil >=4.2.0,<6.0.0
         - pygments >=2.0.1,<3.0
-        - pyjwt <2
+        - pyjwt <3
         - python-daemon >=2.2.4
         - python-dateutil >=2.3,<3
         - python-nvd3 >=0.15.0,<0.16.0
         - python-slugify >=3.0.0,<5.0
         - python3-openid >=3.2,<4.0
-        - pyyaml >=5.1
         - rich >=9.2.0
         - setproctitle >=1.1.8,<2
-        - sqlalchemy >=1.3.18
+        - sqlalchemy >=1.3.18,<1.4.0
         - sqlalchemy-jsonfield >=1.0,<2.0
-        - swagger-ui-bundle >=0.0.2
         - tabulate >=0.7.5,<0.9
         - tenacity >=6.2.0
         - termcolor >=1.1.0
@@ -395,7 +397,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pandas >=0.17.1,<2.0
+        - pandas >=0.17.1,<1.4
     test:
       imports:
         - airflow
