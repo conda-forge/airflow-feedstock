@@ -1,21 +1,54 @@
-diff -ruN airflow-2.0.2/airflow/www/compile_assets.sh airflow-2.0.2-patch/airflow/www/compile_assets.sh
---- airflow-2.0.2/airflow/www/compile_assets.sh	2021-04-19 22:53:27.000000000 +0200
-+++ airflow-2.0.2-patch/airflow/www/compile_assets.sh	2021-04-20 11:00:13.317794832 +0200
+diff -ruN airflow-2.2.4/airflow/www/ask_for_recompile_assets_if_needed.sh airflow-2.2.4-patch/airflow/www/ask_for_recompile_assets_if_needed.sh
+--- airflow-2.2.4/airflow/www/ask_for_recompile_assets_if_needed.sh	2022-02-18 13:02:28.000000000 +0100
++++ airflow-2.2.4-patch/airflow/www/ask_for_recompile_assets_if_needed.sh	2022-02-28 17:21:00.364997675 +0100
+@@ -27,7 +27,7 @@
+ YELLOW='\033[1;33m'
+ NO_COLOR='\033[0m'
+ 
+-md5sum=$(find package.json yarn.lock static/css static/js -type f | sort | xargs md5sum)
++md5sum=$(find package.json yarn.lock static/css static/js -type f | sort | xargs md5)
+ old_md5sum=$(cat "${MD5SUM_FILE}" 2>/dev/null || true)
+ if [[ ${old_md5sum} != "${md5sum}" ]]; then
+     if [[ ${START_AIRFLOW:="false"} == "true" && ${USE_AIRFLOW_VERSION:=} == "" ]]; then
+diff -ruN airflow-2.2.4/airflow/www/compile_assets.sh airflow-2.2.4-patch/airflow/www/compile_assets.sh
+--- airflow-2.2.4/airflow/www/compile_assets.sh	2022-02-18 13:02:28.000000000 +0100
++++ airflow-2.2.4-patch/airflow/www/compile_assets.sh	2022-02-28 17:21:27.220761813 +0100
 @@ -31,4 +31,4 @@
  yarn install --frozen-lockfile
  yarn run build
  
 -find package.json yarn.lock static/css static/js -type f | sort | xargs md5sum > "${MD5SUM_FILE}"
-+find package.json yarn.lock static/css static/js -type f | sort | xargs md5 -r > "${MD5SUM_FILE}"
-diff -ruN airflow-2.0.2/scripts/docker/compile_www_assets.sh airflow-2.0.2-patch/scripts/docker/compile_www_assets.sh
---- airflow-2.0.2/scripts/docker/compile_www_assets.sh	2021-04-19 22:53:27.000000000 +0200
-+++ airflow-2.0.2-patch/scripts/docker/compile_www_assets.sh	2021-04-20 11:00:13.337794681 +0200
-@@ -38,7 +38,7 @@
-     pushd ${www_dir} || exit 1
-     yarn install --frozen-lockfile --no-cache
-     yarn run prod
++find package.json yarn.lock static/css static/js -type f | sort | xargs md5 > "${MD5SUM_FILE}"
+diff -ruN airflow-2.2.4/scripts/ci/pre_commit/pre_commit_mermaid.sh airflow-2.2.4-patch/scripts/ci/pre_commit/pre_commit_mermaid.sh
+--- airflow-2.2.4/scripts/ci/pre_commit/pre_commit_mermaid.sh	2022-02-18 13:02:28.000000000 +0100
++++ airflow-2.2.4-patch/scripts/ci/pre_commit/pre_commit_mermaid.sh	2022-02-28 17:24:37.859057370 +0100
+@@ -58,7 +58,7 @@
+ do
+     basename_file=${AIRFLOW_SOURCES}/"$(dirname "${file}")/$(basename "${file}" .mermaid)"
+     md5sum_file="${basename_file}.md5"
+-    if ! diff "${md5sum_file}" <(md5sum "${file}"); then
++    if ! diff "${md5sum_file}" <(md5 "${file}"); then
+         if [[ ${mermaid_installed} != "true" ]]; then
+             echo "Installing mermaid"
+             mkdir -p "${MERMAID_INSTALLATION_DIR}/node_modules"
+@@ -88,7 +88,7 @@
+             -o "${basename_file}.png" \
+             -c "${MERMAID_CONFIG_FILE}"
+         if [ -f "${basename_file}.png" ]; then
+-            md5sum "${file}" >"${md5sum_file}"
++            md5 "${file}" >"${md5sum_file}"
+             echo
+             echo "Successfully generated: ${basename_file}.png"
+             echo "Successfully updated: ${basename_file}.md5"
+diff -ruN airflow-2.2.4/scripts/docker/compile_www_assets.sh airflow-2.2.4-patch/scripts/docker/compile_www_assets.sh
+--- airflow-2.2.4/scripts/docker/compile_www_assets.sh	2022-02-18 13:02:28.000000000 +0100
++++ airflow-2.2.4-patch/scripts/docker/compile_www_assets.sh	2022-02-28 17:23:10.547844017 +0100
+@@ -54,7 +54,7 @@
+     local md5sum_file
+     md5sum_file="static/dist/sum.md5"
+     readonly md5sum_file
 -    find package.json yarn.lock static/css static/js -type f | sort | xargs md5sum > "${md5sum_file}"
-+    find package.json yarn.lock static/css static/js -type f | sort | xargs md5 -r > "${md5sum_file}"
-     rm -rf "${www_dir}/node_modules"
-     rm -vf "${www_dir}"/{package.json,yarn.lock,.eslintignore,.eslintrc,.stylelintignore,.stylelintrc,compile_assets.sh,webpack.config.js}
-     popd || exit 1
++    find package.json yarn.lock static/css static/js -type f | sort | xargs md5 > "${md5sum_file}"
+     if [[ ${REMOVE_ARTIFACTS} == "true" ]]; then
+         echo
+         echo "${COLOR_BLUE}Removing generated node modules${COLOR_RESET}"
