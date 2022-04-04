@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.2.4" %}
-{% set sha256 = "42967ad8e37c48d76862615e27591e4861f8ef12cb2ab53702619c398ab2e17a" %}
+{% set version = "2.2.5" %}
+{% set sha256 = "a6779d81a90fc19fcbd24d4263f0a739c4c3d6314f701cf8faf166aad3ecb0c1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -58,7 +58,7 @@ outputs:
         - dill >=0.2.2,<0.4
         - docutils <0.17
         - flask >=1.1.0,<2.0
-        - flask-appbuilder 3.4.4
+        - flask-appbuilder 3.4.5
         - flask-caching >=1.5.0,<2.0.0
         - flask-login >=0.3,<0.5
         - flask-wtf >=0.14.3,<0.15
@@ -94,7 +94,7 @@ outputs:
         - tabulate >=0.7.5,<0.9
         - tenacity >=6.2.0
         - termcolor >=1.1.0
-        - typing-extensions >=3.7.4  # [py<38]
+        - typing-extensions >=3.7.4
         - unicodecsv >=0.14.1
         - werkzeug >=1.0.1,<2.0
         - wtforms <3.0.0
@@ -194,26 +194,6 @@ outputs:
       requires:
         - pip
 
-  - name: {{ name }}-with-apache-beam
-    build:
-      # apache-beam doesn't support py39 yet
-      skip: true  # [py>=39]
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-beam >=2.20.0
-    test:
-      imports:
-        - airflow
-        - apache_beam
-      commands:
-        - pip check
-      requires:
-        - pip
-
   - name: {{ name }}-with-apache-webhdfs
     requirements:
       host:
@@ -255,6 +235,26 @@ outputs:
       requires:
         - pip
 
+  # this one isn't happy with openssl >=1.1.1n,<1.1.2a for some reason that
+  # I can't reproduce easily with a local test
+  # - name: {{ name }}-with-celery
+  #   requirements:
+  #     host:
+  #       - python
+  #     run:
+  #       - python
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - celery >=5.2.3
+  #       - flower >=1.0.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #       - celery
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - pip
+
   - name: {{ name }}-with-cgroups
     requirements:
       host:
@@ -273,6 +273,23 @@ outputs:
       requires:
         - pip
 
+  - name: {{ name }}-with-cncf-kubernetes
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - cryptography >=2.0.0
+        - python-kubernetes >=3.0.0,<12.0.0
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - pip
+
   - name: {{ name }}-with-dask
     build:
       # distributed<2.20 was not built for py39
@@ -283,10 +300,9 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cloudpickle >=1.4.1,<1.5.0
-        # dask 2021.6.1 does not work with `distributed`
-        - dask >=2.9.0,<2021.6.1
-        - distributed >=2.11.1,<2.20
+        - cloudpickle >=1.4.1
+        - dask >=2.9.0
+        - distributed >=2.11.1
     test:
       imports:
         - airflow
@@ -296,6 +312,23 @@ outputs:
         - pip check
       requires:
         - pip
+
+  - name: {{ name }}-with-deprecated-api
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - requests >=2.26.0
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - pip
+
 
   - name: {{ name }}-with-github_enterprise
     requirements:
@@ -468,28 +501,11 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - statsd >=3.3.0,<4.0
+        - statsd >=3.3.0
     test:
       imports:
         - airflow
         - statsd
-      commands:
-        - pip check
-      requires:
-        - pip
-
-  - name: {{ name }}-with-tableau
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - tableauserverclient >=0.12,<1.0
-    test:
-      imports:
-        - airflow
-        - tableauserverclient
       commands:
         - pip check
       requires:
@@ -507,40 +523,6 @@ outputs:
       imports:
         - airflow
         - virtualenv
-      commands:
-        - pip check
-      requires:
-        - pip
-
-  # deprecated aliases
-  - name: {{ name }}-with-atlas
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage('airflow-with-apache-atlas', max_pin='x.x.x.x.x.x') }}
-    test:
-      imports:
-        - airflow.lineage
-        - airflow.lineage.entities
-      commands:
-        - pip check
-      requires:
-        - pip
-
-  - name: {{ name }}-with-webhdfs
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage('airflow-with-apache-webhdfs', max_pin='x.x.x.x.x.x') }}
-    test:
-      imports:
-        - airflow
-        - hdfs
-        - airflow.hooks.webhdfs_hook
       commands:
         - pip check
       requires:
