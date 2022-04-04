@@ -235,23 +235,25 @@ outputs:
       requires:
         - pip
 
-  - name: {{ name }}-with-celery
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - celery >=5.2.3
-        - flower >=1.0.0
-    test:
-      imports:
-        - airflow
-        - celery
-      commands:
-        - pip check
-      requires:
-        - pip
+  # this one isn't happy with openssl >=1.1.1n,<1.1.2a for some reason that
+  # I can't reproduce easily with a local test
+  # - name: {{ name }}-with-celery
+  #   requirements:
+  #     host:
+  #       - python
+  #     run:
+  #       - python
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - celery >=5.2.3
+  #       - flower >=1.0.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #       - celery
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - pip
 
   - name: {{ name }}-with-cgroups
     requirements:
