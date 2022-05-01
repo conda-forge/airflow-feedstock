@@ -233,25 +233,23 @@ outputs:
       requires:
         - pip
 
-  # this one isn't happy with openssl >=1.1.1n,<1.1.2a for some reason that
-  # I can't reproduce easily with a local test
-  # - name: {{ name }}-with-celery
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - celery >=5.2.3
-  #       - flower >=1.0.0
-  #   test:
-  #     imports:
-  #       - airflow
-  #       - celery
-  #     commands:
-  #       - pip check
-  #     requires:
-  #       - pip
+  - name: {{ name }}-with-celery
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - celery >=5.2.3,<6
+        - flower >=1.0.0
+    test:
+      imports:
+        - airflow
+        - celery
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-cgroups
     requirements:
@@ -260,7 +258,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cgroupspy >=0.1.4
+        - cgroupspy >=0.2.2
     test:
       imports:
         - airflow
@@ -279,7 +277,7 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cryptography >=2.0.0
-        - python-kubernetes >=3.0.0,<12.0.0
+        - python-kubernetes >=21.7.0,<24
     test:
       imports:
         - airflow
@@ -428,7 +426,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pandas >=0.17.1,<1.4
+        - pandas >=0.17.1
     test:
       imports:
         - airflow
