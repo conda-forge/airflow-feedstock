@@ -10,9 +10,6 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/apache/{{ name }}/archive/{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
-    # OSX uses md5 -r instead of md5sum
-    - 0001-osx-fix-md5.patch  # [osx]
 
 build:
   skip: true  # [win]
@@ -28,8 +25,10 @@ outputs:
       host:
         - python
         - pip
-        - gitpython
+        # for md5sum, cksum, sha256sum
+        - coreutils
         - docutils
+        - gitpython
         - yarn
         # seems to be having trouble with openssl 3.
         # By including it as a dependency, we can explicitly check
