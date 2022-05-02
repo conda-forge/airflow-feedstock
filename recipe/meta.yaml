@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.2.5" %}
-{% set sha256 = "a6779d81a90fc19fcbd24d4263f0a739c4c3d6314f701cf8faf166aad3ecb0c1" %}
+{% set version = "2.3.0" %}
+{% set sha256 = "90acd6b2a981d4f7e6c4dff5c03cd45381cc29211541f6b655964d9a4b3d5d79" %}
 
 package:
   name: {{ name|lower }}-split
@@ -10,9 +10,6 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/apache/{{ name }}/archive/{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
-    # OSX uses md5 -r instead of md5sum
-    - 0001-osx-fix-md5.patch  # [osx]
 
 build:
   skip: true  # [win]
@@ -28,8 +25,10 @@ outputs:
       host:
         - python
         - pip
-        - gitpython
+        # for md5sum, cksum, sha256sum
+        - coreutils
         - docutils
+        - gitpython
         - yarn
         # seems to be having trouble with openssl 3.
         # By including it as a dependency, we can explicitly check
@@ -37,13 +36,12 @@ outputs:
       run:
         - python
         - alembic >=1.5.1,<2.0
-        - argcomplete >=1.10,<3.0
+        - argcomplete >=1.10
         - attrs >=20.0,<21.0
         - blinker
-        - cached-property >=1.5,<2.0  # [py<=37]
+        - cached-property >=1.5  # [py<=37]
         - cattrs >=1.1,<2,!=1.7.*
-        - clickclick >=1.2
-        - colorlog >=4.0.2,<7.0
+        - colorlog >=4.0.2,<5.0
         - connexion >=2.10.0
 
         # connection[swagger-ui] dependencies
@@ -52,11 +50,11 @@ outputs:
         - flask >=1.0.4,<3
         - itsdangerous >=0.24
 
+        - cron-descriptor >=1.2.24
         - croniter >=0.3.17
         - cryptography >=0.9.3
         - deprecated >=1.2.13
-        - dill >=0.2.2,<0.4
-        - docutils <0.17
+        - dill >=0.2.2
         - flask >=1.1.0,<2.0
         - flask-appbuilder 3.4.5
         - flask-caching >=1.5.0,<2.0.0
@@ -67,37 +65,36 @@ outputs:
         - gunicorn >=19.5.0
         - httpx
         - importlib_metadata >=1.7  # [py<39]
-        - importlib_resources >=5.2,<6.0  # [py<39]
-        - iso8601 >=0.1.12
+        - importlib_resources >=5.2  # [py<39]
         - itsdangerous >=1.1.0,<2.0
         - jinja2 >=2.10.1,<3.1
-        - jsonschema >=3.0,<4.0
+        - jsonschema >=3.2.0,<5.0
         - lazy-object-proxy
         - lockfile >=0.12.2
-        - markdown >=2.5.2,<4.0
+        - markdown>=3.0
         - markupsafe >=1.1.1,<2.1.0
         - marshmallow-oneofschema >=2.0.1
         - packaging >=14.0
-        - pendulum >=2.0,<3.0
-        - psutil >=4.2.0,<6.0.0
-        - pygments >=2.0.1,<3.0
+        - pathspec >=0.9.0,<1.0
+        - pendulum >=2.0
+        - pluggy>=1.0
+        - psutil >=4.2.0
+        - pygments >=2.0.1
         - pyjwt <3
         - python-daemon >=2.2.4
-        - python-dateutil >=2.3,<3
-        - python-nvd3 >=0.15.0,<0.16.0
-        - python-slugify >=3.0.0,<5.0
-        - python3-openid >=3.2,<4.0
-        - rich >=9.2.0
-        - setproctitle >=1.1.8,<2
-        - sqlalchemy >=1.3.18,<1.4.0
-        - sqlalchemy-jsonfield >=1.0,<2.0
-        - tabulate >=0.7.5,<0.9
+        - python-dateutil >=2.3
+        - python-nvd3 >=0.15.0
+        - python-slugify >=5.0
+        - rich >=12.3.0
+        - setproctitle >=1.1.8
+        - sqlalchemy >=1.4,<1.4.10
+        - sqlalchemy-jsonfield >=1.0
+        - tabulate >=0.7.5
         - tenacity >=6.2.0
         - termcolor >=1.1.0
         - typing-extensions >=3.7.4
         - unicodecsv >=0.14.1
         - werkzeug >=1.0.1,<2.0
-        - wtforms <3.0.0
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
@@ -235,25 +232,25 @@ outputs:
       requires:
         - pip
 
-  # this one isn't happy with openssl >=1.1.1n,<1.1.2a for some reason that
-  # I can't reproduce easily with a local test
-  # - name: {{ name }}-with-celery
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - celery >=5.2.3
-  #       - flower >=1.0.0
-  #   test:
-  #     imports:
-  #       - airflow
-  #       - celery
-  #     commands:
-  #       - pip check
-  #     requires:
-  #       - pip
+# this one isn't happy with openssl >=1.1.1n,<1.1.2a for some reason that
+# I can't reproduce easily with a local test
+#  - name: {{ name }}-with-celery
+#    requirements:
+#      host:
+#        - python
+#      run:
+#        - python
+#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+#        - celery >=5.2.3,<6
+#        - flower >=1.0.0
+#    test:
+#      imports:
+#        - airflow
+#        - celery
+#      commands:
+#        - pip check
+#      requires:
+#        - pip
 
   - name: {{ name }}-with-cgroups
     requirements:
@@ -262,7 +259,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cgroupspy >=0.1.4
+        - cgroupspy >=0.2.2
     test:
       imports:
         - airflow
@@ -281,7 +278,7 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cryptography >=2.0.0
-        - python-kubernetes >=3.0.0,<12.0.0
+        - python-kubernetes >=21.7.0,<24
     test:
       imports:
         - airflow
@@ -430,7 +427,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pandas >=0.17.1,<1.4
+        - pandas >=0.17.1
     test:
       imports:
         - airflow
