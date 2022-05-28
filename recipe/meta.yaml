@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.3.0" %}
-{% set sha256 = "90acd6b2a981d4f7e6c4dff5c03cd45381cc29211541f6b655964d9a4b3d5d79" %}
+{% set version = "2.3.1" %}
+{% set sha256 = "eb37095b06b2c0552a104910b4c8eef9f664e5132f57900748064b08985862c6" %}
 
 package:
   name: {{ name|lower }}-split
@@ -85,7 +85,7 @@ outputs:
         - python-dateutil >=2.3
         - python-nvd3 >=0.15.0
         - python-slugify >=5.0
-        - rich >=12.3.0
+        - rich >=12.4.1
         - setproctitle >=1.1.8
         - sqlalchemy >=1.4,<1.4.10
         - sqlalchemy-jsonfield >=1.0
