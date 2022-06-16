@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ name }}
@@ -217,7 +217,6 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - dnspython <2.0.0
         - eventlet >=0.9.7
         - gevent >=0.13
         - greenlet >=0.4.9
