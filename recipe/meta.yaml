@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.3.2" %}
-{% set sha256 = "e4d324f00ee0563dce2da62f561abee596bf1fe2cc3247a68135b051cea59d3e" %}
+{% set version = "2.3.3" %}
+{% set sha256 = "f32d27b9c9e5c3a87c5631011c321cb9f4e86b8f880209095fa36eb576bdc3a8" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 1
+  number: 0
 
 outputs:
   - name: {{ name }}
@@ -44,9 +44,9 @@ outputs:
         - colorlog >=4.0.2,<5.0
         - connexion >=2.10.0
 
-        # connection[swagger-ui] dependencies
+        # connexion[swagger-ui] dependencies
         - swagger-ui-bundle >=0.0.2,<0.1
-        # connection[flask] dependencies
+        # connexion[flask] dependencies
         - flask >=1.0.4,<3
         - itsdangerous >=0.24
 
@@ -55,46 +55,49 @@ outputs:
         - cryptography >=0.9.3
         - deprecated >=1.2.13
         - dill >=0.2.2
-        - flask >=1.1.0,<2.0
-        - flask-appbuilder 3.4.5
-        - flask-caching >=1.5.0,<2.0.0
-        - flask-login >=0.3,<0.5
-        - flask-wtf >=0.14.3,<0.15
-        - flask-session >=0.3.1,<0.4.0
+        - flask >=2.0
+        - flask-appbuilder 4.1.2
+        - flask-caching >=1.5.0
+        - flask-login >=0.5
+        - flask-session >=0.4.0
+        - flask-wtf >=0.15
         - python-graphviz >=0.12
         - gunicorn >=19.5.0
         - httpx
         - importlib_metadata >=1.7  # [py<39]
         - importlib_resources >=5.2  # [py<39]
-        - itsdangerous >=1.1.0,<2.0
-        - jinja2 >=2.10.1,<3.1
-        - jsonschema >=3.2.0,<5.0
+        - itsdangerous >=2.0
+        - jinja2 >=2.10.1
+        - jsonschema >=3.2.0
         - lazy-object-proxy
+        - linkify-it-py >=2.0.0
         - lockfile >=0.12.2
         - markdown>=3.0
-        - markupsafe >=1.1.1,<2.1.0
+        - markdown-it-py >=2.1.0
+        - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
+        - mdit-py-plugins >=0.3.0
         - packaging >=14.0
         - pathspec >=0.9.0,<1.0
         - pendulum >=2.0
         - pluggy>=1.0
         - psutil >=4.2.0
         - pygments >=2.0.1
-        - pyjwt <3
+        - pyjwt >=2.0.0
         - python-daemon >=2.2.4
         - python-dateutil >=2.3
         - python-nvd3 >=0.15.0
         - python-slugify >=5.0
-        - rich >=12.4.1
+        - rich >=12.4.4
         - setproctitle >=1.1.8
-        - sqlalchemy >=1.4,<1.4.10
+        - sqlalchemy >=1.4
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
         - tenacity >=6.2.0
         - termcolor >=1.1.0
         - typing-extensions >=3.7.4
         - unicodecsv >=0.14.1
-        - werkzeug >=1.0.1,<2.0
+        - werkzeug >=2.0
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
@@ -333,7 +336,9 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - authlib
+        - flask-appbuilder
+        # flask-appbuilder[oauth]
+        - authlib >=0.14,<1.0.0
     test:
       imports:
         - airflow
@@ -350,7 +355,9 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - authlib
+        - flask-appbuilder
+        # flask-appbuilder[oauth]
+        - authlib >=0.14,<1.0.0
     test:
       imports:
         - airflow
