@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ name }}
@@ -290,9 +290,6 @@ outputs:
         - pip
 
   - name: {{ name }}-with-dask
-    build:
-      # distributed<2.20 was not built for py39
-      skip: true  # [py>=39]
     requirements:
       host:
         - python
