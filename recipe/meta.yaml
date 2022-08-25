@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.3.3" %}
-{% set sha256 = "f32d27b9c9e5c3a87c5631011c321cb9f4e86b8f880209095fa36eb576bdc3a8" %}
+{% set version = "2.3.4" %}
+{% set sha256 = "b05b73af2376b03f7346e5a37ac810ff108c219e6e547227521889a12bf628eb" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 1
+  number: 0
 
 outputs:
   - name: {{ name }}
@@ -37,10 +37,9 @@ outputs:
         - python
         - alembic >=1.5.1,<2.0
         - argcomplete >=1.10
-        - attrs >=20.0,<21.0
         - blinker
         - cached-property >=1.5  # [py<=37]
-        - cattrs >=1.1,<2,!=1.7.*
+        - cattrs >=22.1.0
         - colorlog >=4.0.2,<5.0
         - connexion >=2.10.0
 
@@ -55,10 +54,10 @@ outputs:
         - cryptography >=0.9.3
         - deprecated >=1.2.13
         - dill >=0.2.2
-        - flask >=2.0
-        - flask-appbuilder 4.1.2
+        - flask >=2.0,<2.3
+        - flask-appbuilder 4.1.3
         - flask-caching >=1.5.0
-        - flask-login >=0.5
+        - flask-login >=0.6.2
         - flask-session >=0.4.0
         - flask-wtf >=0.15
         - python-graphviz >=0.12
@@ -95,7 +94,7 @@ outputs:
         - tabulate >=0.7.5
         - tenacity >=6.2.0
         - termcolor >=1.1.0
-        - typing-extensions >=3.7.4
+        - typing-extensions >=4.0.0
         - unicodecsv >=0.14.1
         - werkzeug >=2.0
         - apache-airflow-providers-ftp
