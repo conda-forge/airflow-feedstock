@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.4.1" %}
-{% set sha256 = "bec810943b62d71c5076b20236f976a3429606b17cfd43f7e753fab418ee0651" %}
+{% set version = "2.4.2" %}
+{% set sha256 = "9622ad2cbd88f2a859c61a15e9f7e72ba63ee731f0b20c668d83f8ae8ac43b12" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 1
+  number: 0
 
 outputs:
   - name: {{ name }}
@@ -30,8 +30,8 @@ outputs:
         - docutils
         - gitpython
         - yarn
-        # seems to be having trouble with openssl 3.
-        # By including it as a dependency, we can explicitly check
+        # explicit dependence on openssl isn't mentioned but version incompatibility 
+        # has given us trouble in the past
         - openssl
       run:
         - python
@@ -57,7 +57,7 @@ outputs:
         - deprecated >=1.2.13
         - dill >=0.2.2
         - flask >=2.2,<2.3
-        - flask-appbuilder 4.1.3
+        - flask-appbuilder 4.1.4
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         - flask-session >=0.4.0
@@ -68,7 +68,7 @@ outputs:
         - importlib_metadata >=1.7  # [py<39]
         - importlib_resources >=5.2  # [py<39]
         - itsdangerous >=2.0
-        - jinja2 >=2.10.1
+        - jinja2 >=3.0.0
         - jsonschema >=3.2.0
         - lazy-object-proxy
         - linkify-it-py >=2.0.0
@@ -103,8 +103,8 @@ outputs:
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
         - apache-airflow-providers-sqlite
-        # seems to be having trouble with openssl 3.
-        # By including it as a dependency, we can explicitly check
+        # explicit dependence on openssl isn't mentioned but version incompatibility 
+        # has given us trouble in the past
         - openssl
 
     test:
