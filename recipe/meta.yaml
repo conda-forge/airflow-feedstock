@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.4.2" %}
-{% set sha256 = "9622ad2cbd88f2a859c61a15e9f7e72ba63ee731f0b20c668d83f8ae8ac43b12" %}
+{% set version = "2.4.3" %}
+{% set sha256 = "48c3b7bf89ee7846fe73f66451b84385dc4873184a44f73320f8fa5520ff9ed9" %}
 
 package:
   name: {{ name|lower }}-split
@@ -533,7 +533,25 @@ outputs:
 about:
   home: http://airflow.apache.org
   license: Apache-2.0
-  license_file: LICENSE
+  license_file: 
+    - LICENSE
+    - NOTICE
+    - licenses/LICENSE-bootstrap3-typeahead.txt
+    - licenses/LICENSE-bootstrap.txt
+    - licenses/LICENSE-d3js.txt
+    - licenses/LICENSE-d3-shape.txt
+    - licenses/LICENSE-d3-tip.txt
+    - licenses/LICENSE-dagre-d3.txt
+    - licenses/LICENSE-datatables.txt
+    - licenses/LICENSE-elasticmock.txt
+    - licenses/LICENSE-eonasdan-bootstrap-datetimepicker.txt
+    - licenses/LICENSE-flask-kerberos.txt
+    - licenses/LICENSE-hue.txt
+    - licenses/LICENSE-jqclock.txt
+    - licenses/LICENSE-jquery.txt
+    - licenses/LICENSE-moment-strftime.txt
+    - licenses/LICENSE-moment.txt
+    - licenses/LICENSE-normalize.txt
   summary: |
     Airflow is a platform to programmatically author, schedule and monitor
     workflows
