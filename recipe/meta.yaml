@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.4.3" %}
-{% set sha256 = "48c3b7bf89ee7846fe73f66451b84385dc4873184a44f73320f8fa5520ff9ed9" %}
+{% set version = "2.5.0" %}
+{% set sha256 = "44348677d4388c695b7a3cf40189db0598e89c07aa4e03c4046fc33f8a63de27" %}
 
 package:
   name: {{ name|lower }}-split
@@ -30,16 +30,15 @@ outputs:
         - docutils
         - gitpython
         - yarn
-        # explicit dependence on openssl isn't mentioned but version incompatibility 
+        # explicit dependence on openssl isn't mentioned but version incompatibility
         # has given us trouble in the past
         - openssl
       run:
         - python
-        - alembic >=1.5.1,<2.0
-        - attrs >=22.1.0
+        - alembic >=1.6.3,<2.0
         - argcomplete >=1.10
+        - attrs >=22.1.0
         - blinker
-        - cached-property >=1.5  # [py<=37]
         - cattrs >=22.1.0
         - colorlog >=4.0.2,<5.0
         - configupdater >=3.1.1
@@ -63,25 +62,25 @@ outputs:
         - flask-session >=0.4.0
         - flask-wtf >=0.15
         - python-graphviz >=0.12
-        - gunicorn >=19.5.0
+        - gunicorn >=20.1.0
         - httpx
-        - importlib_metadata >=1.7  # [py<39]
-        - importlib_resources >=5.2  # [py<39]
+        - importlib-metadata >=1.7  # [py<39]
+        - importlib-resources >=5.2  # [py<39]
         - itsdangerous >=2.0
         - jinja2 >=3.0.0
         - jsonschema >=3.2.0
         - lazy-object-proxy
         - linkify-it-py >=2.0.0
         - lockfile >=0.12.2
-        - markdown>=3.0
+        - markdown >=3.0
         - markdown-it-py >=2.1.0
         - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
         - packaging >=14.0
-        - pathspec >=0.9.0,<0.10.0
+        - pathspec >=0.9.0,<0.10.dev0
         - pendulum >=2.0
-        - pluggy>=1.0
+        - pluggy >=1.0
         - psutil >=4.2.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
@@ -99,12 +98,13 @@ outputs:
         - typing-extensions >=4.0.0
         - unicodecsv >=0.14.1
         - werkzeug >=2.0
+        - apache-airflow-providers-common-sql
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
         - apache-airflow-providers-sqlite
-        # explicit dependence on openssl isn't mentioned but version incompatibility 
-        # has given us trouble in the past
+        # explicit dependence on openssl isn't mentioned but version
+        # incompatibility has given us trouble in the past
         - openssl
 
     test:
@@ -303,7 +303,7 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cloudpickle >=1.4.1
-        - dask >=2.9.0
+        - dask >=2.9.0,!=2022.10.1
         - distributed >=2.11.1
     test:
       imports:
@@ -339,7 +339,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder
+        - flask-appbuilder 4.1.4
         # flask-appbuilder[oauth]
         - authlib >=0.14,<1.0.0
     test:
@@ -358,7 +358,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder
+        - flask-appbuilder 4.1.4
         # flask-appbuilder[oauth]
         - authlib >=0.14,<1.0.0
     test:
@@ -533,24 +533,24 @@ outputs:
 about:
   home: http://airflow.apache.org
   license: Apache-2.0
-  license_file: 
+  license_file:
     - LICENSE
     - NOTICE
-    - licenses/LICENSE-bootstrap3-typeahead.txt
-    - licenses/LICENSE-bootstrap.txt
     - licenses/LICENSE-d3js.txt
-    - licenses/LICENSE-d3-shape.txt
     - licenses/LICENSE-d3-tip.txt
-    - licenses/LICENSE-dagre-d3.txt
-    - licenses/LICENSE-datatables.txt
+    - licenses/LICENSE-moment-strftime.txt
     - licenses/LICENSE-elasticmock.txt
     - licenses/LICENSE-eonasdan-bootstrap-datetimepicker.txt
+    - licenses/LICENSE-moment.txt
+    - licenses/LICENSE-bootstrap3-typeahead.txt
+    - licenses/LICENSE-jqclock.txt
+    - licenses/LICENSE-dagre-d3.txt
+    - licenses/LICENSE-datatables.txt
     - licenses/LICENSE-flask-kerberos.txt
     - licenses/LICENSE-hue.txt
-    - licenses/LICENSE-jqclock.txt
     - licenses/LICENSE-jquery.txt
-    - licenses/LICENSE-moment-strftime.txt
-    - licenses/LICENSE-moment.txt
+    - licenses/LICENSE-bootstrap.txt
+    - licenses/LICENSE-d3-shape.txt
     - licenses/LICENSE-normalize.txt
   summary: |
     Airflow is a platform to programmatically author, schedule and monitor
