@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.5.0" %}
-{% set sha256 = "44348677d4388c695b7a3cf40189db0598e89c07aa4e03c4046fc33f8a63de27" %}
+{% set version = "2.5.1" %}
+{% set sha256 = "c26efea50938467823c0c017eec185a9c815d28c785fbf5cfcbb92a54a140be6" %}
 
 package:
   name: {{ name|lower }}-split
@@ -44,8 +44,6 @@ outputs:
         - configupdater >=3.1.1
         - connexion >=2.10.0
 
-        # connexion[swagger-ui] dependencies
-        - swagger-ui-bundle >=0.0.2,<0.1
         # connexion[flask] dependencies
         - flask >=1.0.4,<3
         - itsdangerous >=0.24
@@ -90,7 +88,7 @@ outputs:
         - python-slugify >=5.0
         - rich >=12.4.4
         - setproctitle >=1.1.8
-        - sqlalchemy >=1.4
+        - sqlalchemy >=1.4,<2.0
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
         - tenacity >=6.2.0
@@ -142,8 +140,6 @@ outputs:
         - airflow.migrations
         - airflow.migrations.versions
         - airflow.models
-        - airflow.mypy
-        - airflow.mypy.plugin
         - airflow.operators
         - airflow.secrets
         - airflow.security
@@ -226,7 +222,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - eventlet >=0.9.7
+        - eventlet >=0.33.3
         - gevent >=0.13
         - greenlet >=0.4.9
     test:
