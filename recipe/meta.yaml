@@ -129,6 +129,8 @@ outputs:
         - airflow.contrib.sensors
         - airflow.contrib.task_runner
         - airflow.contrib.utils
+        - airflow.dev.mypy
+        - airflow.dev.mypy.plugin
         - airflow.example_dags
         - airflow.example_dags.subdags
         - airflow.executors
@@ -140,8 +142,6 @@ outputs:
         - airflow.migrations
         - airflow.migrations.versions
         - airflow.models
-        - airflow.mypy
-        - airflow.mypy.plugin
         - airflow.operators
         - airflow.secrets
         - airflow.security
