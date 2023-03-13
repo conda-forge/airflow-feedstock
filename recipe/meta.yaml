@@ -404,22 +404,22 @@ outputs:
 #      requires:
 #        - pip
 
-  - name: {{ name }}-with-leveldb
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - plyvel
-    test:
-      imports:
-        - airflow
-        - plyvel
-      commands:
-        - pip check
-      requires:
-        - pip
+#  - name: {{ name }}-with-leveldb
+#    requirements:
+#      host:
+#        - python
+#      run:
+#        - python
+#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+#        - plyvel
+#    test:
+#      imports:
+#        - airflow
+#        - plyvel
+#      commands:
+#        - pip check
+#      requires:
+#        - pip
 
   - name: {{ name }}-with-pandas
     requirements:
