@@ -1,11 +1,11 @@
-About airflow-split
-===================
+About airflow-split-feedstock
+=============================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/airflow-feedstock/blob/main/LICENSE.txt)
 
 Home: http://airflow.apache.org
 
 Package license: Apache-2.0
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/airflow-feedstock/blob/main/LICENSE.txt)
 
 Summary: Airflow is a platform to programmatically author, schedule and monitor
 workflows
