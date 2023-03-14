@@ -106,7 +106,11 @@ outputs:
       commands:
         - pip check
         - airflow --help
-        - airflow db init
+        # not working for linux emulation because passlib, a dependency of
+        # sqlalchemy ends up creating a bcrypt hash, which Ubuntu CI's glibc
+        # cannot handle. 
+        # https://github.com/conda-forge/airflow-feedstock/pull/103#issuecomment-1468162070
+        - airflow db init  # [not linux-aarch64 and not linux-ppc64le]
       imports:
         - airflow
         - airflow.api
