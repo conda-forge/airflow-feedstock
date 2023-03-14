@@ -239,7 +239,7 @@ outputs:
 
   - name: {{ name }}-with-celery
     build:
-      skip: true  # [osx-arm64 or linux-aarch64 or linux-ppc64le]
+      skip: True  # [arm64 or aarch64 or ppc64le]
     requirements:
       host:
         - python
@@ -389,7 +389,7 @@ outputs:
 
   - name: {{ name }}-with-ldap
     build:
-      skip: true  # [osx-arm64 or linux-aarch64 or linux-ppc64le]
+      skip: True  # [arm64 or aarch64 or ppc64le]
     requirements:
       host:
         - python
@@ -409,7 +409,7 @@ outputs:
 
   - name: {{ name }}-with-leveldb
     build:
-      skip: true  # [osx-arm64 or linux-aarch64 or linux-ppc64le]
+      skip: True  # [arm64 or aarch64 or ppc64le]
     requirements:
       host:
         - python
