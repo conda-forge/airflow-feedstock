@@ -22,6 +22,9 @@ outputs:
       entry_points:
         - airflow=airflow.__main__:main
     requirements:
+      build:
+        - python                                 # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
       host:
         - python
         - pip
@@ -386,23 +389,25 @@ outputs:
       requires:
         - pip
 
-#  - name: {{ name }}-with-ldap
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - ldap3 >=2.5.1
-#        - python-ldap
-#    test:
-#      imports:
-#        - airflow
-#        - ldap3
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-ldap
+    build:
+      skip: true  # [osx-arm64 or linux-aarch64 or linux-ppc64le]
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - ldap3 >=2.5.1
+        - python-ldap
+    test:
+      imports:
+        - airflow
+        - ldap3
+      commands:
+        - pip check
+      requires:
+        - pip
 
 #  - name: {{ name }}-with-leveldb
 #    requirements:
