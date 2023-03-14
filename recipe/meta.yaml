@@ -27,12 +27,12 @@ outputs:
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         # for md5sum, cksum, sha256sum
         - coreutils
+        - yarn <2
       host:
         - python
         - pip
         - docutils
         - gitpython
-        - yarn <2
         # explicit dependence on openssl isn't mentioned but version incompatibility
         # has given us trouble in the past
         - openssl
