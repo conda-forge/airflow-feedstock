@@ -25,11 +25,11 @@ outputs:
       build:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+        # for md5sum, cksum, sha256sum
+        - coreutils
       host:
         - python
         - pip
-        # for md5sum, cksum, sha256sum
-        - coreutils
         - docutils
         - gitpython
         - yarn <2
