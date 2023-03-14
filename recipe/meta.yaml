@@ -238,6 +238,8 @@ outputs:
         - pip
 
   - name: {{ name }}-with-celery
+    build:
+      skip: true  # [osx-arm64 or linux-aarch64 or linux-ppc64le]
     requirements:
       host:
         - python
