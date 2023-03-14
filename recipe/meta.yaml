@@ -233,25 +233,23 @@ outputs:
       requires:
         - pip
 
-# this one isn't happy with openssl >=1.1.1n,<1.1.2a for some reason that
-# I can't reproduce easily with a local test
-#  - name: {{ name }}-with-celery
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - celery >=5.2.3,<6
-#        - flower >=1.0.0
-#    test:
-#      imports:
-#        - airflow
-#        - celery
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-celery
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - celery >=5.2.3,<6
+        - flower >=1.0.0
+    test:
+      imports:
+        - airflow
+        - celery
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-cgroups
     requirements:
@@ -383,40 +381,44 @@ outputs:
       requires:
         - pip
 
-#  - name: {{ name }}-with-ldap
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - ldap3 >=2.5.1
-#        - python-ldap
-#    test:
-#      imports:
-#        - airflow
-#        - ldap3
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-ldap
+    build:
+      skip: true  # [osx-arm64 or linux-aarch64 or linux-ppc64le]
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - ldap3 >=2.5.1
+        - python-ldap
+    test:
+      imports:
+        - airflow
+        - ldap3
+      commands:
+        - pip check
+      requires:
+        - pip
 
-#  - name: {{ name }}-with-leveldb
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - plyvel
-#    test:
-#      imports:
-#        - airflow
-#        - plyvel
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-leveldb
+    build:
+      skip: true  # [osx-arm64 or linux-aarch64 or linux-ppc64le]
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - plyvel
+    test:
+      imports:
+        - airflow
+        - plyvel
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-pandas
     requirements:
