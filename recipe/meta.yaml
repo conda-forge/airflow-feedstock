@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ name }}
@@ -29,7 +29,7 @@ outputs:
         - coreutils
         - docutils
         - gitpython
-        - yarn
+        - yarn <2
         # explicit dependence on openssl isn't mentioned but version incompatibility
         # has given us trouble in the past
         - openssl
@@ -386,40 +386,40 @@ outputs:
       requires:
         - pip
 
-  - name: {{ name }}-with-ldap
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - ldap3 >=2.5.1
-        - python-ldap
-    test:
-      imports:
-        - airflow
-        - ldap3
-      commands:
-        - pip check
-      requires:
-        - pip
+#  - name: {{ name }}-with-ldap
+#    requirements:
+#      host:
+#        - python
+#      run:
+#        - python
+#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+#        - ldap3 >=2.5.1
+#        - python-ldap
+#    test:
+#      imports:
+#        - airflow
+#        - ldap3
+#      commands:
+#        - pip check
+#      requires:
+#        - pip
 
-  - name: {{ name }}-with-leveldb
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - plyvel
-    test:
-      imports:
-        - airflow
-        - plyvel
-      commands:
-        - pip check
-      requires:
-        - pip
+#  - name: {{ name }}-with-leveldb
+#    requirements:
+#      host:
+#        - python
+#      run:
+#        - python
+#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+#        - plyvel
+#    test:
+#      imports:
+#        - airflow
+#        - plyvel
+#      commands:
+#        - pip check
+#      requires:
+#        - pip
 
   - name: {{ name }}-with-pandas
     requirements:
