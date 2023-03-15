@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.5.1" %}
-{% set sha256 = "c26efea50938467823c0c017eec185a9c815d28c785fbf5cfcbb92a54a140be6" %}
+{% set version = "2.5.2" %}
+{% set sha256 = "7ed17a4107c0f80904615d1043eb6ece8f58ac7a5390499208bade7a4010fda6" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 2
+  number: 0
 
 outputs:
   - name: {{ name }}
@@ -62,11 +62,11 @@ outputs:
         - python-graphviz >=0.12
         - gunicorn >=20.1.0
         - httpx
-        - importlib-metadata >=1.7  # [py<39]
+        - importlib-metadata >=1.7,<5.0.0  # [py<=39]
         - importlib-resources >=5.2  # [py<39]
         - itsdangerous >=2.0
         - jinja2 >=3.0.0
-        - jsonschema >=3.2.0
+        - jsonschema >=4.0.0
         - lazy-object-proxy
         - linkify-it-py >=2.0.0
         - lockfile >=0.12.2
@@ -82,16 +82,17 @@ outputs:
         - psutil >=4.2.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
-        - python-daemon >=2.2.4
+        - python-daemon >=3.0.0
         - python-dateutil >=2.3
         - python-nvd3 >=0.15.0
         - python-slugify >=5.0
+        - rfc3339-validator >=0.1.4
         - rich >=12.4.4
         - setproctitle >=1.1.8
         - sqlalchemy >=1.4,<2.0
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
-        - tenacity >=6.2.0
+        - tenacity >=6.2.0,!=8.2.0
         - termcolor >=1.1.0
         - typing-extensions >=4.0.0
         - unicodecsv >=0.14.1
@@ -108,7 +109,7 @@ outputs:
         - airflow --help
         # not working for linux emulation because passlib, a dependency of
         # sqlalchemy ends up creating a bcrypt hash, which Ubuntu CI's glibc
-        # cannot handle. 
+        # cannot handle.
         # https://github.com/conda-forge/airflow-feedstock/pull/103#issuecomment-1468162070
         - airflow db init  # [not linux-aarch64 and not linux-ppc64le]
       imports:
@@ -381,7 +382,9 @@ outputs:
       imports:
         - airflow
         - kerberos
-        - airflow.api.auth.backend.kerberos_auth
+        # failing because of bcrypt issue in docker images, see:
+        # https://github.com/conda-forge/airflow-feedstock/pull/103#issuecomment-1468162070
+        - airflow.api.auth.backend.kerberos_auth  # [not aarch64 and not ppc64le]
       commands:
         - pip check
       requires:
