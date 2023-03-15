@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 1
+  number: 2
 
 outputs:
   - name: {{ name }}
@@ -33,9 +33,6 @@ outputs:
         - pip
         - docutils
         - gitpython
-        # explicit dependence on openssl isn't mentioned but version incompatibility
-        # has given us trouble in the past
-        - openssl
       run:
         - python
         - alembic >=1.6.3,<2.0
@@ -104,15 +101,16 @@ outputs:
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
         - apache-airflow-providers-sqlite
-        # explicit dependence on openssl isn't mentioned but version
-        # incompatibility has given us trouble in the past
-        - openssl
 
     test:
       commands:
         - pip check
         - airflow --help
-        - airflow db init
+        # not working for linux emulation because passlib, a dependency of
+        # sqlalchemy ends up creating a bcrypt hash, which Ubuntu CI's glibc
+        # cannot handle. 
+        # https://github.com/conda-forge/airflow-feedstock/pull/103#issuecomment-1468162070
+        - airflow db init  # [not linux-aarch64 and not linux-ppc64le]
       imports:
         - airflow
         - airflow.api
@@ -239,25 +237,25 @@ outputs:
       requires:
         - pip
 
-# this one isn't happy with openssl >=1.1.1n,<1.1.2a for some reason that
-# I can't reproduce easily with a local test
-#  - name: {{ name }}-with-celery
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - celery >=5.2.3,<6
-#        - flower >=1.0.0
-#    test:
-#      imports:
-#        - airflow
-#        - celery
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-celery
+    build:
+      skip: True  # [arm64 or aarch64 or ppc64le]
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - celery >=5.2.3,<6
+        - flower >=1.0.0
+    test:
+      imports:
+        - airflow
+        - celery
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-cgroups
     requirements:
@@ -389,40 +387,44 @@ outputs:
       requires:
         - pip
 
-#  - name: {{ name }}-with-ldap
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - ldap3 >=2.5.1
-#        - python-ldap
-#    test:
-#      imports:
-#        - airflow
-#        - ldap3
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-ldap
+    build:
+      skip: True  # [arm64 or aarch64 or ppc64le]
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - ldap3 >=2.5.1
+        - python-ldap
+    test:
+      imports:
+        - airflow
+        - ldap3
+      commands:
+        - pip check
+      requires:
+        - pip
 
-#  - name: {{ name }}-with-leveldb
-#    requirements:
-#      host:
-#        - python
-#      run:
-#        - python
-#        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-#        - plyvel
-#    test:
-#      imports:
-#        - airflow
-#        - plyvel
-#      commands:
-#        - pip check
-#      requires:
-#        - pip
+  - name: {{ name }}-with-leveldb
+    build:
+      skip: True  # [arm64 or aarch64 or ppc64le]
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - plyvel
+    test:
+      imports:
+        - airflow
+        - plyvel
+      commands:
+        - pip check
+      requires:
+        - pip
 
   - name: {{ name }}-with-pandas
     requirements:
