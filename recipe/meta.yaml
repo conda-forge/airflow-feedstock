@@ -382,7 +382,9 @@ outputs:
       imports:
         - airflow
         - kerberos
-        - airflow.api.auth.backend.kerberos_auth
+        # failing because of bcrypt issue in docker images, see:
+        # https://github.com/conda-forge/airflow-feedstock/pull/103#issuecomment-1468162070
+        - airflow.api.auth.backend.kerberos_auth  # [not aarch64 and not ppc64le]
       commands:
         - pip check
       requires:
