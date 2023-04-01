@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.5.2" %}
-{% set sha256 = "7ed17a4107c0f80904615d1043eb6ece8f58ac7a5390499208bade7a4010fda6" %}
+{% set version = "2.5.3" %}
+{% set sha256 = "b42869bd130e13e9f99a3d6989a130e2f9ab1f1f991109d91a12d029368e0c18" %}
 
 package:
   name: {{ name|lower }}-split
@@ -62,7 +62,7 @@ outputs:
         - python-graphviz >=0.12
         - gunicorn >=20.1.0
         - httpx
-        - importlib-metadata >=1.7,<5.0.0  # [py<=39]
+        - importlib-metadata >=1.7,<5.0.0  # [py<39]
         - importlib-resources >=5.2  # [py<39]
         - itsdangerous >=2.0
         - jinja2 >=3.0.0
