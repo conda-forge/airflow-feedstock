@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.5.3" %}
-{% set sha256 = "b42869bd130e13e9f99a3d6989a130e2f9ab1f1f991109d91a12d029368e0c18" %}
+{% set version = "2.6.0" %}
+{% set sha256 = "cad4af486162e9a30c23884f508947e5f0f3ea8139a360304aa2bc2fe81ab7f8" %}
 
 package:
   name: {{ name|lower }}-split
@@ -37,6 +37,7 @@ outputs:
         - python
         - alembic >=1.6.3,<2.0
         - argcomplete >=1.10
+        - asgiref
         - attrs >=22.1.0
         - blinker
         - cattrs >=22.1.0
@@ -54,7 +55,7 @@ outputs:
         - deprecated >=1.2.13
         - dill >=0.2.2
         - flask >=2.2,<2.3
-        - flask-appbuilder 4.1.4
+        - flask-appbuilder 4.3.0
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         - flask-session >=0.4.0
@@ -80,6 +81,7 @@ outputs:
         - pendulum >=2.0
         - pluggy >=1.0
         - psutil >=4.2.0
+        - pydantic >=1.10.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
         - python-daemon >=3.0.0
@@ -88,6 +90,7 @@ outputs:
         - python-slugify >=5.0
         - rfc3339-validator >=0.1.4
         - rich >=12.4.4
+        - rich-argparse >=1.0.0
         - setproctitle >=1.1.8
         - sqlalchemy >=1.4,<2.0
         - sqlalchemy-jsonfield >=1.0
@@ -337,9 +340,9 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.1.4
-        # flask-appbuilder[oauth]
-        - authlib >=0.14,<1.0.0
+        - flask-appbuilder 4.3.0
+        # flask-appbuilder[oauth] for 4.3.0
+        - authlib >=0.14,<2.0.0
     test:
       imports:
         - airflow
@@ -356,9 +359,9 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.1.4
-        # flask-appbuilder[oauth]
-        - authlib >=0.14,<1.0.0
+        - flask-appbuilder 4.3.0
+        # flask-appbuilder[oauth] for 4.3.0
+        - authlib >=0.14,<2.0.0
     test:
       imports:
         - airflow
@@ -437,6 +440,7 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pandas >=0.17.1
+        - pyarrow >=9.0.0
     test:
       imports:
         - airflow
