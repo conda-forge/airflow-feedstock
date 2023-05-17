@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.6.0" %}
-{% set sha256 = "cad4af486162e9a30c23884f508947e5f0f3ea8139a360304aa2bc2fe81ab7f8" %}
+{% set version = "2.6.1" %}
+{% set sha256 = "3090b06bcb556b18e0027a128ee2ed40e9d1750075d4921e5309eb42c528bb01" %}
 
 package:
   name: {{ name|lower }}-split
@@ -304,8 +304,8 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cloudpickle >=1.4.1
-        - dask >=2.9.0,!=2022.10.1
-        - distributed >=2.11.1
+        - dask >=2.9.0,!=2022.10.1,<2023.5.0
+        - distributed >=2.11.1,<2023.5.0
     test:
       imports:
         - airflow
