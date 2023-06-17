@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.6.1" %}
-{% set sha256 = "3090b06bcb556b18e0027a128ee2ed40e9d1750075d4921e5309eb42c528bb01" %}
+{% set version = "2.6.2" %}
+{% set sha256 = "57c1751e8452844b9b4acc3b5e71674915ac0a078a62ea9e67e2b4f5d93ee6b8" %}
 
 package:
   name: {{ name|lower }}-split
@@ -55,7 +55,7 @@ outputs:
         - deprecated >=1.2.13
         - dill >=0.2.2
         - flask >=2.2,<2.3
-        - flask-appbuilder 4.3.0
+        - flask-appbuilder 4.3.1
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         - flask-session >=0.4.0
@@ -304,8 +304,8 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - cloudpickle >=1.4.1
-        - dask >=2.9.0,!=2022.10.1,<2023.5.0
-        - distributed >=2.11.1,<2023.5.0
+        - dask >=2.9.0,!=2022.10.1,!=2023.5.0
+        - distributed >=2.11.1,!=2023.5.0
     test:
       imports:
         - airflow
@@ -340,8 +340,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.0
-        # flask-appbuilder[oauth] for 4.3.0
+        - flask-appbuilder 4.3.1
+        # flask-appbuilder[oauth] for 4.3.1
         - authlib >=0.14,<2.0.0
     test:
       imports:
@@ -359,8 +359,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.0
-        # flask-appbuilder[oauth] for 4.3.0
+        - flask-appbuilder 4.3.1
+        # flask-appbuilder[oauth] for 4.3.1
         - authlib >=0.14,<2.0.0
     test:
       imports:
