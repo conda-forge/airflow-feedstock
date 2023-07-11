@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.6.2" %}
-{% set sha256 = "57c1751e8452844b9b4acc3b5e71674915ac0a078a62ea9e67e2b4f5d93ee6b8" %}
+{% set version = "2.6.3" %}
+{% set sha256 = "dc09441a1b4f66ebe202f880b4172e79b7898b91a823aaab14fc363f6586d852" %}
 
 package:
   name: {{ name|lower }}-split
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 1
+  number: 0
 
 outputs:
   - name: {{ name }}
@@ -31,6 +31,7 @@ outputs:
       host:
         - python
         - pip
+        - setuptools >=67.2.0,<68.0.0
         - docutils
         - gitpython
       run:
@@ -60,6 +61,7 @@ outputs:
         - flask-login >=0.6.2
         - flask-session >=0.4.0
         - flask-wtf >=0.15
+        - google-re2 >=1.0
         - python-graphviz >=0.12
         - gunicorn >=20.1.0
         - httpx
@@ -81,7 +83,7 @@ outputs:
         - pendulum >=2.0
         - pluggy >=1.0
         - psutil >=4.2.0
-        - pydantic >=1.10.0
+        - pydantic >=1.10.0,<2.0.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
         - python-daemon >=3.0.0
