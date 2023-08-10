@@ -1,5 +1,5 @@
 {% set name = "airflow" %}
-{% set version = "2.6.3" %}
+{% set version = "2.6.4" %}
 {% set sha256 = "dc09441a1b4f66ebe202f880b4172e79b7898b91a823aaab14fc363f6586d852" %}
 
 package:
@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ name }}
