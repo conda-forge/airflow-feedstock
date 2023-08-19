@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.6.3" %}
-{% set sha256 = "dc09441a1b4f66ebe202f880b4172e79b7898b91a823aaab14fc363f6586d852" %}
+{% set version = "2.7.0" %}
+{% set sha256 = "d4010897f1daa0b4584c294893df799a56c8911dad11a1f139ce13fe41b39cec" %}
 
 package:
   name: {{ name|lower }}-split
@@ -56,7 +56,7 @@ outputs:
         - deprecated >=1.2.13
         - dill >=0.2.2
         - flask >=2.2,<2.3
-        - flask-appbuilder 4.3.1
+        - flask-appbuilder 4.3.3
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         - flask-session >=0.4.0
@@ -69,7 +69,7 @@ outputs:
         - importlib-resources >=5.2  # [py<39]
         - itsdangerous >=2.0
         - jinja2 >=3.0.0
-        - jsonschema >=4.0.0
+        - jsonschema >=4.18.0
         - lazy-object-proxy
         - linkify-it-py >=2.0.0
         - lockfile >=0.12.2
@@ -78,8 +78,11 @@ outputs:
         - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
+        # From upstream: Pip can not find a version that satisfies constraints if opentelemetry-api is not pinned.
+        - opentelemetry-api 1.15.0
+        - opentelemetry-exporter-otlp
         - packaging >=14.0
-        - pathspec >=0.9.0,<0.10.dev0
+        - pathspec >=0.9.0
         - pendulum >=2.0
         - pluggy >=1.0
         - psutil >=4.2.0
@@ -342,8 +345,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.1
-        # flask-appbuilder[oauth] for 4.3.1
+        - flask-appbuilder 4.3.3
+        # flask-appbuilder[oauth] for 4.3.3
         - authlib >=0.14,<2.0.0
     test:
       imports:
@@ -361,8 +364,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.1
-        # flask-appbuilder[oauth] for 4.3.1
+        - flask-appbuilder 4.3.3
+        # flask-appbuilder[oauth] for 4.3.3
         - authlib >=0.14,<2.0.0
     test:
       imports:
@@ -546,22 +549,22 @@ about:
   license_file:
     - LICENSE
     - NOTICE
-    - licenses/LICENSE-d3js.txt
-    - licenses/LICENSE-d3-tip.txt
-    - licenses/LICENSE-moment-strftime.txt
-    - licenses/LICENSE-elasticmock.txt
-    - licenses/LICENSE-eonasdan-bootstrap-datetimepicker.txt
-    - licenses/LICENSE-moment.txt
     - licenses/LICENSE-bootstrap3-typeahead.txt
-    - licenses/LICENSE-jqclock.txt
+    - licenses/LICENSE-bootstrap.txt
+    - licenses/LICENSE-d3js.txt
+    - licenses/LICENSE-d3-shape.txt
+    - licenses/LICENSE-d3-tip.txt
     - licenses/LICENSE-dagre-d3.txt
     - licenses/LICENSE-datatables.txt
+    - licenses/LICENSE-elasticmock.txt
+    - licenses/LICENSE-eonasdan-bootstrap-datetimepicker.txt
     - licenses/LICENSE-flask-kerberos.txt
     - licenses/LICENSE-hue.txt
+    - licenses/LICENSE-jqclock.txt
     - licenses/LICENSE-jquery.txt
-    - licenses/LICENSE-bootstrap.txt
-    - licenses/LICENSE-d3-shape.txt
+    - licenses/LICENSE-moment.txt
     - licenses/LICENSE-normalize.txt
+    - licenses/LICENSE-unicodecsv.txt
   summary: |
     Airflow is a platform to programmatically author, schedule and monitor
     workflows
