@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.7.0" %}
-{% set sha256 = "d4010897f1daa0b4584c294893df799a56c8911dad11a1f139ce13fe41b39cec" %}
+{% set version = "2.7.1" %}
+{% set sha256 = "2984da699580104910093b4fcddd3840e5e67f052473d8dd0f77fbdfb264488e" %}
 
 package:
   name: {{ name|lower }}-split
@@ -56,7 +56,7 @@ outputs:
         - deprecated >=1.2.13
         - dill >=0.2.2
         - flask >=2.2,<2.3
-        - flask-appbuilder 4.3.3
+        - flask-appbuilder 4.3.6
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         - flask-session >=0.4.0
@@ -65,7 +65,7 @@ outputs:
         - python-graphviz >=0.12
         - gunicorn >=20.1.0
         - httpx
-        - importlib-metadata >=1.7,<5.0.0  # [py<39]
+        - importlib-metadata >=1.7  # [py<39]
         - importlib-resources >=5.2  # [py<39]
         - itsdangerous >=2.0
         - jinja2 >=3.0.0
@@ -78,15 +78,14 @@ outputs:
         - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
-        # From upstream: Pip can not find a version that satisfies constraints if opentelemetry-api is not pinned.
-        - opentelemetry-api 1.15.0
+        - opentelemetry-api >=1.15.0
         - opentelemetry-exporter-otlp
         - packaging >=14.0
         - pathspec >=0.9.0
         - pendulum >=2.0
         - pluggy >=1.0
         - psutil >=4.2.0
-        - pydantic >=1.10.0,<2.0.0
+        - pydantic >=1.10.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
         - python-daemon >=3.0.0
@@ -97,7 +96,7 @@ outputs:
         - rich >=12.4.4
         - rich-argparse >=1.0.0
         - setproctitle >=1.1.8
-        - sqlalchemy >=1.4,<2.0
+        - sqlalchemy >=1.4.24,<2.0
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
         - tenacity >=6.2.0,!=8.2.0
@@ -255,7 +254,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - celery >=5.2.3,<6
+        - celery >=5.3.0,<6
         - flower >=1.0.0
     test:
       imports:
@@ -345,8 +344,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.3
-        # flask-appbuilder[oauth] for 4.3.3
+        - flask-appbuilder 4.3.6
+        # flask-appbuilder[oauth] for 4.3.6
         - authlib >=0.14,<2.0.0
     test:
       imports:
@@ -364,8 +363,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.3
-        # flask-appbuilder[oauth] for 4.3.3
+        - flask-appbuilder 4.3.6
+        # flask-appbuilder[oauth] for 4.3.6
         - authlib >=0.14,<2.0.0
     test:
       imports:
