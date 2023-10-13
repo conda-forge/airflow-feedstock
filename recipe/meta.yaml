@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.7.1" %}
-{% set sha256 = "2984da699580104910093b4fcddd3840e5e67f052473d8dd0f77fbdfb264488e" %}
+{% set version = "2.7.2" %}
+{% set sha256 = "c6fab3449066867d9a7728f40b6b9e27f1ea68bca39b064a27f5c5ddc3262224" %}
 
 package:
   name: {{ name|lower }}-split
@@ -96,7 +96,7 @@ outputs:
         - rich >=12.4.4
         - rich-argparse >=1.0.0
         - setproctitle >=1.1.8
-        - sqlalchemy >=1.4.24,<2.0
+        - sqlalchemy >=1.4.28,<2.0
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
         - tenacity >=6.2.0,!=8.2.0
