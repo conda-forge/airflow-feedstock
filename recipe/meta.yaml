@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ name }}
@@ -225,6 +225,8 @@ outputs:
         - pip
 
   - name: {{ name }}-with-async
+    build:
+      skip: true  # [py>=312]
     requirements:
       host:
         - python
