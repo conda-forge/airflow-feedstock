@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.7.2" %}
-{% set sha256 = "7f1562abe912c8d5c1f2d5dc47d54c63f6f1993c7e3859ad8c7cd6fee70a28e3" %}
+{% set version = "2.7.3" %}
+{% set sha256 = "caa32c415487a6c4b549727ebebe3d62b97bbbb05b36abda71ac881cd6455d63" %}
 
 package:
   name: {{ name|lower }}-split
@@ -12,8 +12,8 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  skip: true  # [win]
-  number: 1
+  skip: true  # [win or py>=312]
+  number: 0
 
 outputs:
   - name: {{ name }}
@@ -36,6 +36,7 @@ outputs:
         - gitpython
       run:
         - python
+        - wtforms <3.1.0
         - alembic >=1.6.3,<2.0
         - argcomplete >=1.10
         - asgiref
@@ -44,7 +45,7 @@ outputs:
         - cattrs >=22.1.0
         - colorlog >=4.0.2,<5.0
         - configupdater >=3.1.1
-        - connexion >=2.10.0
+        - connexion >=2.10.0,<3.0
 
         # connexion[flask] dependencies
         - flask >=1.0.4,<3
@@ -82,7 +83,7 @@ outputs:
         - opentelemetry-exporter-otlp
         - packaging >=14.0
         - pathspec >=0.9.0
-        - pendulum >=2.0
+        - pendulum >=2.0,<3.0
         - pluggy >=1.0
         - psutil >=4.2.0
         - pydantic >=1.10.0
@@ -499,7 +500,7 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - blinker >=1.1
-        - sentry-sdk >=0.8.0
+        - sentry-sdk >=1.32.0,!=1.33.0
     test:
       imports:
         - airflow
