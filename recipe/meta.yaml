@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.7.3" %}
-{% set sha256 = "caa32c415487a6c4b549727ebebe3d62b97bbbb05b36abda71ac881cd6455d63" %}
+{% set version = "2.8.0" %}
+{% set sha256 = "fd1ac2847eebcdd82f5b9b8414b8e60f78299dcebb066921b5388d7e95e24ad0" %}
 
 package:
   name: {{ name|lower }}-split
@@ -57,11 +57,12 @@ outputs:
         - deprecated >=1.2.13
         - dill >=0.2.2
         - flask >=2.2,<2.3
-        - flask-appbuilder 4.3.6
+        - flask-appbuilder 4.3.10
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         - flask-session >=0.4.0
         - flask-wtf >=0.15
+        - fsspec >=2023.10.0
         - google-re2 >=1.0
         - python-graphviz >=0.12
         - gunicorn >=20.1.0
@@ -86,7 +87,7 @@ outputs:
         - pendulum >=2.0,<3.0
         - pluggy >=1.0
         - psutil >=4.2.0
-        - pydantic >=1.10.0
+        - pydantic >=2.3.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
         - python-daemon >=3.0.0
@@ -104,7 +105,8 @@ outputs:
         - termcolor >=1.1.0
         - typing-extensions >=4.0.0
         - unicodecsv >=0.14.1
-        - werkzeug >=2.0
+        - universal_pathlib >=0.1.4
+        - werkzeug >=2.0,<3
         - apache-airflow-providers-common-sql
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
@@ -303,43 +305,6 @@ outputs:
       requires:
         - pip
 
-  - name: {{ name }}-with-dask
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cloudpickle >=1.4.1
-        - dask >=2.9.0,!=2022.10.1,!=2023.5.0
-        - distributed >=2.11.1,!=2023.5.0
-    test:
-      imports:
-        - airflow
-        - distributed
-        - airflow.executors.dask_executor
-      commands:
-        - pip check
-      requires:
-        - pip
-
-  - name: {{ name }}-with-deprecated-api
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - requests >=2.26.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - pip
-
-
   - name: {{ name }}-with-github_enterprise
     requirements:
       host:
@@ -447,6 +412,7 @@ outputs:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - pandas >=0.17.1
+        - pyarrow-hotfix
         - pyarrow >=9.0.0
     test:
       imports:
