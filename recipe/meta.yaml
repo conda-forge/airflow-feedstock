@@ -312,8 +312,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.6
-        # flask-appbuilder[oauth] for 4.3.6
+        - flask-appbuilder 4.3.10
+        # flask-appbuilder[oauth] for 4.3.10
         - authlib >=0.14,<2.0.0
     test:
       imports:
@@ -331,8 +331,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.6
-        # flask-appbuilder[oauth] for 4.3.6
+        - flask-appbuilder 4.3.10
+        # flask-appbuilder[oauth] for 4.3.10
         - authlib >=0.14,<2.0.0
     test:
       imports:
