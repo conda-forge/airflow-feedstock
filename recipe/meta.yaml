@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
-{% set version = "2.8.0" %}
-{% set sha256 = "fd1ac2847eebcdd82f5b9b8414b8e60f78299dcebb066921b5388d7e95e24ad0" %}
+{% set version = "2.8.1" %}
+{% set sha256 = "4d0a1e4373854fb442663c8cf4db84db6f11836fe76bbaf0f3e6b06a8adc3ef1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -30,19 +30,23 @@ outputs:
         - yarn <2
       host:
         - python
+        - editables ==0.5
+        - gitdb ==4.0.11
+        - gitpython ==3.1.40
+        - hatchling ==1.21.0
+        - packaging ==23.2
+        - pathspec ==0.12.1
+        - pluggy ==1.3.0
+        - smmap ==5.0.1
+        - tomli ==2.0.1  # [py<311]
+        - trove-classifiers ==2023.11.29
         - pip
-        - setuptools >=67.2.0,<68.0.0
-        - docutils
-        - gitpython
       run:
         - python
-        - wtforms <3.1.0
-        - alembic >=1.6.3,<2.0
         - argcomplete >=1.10
         - asgiref
         - attrs >=22.1.0
         - blinker
-        - cattrs >=22.1.0
         - colorlog >=4.0.2,<5.0
         - configupdater >=3.1.1
         - connexion >=2.10.0,<3.0
@@ -56,15 +60,14 @@ outputs:
         - cryptography >=0.9.3
         - deprecated >=1.2.13
         - dill >=0.2.2
-        - flask >=2.2,<2.3
-        - flask-appbuilder 4.3.10
+        - flask-appbuilder ==4.3.10
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         - flask-session >=0.4.0
         - flask-wtf >=0.15
+        - flask >=2.2,<2.3
         - fsspec >=2023.10.0
         - google-re2 >=1.0
-        - python-graphviz >=0.12
         - gunicorn >=20.1.0
         - httpx
         - importlib-metadata >=1.7  # [py<39]
@@ -75,8 +78,8 @@ outputs:
         - lazy-object-proxy
         - linkify-it-py >=2.0.0
         - lockfile >=0.12.2
-        - markdown >=3.0
         - markdown-it-py >=2.1.0
+        - markdown >=3.0
         - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
@@ -84,7 +87,7 @@ outputs:
         - opentelemetry-exporter-otlp
         - packaging >=14.0
         - pathspec >=0.9.0
-        - pendulum >=2.0,<3.0
+        - pendulum >=2.1.2,<4.0
         - pluggy >=1.0
         - psutil >=4.2.0
         - pydantic >=2.3.0
@@ -95,18 +98,18 @@ outputs:
         - python-nvd3 >=0.15.0
         - python-slugify >=5.0
         - rfc3339-validator >=0.1.4
-        - rich >=12.4.4
         - rich-argparse >=1.0.0
+        - rich >=12.4.4
         - setproctitle >=1.1.8
         - sqlalchemy >=1.4.28,<2.0
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
         - tenacity >=6.2.0,!=8.2.0
         - termcolor >=1.1.0
-        - typing-extensions >=4.0.0
         - unicodecsv >=0.14.1
         - universal_pathlib >=0.1.4
         - werkzeug >=2.0,<3
+        - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
@@ -227,9 +230,27 @@ outputs:
       requires:
         - pip
 
+  - name: {{ name }}-with-aiobotocore
+    build:
+      skip: true
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - aiobotocore >=2.7.0
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - pip
+
   - name: {{ name }}-with-async
     build:
-      skip: true  # [py>=312]
+      skip: true
     requirements:
       host:
         - python
@@ -250,61 +271,6 @@ outputs:
       requires:
         - pip
 
-  - name: {{ name }}-with-celery
-    build:
-      skip: True  # [arm64 or aarch64 or ppc64le]
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - celery >=5.3.0,<6
-        - flower >=1.0.0
-    test:
-      imports:
-        - airflow
-        - celery
-      commands:
-        - pip check
-      requires:
-        - pip
-
-  - name: {{ name }}-with-cgroups
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cgroupspy >=0.2.2
-    test:
-      imports:
-        - airflow
-        - cgroupspy
-        - airflow.contrib.task_runner.cgroup_task_runner
-      commands:
-        - pip check
-      requires:
-        - pip
-
-  - name: {{ name }}-with-cncf-kubernetes
-    requirements:
-      host:
-        - python
-      run:
-        - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - cryptography >=2.0.0
-        - python-kubernetes >=21.7.0,<24
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - pip
-
   - name: {{ name }}-with-github_enterprise
     requirements:
       host:
@@ -312,9 +278,14 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.10
-        # flask-appbuilder[oauth] for 4.3.10
-        - authlib >=0.14,<2.0.0
+
+        # apache-airflow[fab]
+        - flask-appbuilder ==4.3.10
+        - flask-login >=0.6.2
+        - flask >=2.2,<2.3
+        - google-re2 >=1.0
+
+        - authlib>=1.0.0
     test:
       imports:
         - airflow
@@ -331,9 +302,14 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - flask-appbuilder 4.3.10
-        # flask-appbuilder[oauth] for 4.3.10
-        - authlib >=0.14,<2.0.0
+
+        # apache-airflow[fab]
+        - flask-appbuilder ==4.3.10
+        - flask-login >=0.6.2
+        - flask >=2.2,<2.3
+        - google-re2 >=1.0
+
+        - authlib>=1.0.0
     test:
       imports:
         - airflow
@@ -411,9 +387,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pandas >=0.17.1
-        - pyarrow-hotfix
-        - pyarrow >=9.0.0
+        - pandas >=1.2.5
     test:
       imports:
         - airflow
@@ -453,6 +427,38 @@ outputs:
       imports:
         - airflow
         - amqp
+      commands:
+        - pip check
+      requires:
+        - pip
+
+  - name: {{ name }}-with-s3fs
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - s3fs >=2023.10.0
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - pip
+
+  - name: {{ name }}-with-saml
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python3-saml >=1.16.0
+    test:
+      imports:
+        - airflow
       commands:
         - pip check
       requires:
