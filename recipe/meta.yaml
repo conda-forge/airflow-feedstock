@@ -27,6 +27,7 @@ outputs:
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         # for md5sum, cksum, sha256sum
         - coreutils
+        - curl
         - yarn <2
       host:
         - python
