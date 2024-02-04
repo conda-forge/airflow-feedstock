@@ -45,6 +45,7 @@ outputs:
         - pip
       run:
         - python
+        - alembic >=1.6.3,<2.0
         - argcomplete >=1.10
         - asgiref
         - attrs >=22.1.0
