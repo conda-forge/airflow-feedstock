@@ -2,7 +2,7 @@
 
 set -xe
 
-# dev/hatch_build.py was purposefully removed from the release but we need it
+# dev/ was purposefully removed from the release but we need some files from it
 mkdir -p dev
 for file in hatch_build.py airflow_pre_installed_providers.txt
 do
