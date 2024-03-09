@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.8.1" %}
+{% set version = "2.8.2" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,11 +8,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 7443d82b790886c5ec137a8fdb94d672e33e81336713ca7320b4a1bbad443a9c
+  sha256: a993e272d254ec80852553042dca5641e24a416a49ac7341c947295dee0c4b20
 
 build:
   skip: true  # [win or py>=312]
-  number: 1
+  number: 0
 
 outputs:
   - name: {{ name }}
@@ -24,27 +24,23 @@ outputs:
       build:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-        # for md5sum, cksum, sha256sum
-        - coreutils
-        - curl
-        - yarn <2
       host:
         - python
         - editables ==0.5
         - gitdb ==4.0.11
-        - gitpython ==3.1.40
-        - hatchling ==1.21.0
+        - gitpython ==3.1.42
+        - hatchling ==1.21.1
         - packaging ==23.2
         - pathspec ==0.12.1
-        - pluggy ==1.3.0
+        - pluggy ==1.4.0
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
         - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2023.11.29
+        - trove-classifiers ==2024.2.23
         - pip
       run:
         - python
-        - alembic >=1.6.3,<2.0
+        - alembic >=1.13.1,<2.0
         - argcomplete >=1.10
         - asgiref
         - attrs >=22.1.0
@@ -62,7 +58,7 @@ outputs:
         - cryptography >=0.9.3
         - deprecated >=1.2.13
         - dill >=0.2.2
-        - flask-appbuilder ==4.3.10
+        - flask-appbuilder ==4.3.11
         - flask-caching >=1.5.0
         - flask-login >=0.6.2
         # Extra constraint needed:
@@ -83,7 +79,6 @@ outputs:
         - linkify-it-py >=2.0.0
         - lockfile >=0.12.2
         - markdown-it-py >=2.1.0
-        - markdown >=3.0
         - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
@@ -94,13 +89,13 @@ outputs:
         - pendulum >=2.1.2,<4.0
         - pluggy >=1.0
         - psutil >=4.2.0
-        - pydantic >=2.3.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
         - python-daemon >=3.0.0
         - python-dateutil >=2.3
         - python-nvd3 >=0.15.0
         - python-slugify >=5.0
+        - requests >=2.27.0,<3
         - rfc3339-validator >=0.1.4
         - rich-argparse >=1.0.0
         - rich >=12.4.4
@@ -111,7 +106,7 @@ outputs:
         - tenacity >=6.2.0,!=8.2.0
         - termcolor >=1.1.0
         - unicodecsv >=0.14.1
-        - universal_pathlib >=0.1.4
+        - universal_pathlib >=0.1.4,<0.2.0
         - werkzeug >=2.0,<3
         - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
@@ -282,13 +277,6 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-
-        # apache-airflow[fab]
-        - flask-appbuilder ==4.3.10
-        - flask-login >=0.6.2
-        - flask >=2.2,<2.3
-        - google-re2 >=1.0
-
         - authlib>=1.0.0
     test:
       imports:
@@ -306,13 +294,6 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-
-        # apache-airflow[fab]
-        - flask-appbuilder ==4.3.10
-        - flask-login >=0.6.2
-        - flask >=2.2,<2.3
-        - google-re2 >=1.0
-
         - authlib>=1.0.0
     test:
       imports:
