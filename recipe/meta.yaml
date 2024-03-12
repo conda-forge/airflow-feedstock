@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.8.2" %}
+{% set version = "2.8.3" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,11 +8,20 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: a993e272d254ec80852553042dca5641e24a416a49ac7341c947295dee0c4b20
+  sha256: 16a7b6a22242867407020941a74744eb24b957a12ae7b4fd301ac5091b21326d
 
 build:
   skip: true  # [win or py>=312]
   number: 0
+
+requirements:
+  build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+  host:
+    - python
+    - pip
+
 
 outputs:
   - name: {{ name }}
@@ -36,7 +45,7 @@ outputs:
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
         - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.2.23
+        - trove-classifiers ==2024.3.3
         - pip
       run:
         - python
@@ -108,11 +117,13 @@ outputs:
         - unicodecsv >=0.14.1
         - universal_pathlib >=0.1.4,<0.2.0
         - werkzeug >=2.0,<3
+        # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
         - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
+        - apache-airflow-providers-smtp
         - apache-airflow-providers-sqlite
 
     test:
