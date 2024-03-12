@@ -117,11 +117,13 @@ outputs:
         - unicodecsv >=0.14.1
         - universal_pathlib >=0.1.4,<0.2.0
         - werkzeug >=2.0,<3
+        # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
         - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
+        - apache-airflow-providers-smtp
         - apache-airflow-providers-sqlite
 
     test:
