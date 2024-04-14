@@ -12,7 +12,7 @@ source:
 
 build:
   skip: true  # [win or py>=313]
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -195,6 +195,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-apache-atlas
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -212,6 +216,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-apache-webhdfs
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -238,7 +246,9 @@ outputs:
 
   - name: {{ name }}-with-aiobotocore
     build:
-      skip: true
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -256,7 +266,9 @@ outputs:
 
   - name: {{ name }}-with-async
     build:
-      skip: true
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -278,6 +290,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-github_enterprise
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -296,6 +312,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-google_auth
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -314,6 +334,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-kerberos
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -337,7 +361,9 @@ outputs:
 
   - name: {{ name }}-with-ldap
     build:
-      skip: True  # [arm64 or aarch64 or ppc64le]
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -357,7 +383,9 @@ outputs:
 
   - name: {{ name }}-with-leveldb
     build:
-      skip: True  # [arm64 or aarch64 or ppc64le]
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -375,6 +403,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-pandas
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -392,6 +424,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-password
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -410,6 +446,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-pydantic
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -427,6 +467,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-rabbitmq
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -444,6 +488,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-s3fs
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -460,6 +508,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-saml
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -476,6 +528,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-sentry
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -495,6 +551,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-statsd
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -512,6 +572,10 @@ outputs:
         - pip
 
   - name: {{ name }}-with-uv
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
@@ -529,6 +593,10 @@ outputs:
 
 
   - name: {{ name }}-with-virtualenv
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=312]
     requirements:
       host:
         - python
