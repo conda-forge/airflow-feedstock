@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.8.4" %}
+{% set version = "2.9.0" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,10 +8,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 899dac9916ad2d973a0dd1b6c5c8d365d04bd2b8839f504d0f287e657365b77e
+  sha256: bffa176e532d8fef5ccf463153958dd6b23c845b8eddd5ec5bac3a0bde47ae70
 
 build:
-  skip: true  # [win or py>=312]
+  skip: true  # [win or py>=313]
   number: 0
 
 requirements:
@@ -36,15 +36,15 @@ outputs:
       host:
         - python
         - gitdb ==4.0.11
-        - gitpython ==3.1.42
-        - hatchling ==1.22.3
+        - gitpython ==3.1.43
+        - hatchling ==1.22.5
         - packaging ==24.0
         - pathspec ==0.12.1
         - pluggy ==1.4.0
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
         - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.3.3
+        - trove-classifiers ==2024.3.25
         - pip
       run:
         - python
@@ -52,7 +52,7 @@ outputs:
         - argcomplete >=1.10
         - asgiref
         - attrs >=22.1.0
-        - blinker
+        - blinker >=1.6.2
         - colorlog >=4.0.2,<5.0
         - configupdater >=3.1.1
         - connexion >=2.10.0,<3.0
@@ -63,14 +63,10 @@ outputs:
 
         - cron-descriptor >=1.2.24
         - croniter >=2.0.2
-        - cryptography >=0.9.3
+        - cryptography >=39.0.0
         - deprecated >=1.2.13
         - dill >=0.2.2
-        - flask-appbuilder ==4.3.11
         - flask-caching >=1.5.0
-        - flask-login >=0.6.2
-        # Extra constraint needed:
-        # https://github.com/apache/airflow/pull/36895
         - flask-session >=0.4.0,<0.6
         - flask-wtf >=0.15
         - flask >=2.2,<2.3
@@ -78,7 +74,7 @@ outputs:
         - google-re2 >=1.0
         - gunicorn >=20.1.0
         - httpx
-        - importlib-metadata >=1.7  # [py<39]
+        - importlib-metadata >=6.5  # [py<312]
         - importlib-resources >=5.2,!=6.2.0,!=6.3.0,!=6.3.1  # [py<39]
         - itsdangerous >=2.0
         - jinja2 >=3.0.0
@@ -108,17 +104,18 @@ outputs:
         - rich-argparse >=1.0.0
         - rich >=12.4.4
         - setproctitle >=1.1.8
-        - sqlalchemy >=1.4.28,<2.0
+        - sqlalchemy >=1.4.36,<2.0
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
         - tenacity >=6.2.0,!=8.2.0
         - termcolor >=1.1.0
         - unicodecsv >=0.14.1
-        - universal_pathlib >=0.1.4,<0.2.0
+        - universal_pathlib >=0.2.2
         - werkzeug >=2.0,<3
         # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
         - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
+        - apache-airflow-providers-fab >=1.0.2dev0
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
@@ -287,7 +284,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - authlib>=1.0.0
+        - apache-airflow-providers-fab
+        - authlib >=1.0.0
     test:
       imports:
         - airflow
@@ -304,7 +302,8 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - authlib>=1.0.0
+        - apache-airflow-providers-fab
+        - authlib >=1.0.0
     test:
       imports:
         - airflow
@@ -410,6 +409,23 @@ outputs:
       requires:
         - pip
 
+  - name: {{ name }}-with-pydantic
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - pydantic>=2.3.0
+    test:
+      imports:
+        - airflow
+        - pydantic
+      commands:
+        - pip check
+      requires:
+        - pip
+
   - name: {{ name }}-with-rabbitmq
     requirements:
       host:
@@ -495,6 +511,23 @@ outputs:
       requires:
         - pip
 
+  - name: {{ name }}-with-uv
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - uv >=0.1.28
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - pip
+
+
   - name: {{ name }}-with-virtualenv
     requirements:
       host:
@@ -534,6 +567,7 @@ about:
     - 3rd-party-licenses/LICENSE-normalize.txt
     - 3rd-party-licenses/LICENSE-pytest-capture-warnings.txt
     - 3rd-party-licenses/LICENSE-reproducible.txt
+    - 3rd-party-licenses/LICENSES-ui.txt
     - 3rd-party-licenses/LICENSE-unicodecsv.txt
 
 
