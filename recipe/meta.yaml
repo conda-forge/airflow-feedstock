@@ -12,7 +12,7 @@ source:
 
 build:
   skip: true  # [win or py>=313]
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -237,8 +237,6 @@ outputs:
         - pip
 
   - name: {{ name }}-with-aiobotocore
-    build:
-      skip: true
     requirements:
       host:
         - python
@@ -255,8 +253,6 @@ outputs:
         - pip
 
   - name: {{ name }}-with-async
-    build:
-      skip: true
     requirements:
       host:
         - python
