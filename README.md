@@ -59,6 +59,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_64_python3.12.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.12.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>linux_64_python3.8.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
@@ -84,6 +91,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_python3.11.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_python3.12.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_python3.12.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -115,6 +129,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_ppc64le_python3.12.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_python3.12.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>linux_ppc64le_python3.8.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
@@ -143,6 +164,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>osx_64_python3.12.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_python3.12.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>osx_64_python3.8.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
@@ -168,6 +196,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_python3.11.____cpython" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_python3.12.____cpython</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_python3.12.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -207,11 +242,13 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--leveldb-green.svg)](https://anaconda.org/conda-forge/airflow-with-leveldb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-leveldb.svg)](https://anaconda.org/conda-forge/airflow-with-leveldb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-leveldb.svg)](https://anaconda.org/conda-forge/airflow-with-leveldb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-leveldb.svg)](https://anaconda.org/conda-forge/airflow-with-leveldb) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--pandas-green.svg)](https://anaconda.org/conda-forge/airflow-with-pandas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-pandas.svg)](https://anaconda.org/conda-forge/airflow-with-pandas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-pandas.svg)](https://anaconda.org/conda-forge/airflow-with-pandas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-pandas.svg)](https://anaconda.org/conda-forge/airflow-with-pandas) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--password-green.svg)](https://anaconda.org/conda-forge/airflow-with-password) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-password.svg)](https://anaconda.org/conda-forge/airflow-with-password) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-password.svg)](https://anaconda.org/conda-forge/airflow-with-password) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-password.svg)](https://anaconda.org/conda-forge/airflow-with-password) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--pydantic-green.svg)](https://anaconda.org/conda-forge/airflow-with-pydantic) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-pydantic.svg)](https://anaconda.org/conda-forge/airflow-with-pydantic) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-pydantic.svg)](https://anaconda.org/conda-forge/airflow-with-pydantic) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-pydantic.svg)](https://anaconda.org/conda-forge/airflow-with-pydantic) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--rabbitmq-green.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-rabbitmq.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-rabbitmq.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-rabbitmq.svg)](https://anaconda.org/conda-forge/airflow-with-rabbitmq) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--s3fs-green.svg)](https://anaconda.org/conda-forge/airflow-with-s3fs) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-s3fs.svg)](https://anaconda.org/conda-forge/airflow-with-s3fs) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-s3fs.svg)](https://anaconda.org/conda-forge/airflow-with-s3fs) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-s3fs.svg)](https://anaconda.org/conda-forge/airflow-with-s3fs) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--saml-green.svg)](https://anaconda.org/conda-forge/airflow-with-saml) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-saml.svg)](https://anaconda.org/conda-forge/airflow-with-saml) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-saml.svg)](https://anaconda.org/conda-forge/airflow-with-saml) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-saml.svg)](https://anaconda.org/conda-forge/airflow-with-saml) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--sentry-green.svg)](https://anaconda.org/conda-forge/airflow-with-sentry) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-sentry.svg)](https://anaconda.org/conda-forge/airflow-with-sentry) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-sentry.svg)](https://anaconda.org/conda-forge/airflow-with-sentry) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-sentry.svg)](https://anaconda.org/conda-forge/airflow-with-sentry) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--statsd-green.svg)](https://anaconda.org/conda-forge/airflow-with-statsd) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-statsd.svg)](https://anaconda.org/conda-forge/airflow-with-statsd) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-statsd.svg)](https://anaconda.org/conda-forge/airflow-with-statsd) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-statsd.svg)](https://anaconda.org/conda-forge/airflow-with-statsd) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--uv-green.svg)](https://anaconda.org/conda-forge/airflow-with-uv) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-uv.svg)](https://anaconda.org/conda-forge/airflow-with-uv) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-uv.svg)](https://anaconda.org/conda-forge/airflow-with-uv) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-uv.svg)](https://anaconda.org/conda-forge/airflow-with-uv) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--virtualenv-green.svg)](https://anaconda.org/conda-forge/airflow-with-virtualenv) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-virtualenv.svg)](https://anaconda.org/conda-forge/airflow-with-virtualenv) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-virtualenv.svg)](https://anaconda.org/conda-forge/airflow-with-virtualenv) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-virtualenv.svg)](https://anaconda.org/conda-forge/airflow-with-virtualenv) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-apache--airflow-green.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) |
 
@@ -225,16 +262,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `airflow, airflow-with-apache-atlas, airflow-with-apache-webhdfs, airflow-with-github_enterprise, airflow-with-google_auth, airflow-with-kerberos, airflow-with-ldap, airflow-with-leveldb, airflow-with-pandas, airflow-with-password, airflow-with-rabbitmq, airflow-with-s3fs, airflow-with-saml, airflow-with-sentry, airflow-with-statsd, airflow-with-virtualenv, apache-airflow` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `airflow, airflow-with-apache-atlas, airflow-with-apache-webhdfs, airflow-with-github_enterprise, airflow-with-google_auth, airflow-with-kerberos, airflow-with-ldap, airflow-with-leveldb, airflow-with-pandas, airflow-with-password, airflow-with-pydantic, airflow-with-rabbitmq, airflow-with-s3fs, airflow-with-saml, airflow-with-sentry, airflow-with-statsd, airflow-with-uv, airflow-with-virtualenv, apache-airflow` can be installed with `conda`:
 
 ```
-conda install airflow airflow-with-apache-atlas airflow-with-apache-webhdfs airflow-with-github_enterprise airflow-with-google_auth airflow-with-kerberos airflow-with-ldap airflow-with-leveldb airflow-with-pandas airflow-with-password airflow-with-rabbitmq airflow-with-s3fs airflow-with-saml airflow-with-sentry airflow-with-statsd airflow-with-virtualenv apache-airflow
+conda install airflow airflow-with-apache-atlas airflow-with-apache-webhdfs airflow-with-github_enterprise airflow-with-google_auth airflow-with-kerberos airflow-with-ldap airflow-with-leveldb airflow-with-pandas airflow-with-password airflow-with-pydantic airflow-with-rabbitmq airflow-with-s3fs airflow-with-saml airflow-with-sentry airflow-with-statsd airflow-with-uv airflow-with-virtualenv apache-airflow
 ```
 
 or with `mamba`:
 
 ```
-mamba install airflow airflow-with-apache-atlas airflow-with-apache-webhdfs airflow-with-github_enterprise airflow-with-google_auth airflow-with-kerberos airflow-with-ldap airflow-with-leveldb airflow-with-pandas airflow-with-password airflow-with-rabbitmq airflow-with-s3fs airflow-with-saml airflow-with-sentry airflow-with-statsd airflow-with-virtualenv apache-airflow
+mamba install airflow airflow-with-apache-atlas airflow-with-apache-webhdfs airflow-with-github_enterprise airflow-with-google_auth airflow-with-kerberos airflow-with-ldap airflow-with-leveldb airflow-with-pandas airflow-with-password airflow-with-pydantic airflow-with-rabbitmq airflow-with-s3fs airflow-with-saml airflow-with-sentry airflow-with-statsd airflow-with-uv airflow-with-virtualenv apache-airflow
 ```
 
 It is possible to list all of the versions of `airflow` available on your platform with `conda`:
