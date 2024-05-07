@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.9.0" %}
+{% set version = "2.9.1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,11 +8,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: bffa176e532d8fef5ccf463153958dd6b23c845b8eddd5ec5bac3a0bde47ae70
+  sha256: 96fff13cdf7b9445fe9706003bb530e2b0665f93ffb033596346259818bf53eb
 
 build:
   skip: true  # [win or py>=313]
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -37,14 +37,14 @@ outputs:
         - python
         - gitdb ==4.0.11
         - gitpython ==3.1.43
-        - hatchling ==1.22.5
+        - hatchling ==1.24.2
         - packaging ==24.0
         - pathspec ==0.12.1
-        - pluggy ==1.4.0
+        - pluggy ==1.5.0
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
         - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.3.25
+        - trove-classifiers ==2024.4.10
         - pip
       run:
         - python
@@ -86,6 +86,7 @@ outputs:
         - markupsafe >=1.1.1
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
+        - methodtools >=0.4.7
         - opentelemetry-api >=1.15.0
         - opentelemetry-exporter-otlp
         - packaging >=14.0
@@ -514,7 +515,7 @@ outputs:
       run:
         - python
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - uv >=0.1.28
+        - uv >=0.1.32
     test:
       imports:
         - airflow
