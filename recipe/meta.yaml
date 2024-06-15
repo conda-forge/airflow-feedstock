@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.9.1" %}
+{% set version = "2.9.2" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,11 +8,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 96fff13cdf7b9445fe9706003bb530e2b0665f93ffb033596346259818bf53eb
+  sha256: c5d7b4bbcbc4d7b2bb3433af2d9307a3f3dc0b142c25fdbe8f187dd4cad5521d
 
 build:
   skip: true  # [win or py>=313]
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -44,7 +44,7 @@ outputs:
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
         - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.4.10
+        - trove-classifiers ==2024.5.22
         - pip
       run:
         - python
@@ -116,7 +116,7 @@ outputs:
         # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
         - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
-        - apache-airflow-providers-fab >=1.0.2dev0
+        - apache-airflow-providers-fab >=1.0.2
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
