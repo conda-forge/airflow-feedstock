@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.9.2" %}
+{% set version = "2.9.3" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: c5d7b4bbcbc4d7b2bb3433af2d9307a3f3dc0b142c25fdbe8f187dd4cad5521d
+  sha256: f9a523a57e0e0faa9afabb8e17b58cfca32119ff6889612b54edbdd987ada17b
 
 build:
   skip: true  # [win or py>=313]
@@ -37,14 +37,14 @@ outputs:
         - python
         - gitdb ==4.0.11
         - gitpython ==3.1.43
-        - hatchling ==1.24.2
-        - packaging ==24.0
+        - hatchling ==1.25.0
+        - packaging ==24.1
         - pathspec ==0.12.1
         - pluggy ==1.5.0
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
         - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.5.22
+        - trove-classifiers ==2024.7.2
         - pip
       run:
         - python
