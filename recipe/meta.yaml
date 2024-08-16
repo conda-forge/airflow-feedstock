@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.9.3" %}
+{% set version = "2.10.0" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: f9a523a57e0e0faa9afabb8e17b58cfca32119ff6889612b54edbdd987ada17b
+  sha256: 1948c72dfe58d2979e06819c6b9441a572b20395dc6b4e0dae5e4cfecbb07209
 
 build:
   skip: true  # [win or py>=313]
@@ -50,36 +50,37 @@ outputs:
         - python
         - alembic >=1.13.1,<2.0
         - argcomplete >=1.10
-        - asgiref
+        - asgiref >=2.3.0
         - attrs >=22.1.0
         - blinker >=1.6.2
-        - colorlog >=4.0.2,<5.0
+        - colorlog >=6.8.2
         - configupdater >=3.1.1
-        - connexion >=2.10.0,<3.0
+        - connexion >=2.14.2,<3.0
 
-        # connexion[flask] dependencies
-        - flask >=1.0.4,<3
+        # connexion[flask] 2.14.2 dependencies
+        - flask >=1.0.4,<2.3
         - itsdangerous >=0.24
 
         - cron-descriptor >=1.2.24
         - croniter >=2.0.2
-        - cryptography >=39.0.0
+        - cryptography >=41.0.0
         - deprecated >=1.2.13
         - dill >=0.2.2
-        - flask-caching >=1.5.0
+        - flask-caching >=2.0.0
         - flask-session >=0.4.0,<0.6
-        - flask-wtf >=0.15
-        - flask >=2.2,<2.3
+        - flask-wtf >=1.1.0
+        - flask >=2.2.1,<2.3
         - fsspec >=2023.10.0
-        - google-re2 >=1.0
+        - google-re2 >=1.0  # [py<312]
+        - google-re2 >=1.1  # [py>=312]
         - gunicorn >=20.1.0
-        - httpx
+        - httpx >=0.25.0
         - importlib-metadata >=6.5  # [py<312]
         - importlib-resources >=5.2,!=6.2.0,!=6.3.0,!=6.3.1  # [py<39]
         - itsdangerous >=2.0
         - jinja2 >=3.0.0
         - jsonschema >=4.18.0
-        - lazy-object-proxy
+        - lazy-object-proxy >=1.2.0
         - linkify-it-py >=2.0.0
         - lockfile >=0.12.2
         - markdown-it-py >=2.1.0
@@ -88,32 +89,35 @@ outputs:
         - mdit-py-plugins >=0.3.0
         - methodtools >=0.4.7
         - opentelemetry-api >=1.15.0
-        - opentelemetry-exporter-otlp
-        - packaging >=14.0
+        - opentelemetry-exporter-otlp >=1.15.0
+        - packaging >=23.0
         - pathspec >=0.9.0
-        - pendulum >=2.1.2,<4.0
-        - pluggy >=1.0
-        - psutil >=4.2.0
+        - pendulum >=2.1.2,<4.0  # [py<312]
+        - pendulum >=3.0.0,<4.0  # [py>=312]
+        - pluggy >=1.5.0
+        - psutil >=5.8.0
         - pygments >=2.0.1
         - pyjwt >=2.0.0
         - python-daemon >=3.0.0
-        - python-dateutil >=2.3
+        - python-dateutil >=2.7.0
         - python-nvd3 >=0.15.0
         - python-slugify >=5.0
         - requests >=2.27.0,<3
+        - requests-toolbelt >=0.4.0
         - rfc3339-validator >=0.1.4
         - rich-argparse >=1.0.0
         - rich >=12.4.4
-        - setproctitle >=1.1.8
+        - setproctitle >=1.3.3
         - sqlalchemy >=1.4.36,<2.0
         - sqlalchemy-jsonfield >=1.0
         - tabulate >=0.7.5
-        - tenacity >=6.2.0,!=8.2.0
+        - tenacity >=8.0.0,!=8.2.0
         - termcolor >=1.1.0
         - unicodecsv >=0.14.1
         - universal_pathlib >=0.2.2
         - werkzeug >=2.0,<3
         # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
+        - apache-airflow-providers-common-compat
         - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
         - apache-airflow-providers-fab >=1.0.2
@@ -256,7 +260,7 @@ outputs:
       run:
         - python >=3.8,<3.13
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - aiobotocore >=2.7.0
+        - aiobotocore >=2.9.0
     test:
       imports:
         - airflow
