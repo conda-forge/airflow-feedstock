@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.10.1" %}
+{% set version = "2.10.2" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: e97942ffc7063f37f30ae8653cb885066c0fcb9fa7dd644ca828493dc30cf054
+  sha256: 8049d29798fda50b8f8778fe4cf4cb3eb956ba1cb2121f0e6709397beb73efa7
 
 build:
   skip: true  # [win or py>=313]
@@ -45,7 +45,7 @@ outputs:
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
         - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.7.2
+        - trove-classifiers ==2024.9.12
         - pip
       run:
         - python
@@ -115,7 +115,7 @@ outputs:
         - tenacity >=8.0.0,!=8.2.0
         - termcolor >=1.1.0
         - unicodecsv >=0.14.1
-        - universal_pathlib >=0.2.2
+        - universal_pathlib >=0.2.2,!=0.2.4
         - werkzeug >=2.0,<3
         # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
         - apache-airflow-providers-common-compat
