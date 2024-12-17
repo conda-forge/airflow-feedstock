@@ -384,13 +384,14 @@ outputs:
   - name: {{ name }}-with-leveldb
     build:
       noarch: python
-      # noarch so just build it once per os
-      skip: true  # [py!=39]
+      # only built for one python; skip osx because upstream says so;
+      # skip cross-compiling and emulating because conda-build is confused
+      skip: true  # [osx or build_platform != target_platform or py!=39]
     requirements:
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, exact=True) }}
-        - plyvel >=1.5.1  # [not osx]
+        - plyvel >=1.5.1
         - __linux  # [linux]
         - __osx    # [osx]
         - __win    # [win]
