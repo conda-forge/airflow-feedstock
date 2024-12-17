@@ -1,14 +1,18 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.10.2" %}
+{% set version = "2.10.4" %}
+# use the conda-forge min because anything lower isn't being built
+{% set python_min = "3.9" %}
+# python must be less than this version (also update in skip below)
+{% set python_over = "3.13" %}
 
 package:
   name: {{ name|lower }}-split
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 8049d29798fda50b8f8778fe4cf4cb3eb956ba1cb2121f0e6709397beb73efa7
+  url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
+  sha256: 10ebf8b95c59ba229f06235665e92cc684577861cfd1e96bdbe3d3eb7cb5779a
 
 build:
   skip: true  # [win or py>=313]
@@ -38,14 +42,14 @@ outputs:
         - python
         - gitdb ==4.0.11
         - gitpython ==3.1.43
-        - hatchling ==1.25.0
-        - packaging ==24.1
+        - hatchling ==1.26.3
+        - packaging ==24.2
         - pathspec ==0.12.1
         - pluggy ==1.5.0
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
-        - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.9.12
+        - tomli ==2.2.1  # [py<311]
+        - trove-classifiers ==2024.10.21.16
         - pip
       run:
         - python
@@ -67,6 +71,7 @@ outputs:
         - cryptography >=41.0.0
         - deprecated >=1.2.13
         - dill >=0.2.2
+        - eval_type_backport >=0.2.0  # [py<310]
         - flask-caching >=2.0.0
         - flask-session >=0.4.0,<0.6
         - flask-wtf >=1.1.0
@@ -89,8 +94,8 @@ outputs:
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
         - methodtools >=0.4.7
-        - opentelemetry-api >=1.15.0
-        - opentelemetry-exporter-otlp >=1.15.0
+        - opentelemetry-api >=1.24.0
+        - opentelemetry-exporter-otlp >=1.24.0
         - packaging >=23.0
         - pathspec >=0.9.0
         - pendulum >=2.1.2,<4.0  # [py<312]
@@ -114,7 +119,6 @@ outputs:
         - tabulate >=0.7.5
         - tenacity >=8.0.0,!=8.2.0
         - termcolor >=1.1.0
-        - unicodecsv >=0.14.1
         - universal_pathlib >=0.2.2,!=0.2.4
         - werkzeug >=2.0,<3
         # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
@@ -189,7 +193,7 @@ outputs:
     requirements:
       run:
         - python
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - {{ pin_subpackage(name, exact=True) }}
     test:
       imports:
         - airflow
@@ -202,11 +206,11 @@ outputs:
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - atlasclient >=0.1.2
     test:
       imports:
@@ -215,17 +219,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-apache-webhdfs
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - python-hdfs >=2.0.4
         # avro extra
         - fastavro >=0.21.19
@@ -242,17 +247,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-aiobotocore
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - aiobotocore >=2.9.0
     test:
       imports:
@@ -260,17 +266,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-async
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - eventlet >=0.33.3
         - gevent >=0.13
         - greenlet >=0.4.9
@@ -283,17 +290,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-github_enterprise
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - apache-airflow-providers-fab
         - authlib >=1.0.0
     test:
@@ -303,17 +311,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-google_auth
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - apache-airflow-providers-fab
         - authlib >=1.0.0
     test:
@@ -323,17 +332,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-kerberos
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - pykerberos >=1.1.13
         - requests-kerberos >=0.10.0
         - thrift_sasl >=0.2.0
@@ -347,17 +357,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-ldap
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - ldap3 >=2.5.1
         - python-ldap
     test:
@@ -367,18 +378,23 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-leveldb
     build:
       noarch: python
-      # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      # only built for one python; skip osx because upstream says so;
+      # skip cross-compiling and emulating because conda-build is confused
+      skip: true  # [osx or build_platform != target_platform or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - plyvel
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
+        - plyvel >=1.5.1
+        - __linux  # [linux]
+        - __osx    # [osx]
+        - __win    # [win]
     test:
       imports:
         - airflow
@@ -386,17 +402,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-pandas
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - pandas >=1.2.5,<2.2
     test:
       imports:
@@ -405,17 +422,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-password
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - bcrypt >=2.0.0
         - flask-bcrypt >=0.7.1
     test:
@@ -425,17 +443,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-pydantic
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - pydantic>=2.3.0
     test:
       imports:
@@ -444,17 +463,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-rabbitmq
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - amqp
     test:
       imports:
@@ -463,17 +483,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-s3fs
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - s3fs >=2023.10.0
     test:
       imports:
@@ -481,17 +502,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-saml
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - python3-saml >=1.16.0
     test:
       imports:
@@ -499,17 +521,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-sentry
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - blinker >=1.1
         - sentry-sdk >=1.32.0,!=1.33.0
     test:
@@ -520,17 +543,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-statsd
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - statsd >=3.3.0
     test:
       imports:
@@ -539,17 +563,18 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-uv
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - uv >=0.1.32
     test:
       imports:
@@ -557,6 +582,7 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
 
@@ -564,11 +590,11 @@ outputs:
     build:
       noarch: python
       # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python >=3.8,<3.13
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, exact=True) }}
         - virtualenv
     test:
       imports:
@@ -577,6 +603,7 @@ outputs:
       commands:
         - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
 about:
@@ -602,7 +629,6 @@ about:
     - 3rd-party-licenses/LICENSE-pytest-capture-warnings.txt
     - 3rd-party-licenses/LICENSE-reproducible.txt
     - 3rd-party-licenses/LICENSES-ui.txt
-    - 3rd-party-licenses/LICENSE-unicodecsv.txt
 
 
   summary: |
