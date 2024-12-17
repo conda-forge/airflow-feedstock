@@ -190,9 +190,13 @@ outputs:
 
   # alternative name for the core package
   - name: apache-airflow
+    build:
+      noarch: python
+      # noarch so just build it once
+      skip: true  # [not linux64 or py!=39]
     requirements:
       run:
-        - python
+        - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, exact=True) }}
     test:
       imports:
