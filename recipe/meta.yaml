@@ -200,7 +200,6 @@ outputs:
       commands:
         - pip check
       requires:
-        - python {{ python_min }}
         - pip
 
   - name: {{ name }}-with-apache-atlas
