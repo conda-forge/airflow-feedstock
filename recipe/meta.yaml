@@ -38,14 +38,14 @@ outputs:
         - python
         - gitdb ==4.0.11
         - gitpython ==3.1.43
-        - hatchling ==1.25.0
-        - packaging ==24.1
+        - hatchling ==1.26.3
+        - packaging ==24.2
         - pathspec ==0.12.1
         - pluggy ==1.5.0
         # smmap 5.0.1 was not built on conda-forge
         - smmap ==5.0.0
-        - tomli ==2.0.1  # [py<311]
-        - trove-classifiers ==2024.9.12
+        - tomli ==2.2.1  # [py<311]
+        - trove-classifiers ==2024.10.21.16
         - pip
       run:
         - python
@@ -67,6 +67,7 @@ outputs:
         - cryptography >=41.0.0
         - deprecated >=1.2.13
         - dill >=0.2.2
+        - eval_type_backport >=0.2.0  # [py<310]
         - flask-caching >=2.0.0
         - flask-session >=0.4.0,<0.6
         - flask-wtf >=1.1.0
@@ -89,8 +90,8 @@ outputs:
         - marshmallow-oneofschema >=2.0.1
         - mdit-py-plugins >=0.3.0
         - methodtools >=0.4.7
-        - opentelemetry-api >=1.15.0
-        - opentelemetry-exporter-otlp >=1.15.0
+        - opentelemetry-api >=1.24.0
+        - opentelemetry-exporter-otlp >=1.24.0
         - packaging >=23.0
         - pathspec >=0.9.0
         - pendulum >=2.1.2,<4.0  # [py<312]
@@ -114,7 +115,6 @@ outputs:
         - tabulate >=0.7.5
         - tenacity >=8.0.0,!=8.2.0
         - termcolor >=1.1.0
-        - unicodecsv >=0.14.1
         - universal_pathlib >=0.2.2,!=0.2.4
         - werkzeug >=2.0,<3
         # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
@@ -372,13 +372,16 @@ outputs:
   - name: {{ name }}-with-leveldb
     build:
       noarch: python
-      # noarch so just build it once
-      skip: true  # [not linux64 or py!=312]
+      # noarch so just build it once per os
+      skip: true  # [py!=312]
     requirements:
       run:
         - python >=3.8,<3.13
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - plyvel
+        - plyvel >=1.5.1  # [not osx]
+        - __linux  # [linux]
+        - __osx    # [osx]
+        - __win    # [win]
     test:
       imports:
         - airflow
