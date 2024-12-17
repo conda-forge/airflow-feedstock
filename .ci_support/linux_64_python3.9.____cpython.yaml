@@ -12,5 +12,7 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.9.* *_cpython
+python_min:
+- '3.9'
 target_platform:
 - linux-64
