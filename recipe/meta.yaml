@@ -16,7 +16,7 @@ source:
 
 build:
   skip: true  # [win or py>=313]
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -191,6 +191,9 @@ outputs:
   # alternative name for the core package
   - name: apache-airflow
     requirements:
+      host:
+        # needed to make sure each python version gets a unique build string
+        - python
       run:
         - python
         - {{ pin_subpackage(name, exact=True) }}
