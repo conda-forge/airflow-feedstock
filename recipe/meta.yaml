@@ -210,6 +210,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -230,6 +232,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -258,6 +262,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -277,6 +283,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -301,6 +309,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -322,6 +332,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -343,6 +355,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -368,6 +382,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -390,6 +406,8 @@ outputs:
       # skip cross-compiling and emulating because conda-build is confused
       skip: true  # [osx or build_platform != target_platform or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -413,6 +431,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -433,6 +453,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -454,6 +476,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -474,6 +498,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -494,6 +520,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -513,6 +541,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -532,6 +562,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -554,6 +586,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -574,6 +608,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
@@ -594,6 +630,8 @@ outputs:
       # noarch so just build it once
       skip: true  # [not linux64 or py!=39]
     requirements:
+      host:
+        - python {{ python_min }}
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
