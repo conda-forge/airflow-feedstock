@@ -56,7 +56,8 @@ outputs:
       commands:
         - pip check
         - airflow --help
-        - airflow db init
+        - airflow db --help
+        - airflow db check
       imports:
         - airflow
 
