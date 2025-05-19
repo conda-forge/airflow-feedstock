@@ -636,24 +636,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-apache-impala
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-apache-impala >=1.5.2
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-apache-impala
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-apache-impala >=1.5.2
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-apache-kafka
     build:
@@ -902,24 +903,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-cohere
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-cohere >=1.4.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-cohere
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-cohere >=1.4.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-common-compat
     build:
@@ -959,24 +961,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-common-messaging
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-common-messaging >=1.0.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-common-messaging
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-common-messaging >=1.0.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-common-sql
     build:
@@ -1111,24 +1114,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-edge3
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-edge3
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-edge3
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-edge3
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-elasticsearch
     build:
@@ -1168,24 +1172,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-fab
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-fab >=2.0.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider has a circular dependency with airflow
+  # - name: {{ name }}-with-fab
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-fab >=2.0.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-facebook
     build:
@@ -1225,24 +1230,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-git
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-git >=0.0.1
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-git
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-git >=0.0.1
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-github
     build:
@@ -1567,24 +1573,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-openai
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-openai >=1.5.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-openai
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-openai >=1.5.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-openfaas
     build:
@@ -1624,24 +1631,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-opensearch
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-opensearch >=1.5.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-opensearch
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-opensearch >=1.5.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-opsgenie
     build:
@@ -1719,43 +1727,45 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-pgvector
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-pgvector >=1.4.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-pgvector
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-pgvector >=1.4.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
-  - name: {{ name }}-with-pinecone
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-pinecone >=2.1.1
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-pinecone
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-pinecone >=2.1.1
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-postgres
     build:
@@ -1795,24 +1805,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-qdrant
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-qdrant >=1.3.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-qdrant
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-qdrant >=1.3.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-redis
     build:
@@ -2099,24 +2110,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-teradata
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-teradata >=2.6.1
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-teradata
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-teradata >=2.6.1
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-trino
     build:
@@ -2156,24 +2168,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-weaviate
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-weaviate >=3.0.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-weaviate
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-weaviate >=3.0.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-yandex
     build:
@@ -2194,24 +2207,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-ydb
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-ydb >=1.4.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+  # provider needs to be added to conda-forge
+  # - name: {{ name }}-with-ydb
+  #   build:
+  #     noarch: python
+  #   requirements:
+  #     host:
+  #       - python {{ python_min }}
+  #     run:
+  #       - python >={{ python_min }},<{{ python_over }}
+  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+  #       - apache-airflow-providers-ydb >=1.4.0
+  #   test:
+  #     imports:
+  #       - airflow
+  #     commands:
+  #       - pip check
+  #     requires:
+  #       - python {{ python_min }}
+  #       - pip
 
   - name: {{ name }}-with-zendesk
     build:
