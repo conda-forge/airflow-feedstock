@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "3.0.0" %}
+{% set version = "3.0.1" %}
 # use the conda-forge min because anything lower isn't being built
 {% set python_min = "3.9" %}
 # python must be less than this version (also update in skip below)
@@ -12,21 +12,15 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 07837e082968c0db24ec8f168850a5def368b3b318cd7ca2ed8de01e9f0c635f
+  sha256: cd1ea4a780424e3a2c8d601d1372227cfeddf93b6edcb4d43a6f3f290aca8015
 
 build:
   noarch: python
   number: 0
 
 requirements:
-  build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
   host:
-    - python
-    - pip
-    - setuptools
-
+    - python {{ python_min }}
 
 outputs:
   - name: {{ name }}
@@ -39,7 +33,7 @@ outputs:
         - gitpython ==3.1.44
         - gitdb ==4.0.12
         - hatchling ==1.27.0
-        - packaging ==24.2
+        - packaging ==25.0
         - pathspec ==0.12.1
         - pluggy ==1.5.0
         - smmap ==5.0.2
@@ -50,7 +44,7 @@ outputs:
       run:
         - python >={{ python_min }},<{{ python_over }}
         - apache-airflow-task-sdk <1.1.0,>=1.0.0
-        - apache-airflow-core ==3.0.0
+        - apache-airflow-core ==3.0.1
 
     test:
       commands:
@@ -85,25 +79,6 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-aiobotocore
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-aiobotocore
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
   - name: {{ name }}-with-all-core
     build:
       noarch: python
@@ -123,44 +98,6 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-apache-atlas
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-apache-atlas
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-apache-webhdfs
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-apache-webhdfs
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
   - name: {{ name }}-with-async
     build:
       noarch: python
@@ -171,63 +108,6 @@ outputs:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - apache-airflow-core-with-async
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-cloudpickle
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-cloudpickle
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-github-enterprise
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-github-enterprise
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-google-auth
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-google-auth
     test:
       imports:
         - airflow
@@ -275,101 +155,6 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  - name: {{ name }}-with-ldap
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-ldap
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-otel
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-otel
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-pandas
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-pandas
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-rabbitmq
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-rabbitmq
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-s3fs
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-s3fs
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
   - name: {{ name }}-with-sentry
     build:
       noarch: python
@@ -399,25 +184,6 @@ outputs:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - apache-airflow-core-with-statsd
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-uv
-    build:
-      noarch: python
-    requirements:
-      host:
-        - python {{ python_min }}
-      run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-core-with-uv
     test:
       imports:
         - airflow
@@ -971,7 +737,7 @@ outputs:
   #     run:
   #       - python >={{ python_min }},<{{ python_over }}
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - apache-airflow-providers-common-messaging >=1.0.0
+  #       - apache-airflow-providers-common-messaging >=1.0.1
   #   test:
   #     imports:
   #       - airflow
@@ -1124,7 +890,7 @@ outputs:
   #     run:
   #       - python >={{ python_min }},<{{ python_over }}
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - apache-airflow-providers-edge3
+  #       - apache-airflow-providers-edge3 >=1.0.0
   #   test:
   #     imports:
   #       - airflow
@@ -1172,25 +938,24 @@ outputs:
         - python {{ python_min }}
         - pip
 
-  # provider has a circular dependency with airflow
-  # - name: {{ name }}-with-fab
-  #   build:
-  #     noarch: python
-  #   requirements:
-  #     host:
-  #       - python {{ python_min }}
-  #     run:
-  #       - python >={{ python_min }},<{{ python_over }}
-  #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - apache-airflow-providers-fab >=2.0.0
-  #   test:
-  #     imports:
-  #       - airflow
-  #     commands:
-  #       - pip check
-  #     requires:
-  #       - python {{ python_min }}
-  #       - pip
+  - name: {{ name }}-with-fab
+    build:
+      noarch: python
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-fab >=2.0.2
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
 
   - name: {{ name }}-with-facebook
     build:
@@ -1240,7 +1005,7 @@ outputs:
   #     run:
   #       - python >={{ python_min }},<{{ python_over }}
   #       - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-  #       - apache-airflow-providers-git >=0.0.1
+  #       - apache-airflow-providers-git >=0.0.2
   #   test:
   #     imports:
   #       - airflow
@@ -2062,7 +1827,7 @@ outputs:
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - apache-airflow-providers-standard
+        - apache-airflow-providers-standard >=0.0.1
     test:
       imports:
         - airflow
@@ -2286,7 +2051,7 @@ outputs:
   #       - apache-airflow-providers-cohere >=1.4.0
   #       - apache-airflow-providers-common-compat >=1.2.1
   #       - apache-airflow-providers-common-io >=1.4.2
-  #       - apache-airflow-providers-common-messaging >=1.0.0
+  #       - apache-airflow-providers-common-messaging >=1.0.1
   #       - apache-airflow-providers-common-sql >=1.18.0
   #       - apache-airflow-providers-databricks >=6.11.0
   #       - apache-airflow-providers-datadog >=3.8.0
@@ -2294,13 +2059,13 @@ outputs:
   #       - apache-airflow-providers-dingding >=3.7.0
   #       - apache-airflow-providers-discord >=3.9.0
   #       - apache-airflow-providers-docker >=3.14.1
-  #       - apache-airflow-providers-edge3
+  #       - apache-airflow-providers-edge3 >=1.0.0
   #       - apache-airflow-providers-elasticsearch >=5.5.2
   #       - apache-airflow-providers-exasol >=4.6.1
-  #       - apache-airflow-providers-fab >=2.0.0
+  #       - apache-airflow-providers-fab >=2.0.2
   #       - apache-airflow-providers-facebook >=3.7.0
   #       - apache-airflow-providers-ftp >=3.12.0
-  #       - apache-airflow-providers-git >=0.0.1
+  #       - apache-airflow-providers-git >=0.0.2
   #       - apache-airflow-providers-github >=2.8.0
   #       - apache-airflow-providers-google >=10.24.0
   #       - apache-airflow-providers-grpc >=3.7.0
@@ -2343,7 +2108,7 @@ outputs:
   #       - apache-airflow-providers-snowflake >=5.8.0
   #       - apache-airflow-providers-sqlite >=3.9.1
   #       - apache-airflow-providers-ssh >=3.14.0
-  #       - apache-airflow-providers-standard
+  #       - apache-airflow-providers-standard >=0.0.1
   #       - apache-airflow-providers-tableau >=5.0.0
   #       - apache-airflow-providers-telegram >=4.7.0
   #       - apache-airflow-providers-teradata >=2.6.1
