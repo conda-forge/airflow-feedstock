@@ -2127,6 +2127,261 @@ outputs:
   #       - python {{ python_min }}
   #       - pip
 
+
+  - name: {{ name }}-with-aiobotocore
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-apache-atlas
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - atlasclient >=0.1.2
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-apache-webhdfs
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-apache-hdfs
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-cloudpickle
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - cloudpickle >=2.2.1
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-github-enterprise
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-fab
+        - authlib >=1.0.0
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-google-auth
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-fab
+        - authlib >=1.0.0
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-ldap
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python-ldap >=3.4.4
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-pandas
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-common-sql-with-pandas
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-polars
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-common-sql-with-polars
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-rabbitmq
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - amqp >=5.2.0
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-s3fs
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-providers-amazon-with-s3fs
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
+  - name: {{ name }}-with-uv
+    build:
+      noarch: python
+
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - uv >=0.7.2
+
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
 about:
   home: http://airflow.apache.org
   license: Apache-2.0
