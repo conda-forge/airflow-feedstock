@@ -155,6 +155,25 @@ outputs:
         - python {{ python_min }}
         - pip
 
+  - name: {{ name }}-with-otel
+    build:
+      noarch: python
+    requirements:
+      host:
+        - python {{ python_min }}
+      run:
+        - python >={{ python_min }},<{{ python_over }}
+        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - apache-airflow-core-with-otel
+    test:
+      imports:
+        - airflow
+      commands:
+        - pip check
+      requires:
+        - python {{ python_min }}
+        - pip
+
   - name: {{ name }}-with-sentry
     build:
       noarch: python
