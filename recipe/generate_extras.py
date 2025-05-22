@@ -59,6 +59,7 @@ def generate_output_block(extra, deps):
     if extra == "all":
         reqs = []
         for dep in deps:
+            dep = replace_bracket_extras_with_with_extra(dep)
             if dep.startswith("apache-airflow-core["):
                 core_extra = dep.split("[", 1)[1].split("]", 1)[0]
                 reqs.append(f"apache-airflow-core-with-{core_extra}")
@@ -130,6 +131,40 @@ def generate_output_block(extra, deps):
     return block
 
 
+def expand_airflow_extras(deps_to_keep, optional_deps):
+    """
+    For each extra in deps_to_keep, if its dependencies include 'apache-airflow[extra1,extra2,...]',
+    expand those extras by adding the dependencies from optional_deps for each referenced extra.
+    """
+    for extra, deps in deps_to_keep.items():
+        new_deps = []
+        for dep in deps:
+            m = re.match(r"apache-airflow\[(.*?)\]", dep)
+            if m:
+                extras_list = [e.strip() for e in m.group(1).split(",")]
+                for sub_extra in extras_list:
+                    # Only add if present in optional_deps
+                    if sub_extra in optional_deps:
+                        new_deps.extend(optional_deps[sub_extra])
+            else:
+                new_deps.append(dep)
+        deps_to_keep[extra] = new_deps
+
+
+def replace_bracket_extras_with_with_extra(dep):
+    """
+    For apache-airflow-providers-common-sql and apache-airflow-providers-amazon,
+    replace '[<extra>]' in dependency strings with '-with-<extra>'.
+    E.g., 'apache-airflow-providers-common-sql[pandas]' -> 'apache-airflow-providers-common-sql-with-pandas'
+    """
+    for base in ("apache-airflow-providers-common-sql", "apache-airflow-providers-amazon"):
+        m = re.match(rf"({base})\[(.*?)\](.*)", dep)
+        if m:
+            extras = m.group(2).replace(",", "-")
+            return f"{base}-with-{extras}{m.group(3)}"
+    return dep
+
+
 def main():
     """
     Main entry point for the script. Parses arguments, reads pyproject.toml and meta.yaml,
@@ -157,14 +192,19 @@ def main():
     if not outputs_match:
         print("Could not find outputs section in meta.yaml")
         sys.exit(1)
-    outputs_block = outputs_match.group(1)
-    outputs_start = outputs_match.start(1)
     outputs_end = outputs_match.end(1)
 
     # Parse extras from pyproject.toml
     optional_deps = parse_optional_deps(pyproject_path)
     new_outputs = ""
-    for extra, deps in optional_deps.items():
+    extras_to_keep = ['all-core', 'all']
+    deps_to_keep = {
+        k: v for k, v in optional_deps.items() if k in extras_to_keep
+    }
+
+    expand_airflow_extras(deps_to_keep, optional_deps)
+
+    for extra, deps in deps_to_keep.items():
         block = generate_output_block(extra, deps)
         if block:
             new_outputs += block
