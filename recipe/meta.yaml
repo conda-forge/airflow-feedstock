@@ -3,6 +3,9 @@
 {% set version = "3.0.1" %}
 # use the conda-forge min because anything lower isn't being built
 {% set python_min = "3.9" %}
+# airflow-with-all can't be built with python < 3.10 because of conflicts
+# between provider dependencies related to urllib3
+{% set python_min_all = "3.10" %}
 # python must be less than this version (also update in skip below)
 {% set python_over = "3.13" %}
 
@@ -103,9 +106,9 @@ outputs:
       noarch: python
     requirements:
       host:
-        - python {{ python_min }}
+        - python {{ python_min_all }}
       run:
-        - python >={{ python_min }},<{{ python_over }}
+        - python >={{ python_min_all }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
         - apache-airflow-providers-amazon-with-s3fs
@@ -221,7 +224,7 @@ outputs:
       commands:
         - pip check
       requires:
-        - python {{ python_min }}
+        - python {{ python_min_all }}
         - pip
 
 about:
