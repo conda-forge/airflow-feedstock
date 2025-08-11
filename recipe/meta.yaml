@@ -33,7 +33,7 @@ outputs:
     requirements:
       host:
         - python {{ python_min }}
-        - gitpython ==3.1.44
+        - gitpython ==3.1.45
         - gitdb ==4.0.12
         - hatchling ==1.27.0
         - packaging ==25.0
@@ -46,8 +46,8 @@ outputs:
         - pip
       run:
         - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk <1.1.0,>=1.0.0
-        - apache-airflow-core ==3.0.3
+        - apache-airflow-task-sdk <1.1.0,>=1.0.4
+        - apache-airflow-core ==3.0.4
 
     test:
       commands:
@@ -161,7 +161,6 @@ outputs:
         - apache-airflow-providers-edge3 >=1.0.0
         - apache-airflow-providers-elasticsearch >=5.5.2
         - apache-airflow-providers-exasol >=4.6.1
-        # circular dependency, but let's try it...
         - apache-airflow-providers-fab >=2.2.0
         - apache-airflow-providers-facebook >=3.7.0
         - apache-airflow-providers-ftp >=3.12.0
