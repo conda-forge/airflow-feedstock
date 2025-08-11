@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "3.0.3" %}
+{% set version = "3.0.4" %}
 # use the conda-forge min because anything lower isn't being built
 {% set python_min = "3.9" %}
 # airflow-with-all can't be built with python < 3.10 because of conflicts
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 8bb77223970ae9c0134ee5a3cb85ddcf6630fa9be82496fc8de3db1d55f883e6
+  sha256: 2813ab73562cb8d7c797d2d5c95a9c0967fb0cef94917852ebcf0fe25806f3df
 
 build:
   noarch: python
