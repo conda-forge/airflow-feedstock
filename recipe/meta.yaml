@@ -1,11 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
 {% set version = "3.0.5" %}
-# use the conda-forge min because anything lower isn't being built
-{% set python_min = "3.9" %}
-# airflow-with-all can't be built with python < 3.10 because of conflicts
-# between provider dependencies related to urllib3
-{% set python_min_all = "3.10" %}
 # python must be less than this version (also update in skip below)
 {% set python_over = "3.13" %}
 
@@ -46,8 +41,8 @@ outputs:
         - pip
       run:
         - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk <1.1.0,>=1.0.4
-        - apache-airflow-core ==3.0.4
+        - apache-airflow-task-sdk <1.1.0,>=1.0.5
+        - apache-airflow-core ==3.0.5
 
     test:
       commands:
@@ -106,9 +101,9 @@ outputs:
       noarch: python
     requirements:
       host:
-        - python {{ python_min_all }}
+        - python {{ python_min }}
       run:
-        - python >={{ python_min_all }},<{{ python_over }}
+        - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
         - apache-airflow-providers-amazon-with-s3fs
@@ -150,7 +145,7 @@ outputs:
         # - apache-airflow-providers-cohere >=1.4.0
         - apache-airflow-providers-common-compat >=1.2.1
         - apache-airflow-providers-common-io >=1.4.2
-        - apache-airflow-providers-common-messaging >=1.0.1
+        - apache-airflow-providers-common-messaging >=1.0.3
         - apache-airflow-providers-common-sql >=1.18.0
         - apache-airflow-providers-databricks >=6.11.0
         - apache-airflow-providers-datadog >=3.8.0
@@ -224,7 +219,7 @@ outputs:
       commands:
         - pip check
       requires:
-        - python {{ python_min_all }}
+        - python {{ python_min }}
         - pip
 
 about:
