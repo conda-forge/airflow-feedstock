@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "3.0.5" %}
+{% set version = "3.0.6" %}
 # python must be less than this version (also update in skip below)
 {% set python_over = "3.13" %}
 
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 724b1101a82738c0524e8740b747bdfc3cf7e54d76d992e0c8fd6f9b53c50ea0
+  sha256: b1baec61de9ee69a1a5fc9e280f2e18389325880ce3aec01e17922c8b2477ed2
 
 build:
   noarch: python
@@ -41,8 +41,8 @@ outputs:
         - pip
       run:
         - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk <1.1.0,>=1.0.5
-        - apache-airflow-core ==3.0.5
+        - apache-airflow-task-sdk <1.1.0,>=1.0.6
+        - apache-airflow-core ==3.0.6
 
     test:
       commands:
