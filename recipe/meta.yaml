@@ -43,6 +43,7 @@ outputs:
         - python >={{ python_min }},<{{ python_over }}
         - apache-airflow-task-sdk ==1.1.0
         - apache-airflow-core =={{ version }}
+        - natsort >=8.4.0
 
     test:
       commands:
