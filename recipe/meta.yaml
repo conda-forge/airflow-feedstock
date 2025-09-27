@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "3.0.6" %}
+{% set version = "3.1.0" %}
 # python must be less than this version (also update in skip below)
 {% set python_over = "3.13" %}
 
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: b1baec61de9ee69a1a5fc9e280f2e18389325880ce3aec01e17922c8b2477ed2
+  sha256: 830eadf196f772f108e67fe2141576e93b06f82e9107b179287d1a5185a8e727
 
 build:
   noarch: python
