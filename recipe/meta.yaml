@@ -1,8 +1,8 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "3.0.6" %}
+{% set version = "3.1.0" %}
 # python must be less than this version (also update in skip below)
-{% set python_over = "3.13" %}
+{% set python_over = "3.14" %}
 
 package:
   name: {{ name|lower }}-split
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: b1baec61de9ee69a1a5fc9e280f2e18389325880ce3aec01e17922c8b2477ed2
+  sha256: 830eadf196f772f108e67fe2141576e93b06f82e9107b179287d1a5185a8e727
 
 build:
   noarch: python
@@ -37,12 +37,13 @@ outputs:
         - smmap ==5.0.2
         # for all python (not just py < 3.11) so we can stay noarch: python
         - tomli ==2.2.1
-        - trove-classifiers ==2025.5.9.12
+        - trove-classifiers ==2025.9.11.17
         - pip
       run:
         - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk <1.1.0,>=1.0.6
-        - apache-airflow-core ==3.0.6
+        - apache-airflow-task-sdk ==1.1.0
+        - apache-airflow-core =={{ version }}
+        - natsort >=8.4.0
 
     test:
       commands:
@@ -134,6 +135,8 @@ outputs:
         - apache-airflow-providers-apache-pig >=4.6.0
         - apache-airflow-providers-apache-pinot >=4.5.1
         - apache-airflow-providers-apache-spark >=4.11.1
+        # not on conda-forge
+        # apache-airflow-providers-apache-tinkerpop >=1.0.0
         - apache-airflow-providers-apprise >=1.4.1
         - apache-airflow-providers-arangodb >=2.7.0
         - apache-airflow-providers-asana >=2.7.0
@@ -145,7 +148,7 @@ outputs:
         # - apache-airflow-providers-cohere >=1.4.0
         - apache-airflow-providers-common-compat >=1.2.1
         - apache-airflow-providers-common-io >=1.4.2
-        - apache-airflow-providers-common-messaging >=1.0.3
+        - apache-airflow-providers-common-messaging >=2.0.0
         - apache-airflow-providers-common-sql >=1.18.0
         - apache-airflow-providers-databricks >=6.11.0
         - apache-airflow-providers-datadog >=3.8.0
@@ -169,6 +172,8 @@ outputs:
         - apache-airflow-providers-influxdb >=2.8.0
         - apache-airflow-providers-jdbc >=4.5.2
         - apache-airflow-providers-jenkins >=3.7.2
+        # not available on conda-forge
+        # - apache-airflow-providers-keycloak >=0.0.1
         - apache-airflow-providers-microsoft-azure >=10.5.1
         - apache-airflow-providers-microsoft-mssql >=3.9.2
         - apache-airflow-providers-microsoft-psrp >=3.0.0
@@ -186,7 +191,8 @@ outputs:
         - apache-airflow-providers-pagerduty >=3.8.1
         - apache-airflow-providers-papermill >=3.8.2
         - apache-airflow-providers-pgvector >=1.4.0
-        - apache-airflow-providers-pinecone >=2.1.1
+        # currently not solvable when apache-airflow-providers-pinecone is included
+        # - apache-airflow-providers-pinecone >=2.1.1
         - apache-airflow-providers-postgres >=5.13.1
         - apache-airflow-providers-presto >=5.7.0
         - apache-airflow-providers-qdrant >=1.3.0
