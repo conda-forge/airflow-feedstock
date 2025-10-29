@@ -166,6 +166,8 @@ outputs:
         - apache-airflow-providers-edge3 >=1.0.0
         - apache-airflow-providers-elasticsearch >=5.5.2
         - apache-airflow-providers-exasol >=4.6.1
+        # temporary constraint because of bad dependency
+        - pyexasol !=1.1.1
         # doesn't work with pandas >=2.2.3
         # - apache-airflow-providers-fab >=2.2.0
         - apache-airflow-providers-facebook >=3.7.0
