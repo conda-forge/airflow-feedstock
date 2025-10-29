@@ -45,7 +45,7 @@ outputs:
         - apache-airflow-core =={{ version }}
         # temporary constriant to avoid error fixed in
         # https://github.com/apache/airflow/pull/57335
-        - structlog>=25.2.0,<25.5.0
+        - structlog >=25.2.0,<25.5.0
 
     test:
       commands:
