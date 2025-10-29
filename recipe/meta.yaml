@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "3.1.0" %}
+{% set version = "3.1.1" %}
 # python must be less than this version (also update in skip below)
 {% set python_over = "3.14" %}
 
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 830eadf196f772f108e67fe2141576e93b06f82e9107b179287d1a5185a8e727
+  sha256: 96a9b8aac5fe26ddf35eef5ae4db8f31207f80852719cfd3fbc2432c7796423a
 
 build:
   noarch: python
@@ -41,9 +41,11 @@ outputs:
         - pip
       run:
         - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk ==1.1.0
+        - apache-airflow-task-sdk >=1.1.1
         - apache-airflow-core =={{ version }}
-        - natsort >=8.4.0
+        # temporary constriant to avoid error fixed in
+        # https://github.com/apache/airflow/pull/57335
+        - structlog >=25.2.0,<25.5.0
 
     test:
       commands:
@@ -104,6 +106,10 @@ outputs:
       host:
         - python {{ python_min }}
       run:
+        # Some packages require pandas >=2.2.3 and others require older.
+        # Since we can't have it both ways, we're leaving out packages
+        # requiring the older pandas for now.
+        #
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
@@ -120,7 +126,8 @@ outputs:
         - apache-airflow-providers-airbyte >=5.0.0
         - apache-airflow-providers-alibaba >=3.0.0
         - apache-airflow-providers-amazon >=9.0.0
-        - apache-airflow-providers-apache-beam >=5.8.1
+        # doesn't work with pandas >=2.2.3
+        # - apache-airflow-providers-apache-beam >=5.8.1
         - apache-airflow-providers-apache-cassandra >=3.7.0
         - apache-airflow-providers-apache-drill >=2.8.1
         - apache-airflow-providers-apache-druid >=3.12.0
@@ -136,7 +143,7 @@ outputs:
         - apache-airflow-providers-apache-pinot >=4.5.1
         - apache-airflow-providers-apache-spark >=4.11.1
         # not on conda-forge
-        # apache-airflow-providers-apache-tinkerpop >=1.0.0
+        # - apache-airflow-providers-apache-tinkerpop >=1.0.0
         - apache-airflow-providers-apprise >=1.4.1
         - apache-airflow-providers-arangodb >=2.7.0
         - apache-airflow-providers-asana >=2.7.0
@@ -159,7 +166,10 @@ outputs:
         - apache-airflow-providers-edge3 >=1.0.0
         - apache-airflow-providers-elasticsearch >=5.5.2
         - apache-airflow-providers-exasol >=4.6.1
-        - apache-airflow-providers-fab >=2.2.0
+        # temporary constraint because of bad dependency
+        - pyexasol !=1.1.1
+        # doesn't work with pandas >=2.2.3
+        # - apache-airflow-providers-fab >=2.2.0
         - apache-airflow-providers-facebook >=3.7.0
         - apache-airflow-providers-ftp >=3.12.0
         - apache-airflow-providers-git >=0.0.2
@@ -191,8 +201,7 @@ outputs:
         - apache-airflow-providers-pagerduty >=3.8.1
         - apache-airflow-providers-papermill >=3.8.2
         - apache-airflow-providers-pgvector >=1.4.0
-        # currently not solvable when apache-airflow-providers-pinecone is included
-        # - apache-airflow-providers-pinecone >=2.1.1
+        - apache-airflow-providers-pinecone >=2.1.1
         - apache-airflow-providers-postgres >=5.13.1
         - apache-airflow-providers-presto >=5.7.0
         - apache-airflow-providers-qdrant >=1.3.0
