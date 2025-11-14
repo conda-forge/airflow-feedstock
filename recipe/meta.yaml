@@ -240,7 +240,9 @@ outputs:
 about:
   home: http://airflow.apache.org
   license: Apache-2.0
-  license_file: LICENSE
+  license_file: 
+    - LICENSE
+    - NOTICE
   summary: |
     Airflow is a platform to programmatically author, schedule and monitor
     workflows
