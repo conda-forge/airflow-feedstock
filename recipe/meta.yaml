@@ -1,6 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "3.1.2" %}
+{% set version = "3.1.3" %}
 # python must be less than this version (also update in skip below)
 {% set python_over = "3.14" %}
 
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 57e639b3918aa70811282c3acbbf13dfa830c729f1812239ae6abc73f0624d81
+  sha256: 8dd5979cb93c6d522359b661276b8b6293dfebaca74267f753986dbdca1ba72d
 
 build:
   noarch: python
@@ -174,7 +174,8 @@ outputs:
         - apache-airflow-providers-ftp >=3.12.0
         - apache-airflow-providers-git >=0.0.2
         - apache-airflow-providers-github >=2.8.0
-        - apache-airflow-providers-google >=10.24.0
+        # doesn't work with uvicorn >=0.37.0 (dependency of apache-airflow-core)
+        # - apache-airflow-providers-google >=10.24.0
         - apache-airflow-providers-grpc >=3.7.0
         - apache-airflow-providers-hashicorp >=4.0.0
         - apache-airflow-providers-http >=4.13.2
@@ -240,7 +241,9 @@ outputs:
 about:
   home: http://airflow.apache.org
   license: Apache-2.0
-  license_file: LICENSE
+  license_file: 
+    - LICENSE
+    - NOTICE
   summary: |
     Airflow is a platform to programmatically author, schedule and monitor
     workflows
