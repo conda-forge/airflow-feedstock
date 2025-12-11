@@ -41,7 +41,7 @@ outputs:
         - pip
       run:
         - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk >=1.1.1
+        - apache-airflow-task-sdk >=1.1.4
         - apache-airflow-core =={{ version }}
         # temporary constriant to avoid error fixed in
         # https://github.com/apache/airflow/pull/57335
