@@ -1,7 +1,7 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
 {% set version = "3.1.5" %}
-# python must be less than this version (also update in skip below)
+# python must be less than this version
 {% set python_over = "3.14" %}
 
 package:
@@ -41,7 +41,7 @@ outputs:
         - pip
       run:
         - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk >=1.1.4
+        - apache-airflow-task-sdk >=1.1.5
         - apache-airflow-core =={{ version }}
         # temporary constriant to avoid error fixed in
         # https://github.com/apache/airflow/pull/57335
