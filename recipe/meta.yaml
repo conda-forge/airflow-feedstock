@@ -46,7 +46,8 @@ outputs:
         - pluggy ==1.5.0
         - smmap ==5.0.2
         - tomli ==2.2.1  # [py<311]
-        - trove-classifiers ==2025.4.28.22
+        # 2025.4.28.22 was not built on conda-forge
+        - trove-classifiers ==2025.5.1.12
         - pip
       run:
         - python
