@@ -1,8 +1,6 @@
 {% set name = "airflow" %}
 {% set pypi_name = "apache-airflow" %}
-{% set version = "2.10.5" %}
-# use the conda-forge min because anything lower isn't being built
-{% set python_min = "3.9" %}
+{% set version = "2.11.0" %}
 # python must be less than this version (also update in skip below)
 {% set python_over = "3.13" %}
 
@@ -12,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 1a2b1f1082d530fee039989cdff7192fcfd98d8e909d1c5650e61e10c418e488
+  sha256: 252ae1a2f3d75547bb35907ac6abe6a105d02eaab265434ca587b5757940ce08
 
 build:
   skip: true  # [win or py>=313]
@@ -48,7 +46,7 @@ outputs:
         - pluggy ==1.5.0
         - smmap ==5.0.2
         - tomli ==2.2.1  # [py<311]
-        - trove-classifiers ==2024.10.21.16
+        - trove-classifiers ==2025.4.28.22
         - pip
       run:
         - python
