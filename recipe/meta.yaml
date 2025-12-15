@@ -71,6 +71,11 @@ outputs:
         - dill >=0.2.2
         - eval_type_backport >=0.2.0  # [py<310]
         - flask-caching >=2.0.0
+        # add a constraint on flask-limiter (not an explicit dependency) to avoid
+        # pulling in versions where flask_limiter.wrappers was removed (>=3.13),
+        # which causes import error:
+        #   ModuleNotFoundError: No module named 'flask_limiter.wrappers'
+        - flask-limiter <3.13
         - flask-session >=0.4.0,<0.6
         - flask-wtf >=1.1.0
         - flask >=2.2.1,<2.3
@@ -134,6 +139,7 @@ outputs:
       commands:
         - pip check
         - airflow --help
+        - python -c "from flask_limiter.wrappers import RequestLimit"
         # not working for linux emulation because passlib, a dependency of
         # sqlalchemy ends up creating a bcrypt hash, which Ubuntu CI's glibc
         # cannot handle.
