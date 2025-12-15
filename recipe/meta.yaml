@@ -479,7 +479,7 @@ outputs:
       run:
         - python >={{ python_min }},<{{ python_over }}
         - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-        - pydantic>=2.3.0
+        - pydantic >=2.3.0
     test:
       imports:
         - airflow
