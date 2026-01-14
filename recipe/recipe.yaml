@@ -20,7 +20,7 @@ build:
 
 outputs:
   - package:
-      name: ${{ name }}
+      name: ${{ pypi_name }}
     build:
       noarch: python
       script:
@@ -62,7 +62,7 @@ outputs:
           - airflow db check
   # alternative name for the package
   - package:
-      name: apache-airflow
+      name: ${{ name }}
     build:
       noarch: python
     requirements:
@@ -71,7 +71,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(name, upper_bound='x.x.x.x.x.x') }}
+        - ${{ pin_subpackage(pypi_name, exact=true) }}
     tests:
       - python:
           imports:
@@ -87,7 +87,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(name, upper_bound='x.x.x.x.x.x') }}
+        - ${{ pin_subpackage(pypi_name, exact=true) }}
         - apache-airflow-core-with-all
     tests:
       - python:
@@ -113,7 +113,7 @@ outputs:
         # requiring the older pandas for now.
         #
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(name, upper_bound='x.x.x.x.x.x') }}
+        - ${{ pin_subpackage(pypi_name, exact=true) }}
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
         - apache-airflow-providers-amazon-with-s3fs
         - apache-airflow-providers-common-sql-with-pandas
