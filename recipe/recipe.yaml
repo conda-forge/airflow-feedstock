@@ -1,33 +1,33 @@
-{% set name = "airflow" %}
-{% set pypi_name = "apache-airflow" %}
-{% set version = "3.1.5" %}
 # python must be less than this version
-{% set python_over = "3.14" %}
+schema_version: 1
 
-package:
-  name: {{ name|lower }}-split
-  version: {{ version }}
+context:
+  name: airflow
+  pypi_name: apache-airflow
+  version: 3.1.6
+  python_over: 3.14
+
+recipe:
+  name: ${{ name|lower }}-split
+  version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/apache_airflow-{{ version }}.tar.gz
-  sha256: 727f3a4568ba3fb4d61e900a6a8247238e11b7fee5a200cd8a09239bf3d44917
+  url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
+  sha256: 196ac8c893fae8003f511c62b3a89931ed751ed743743f32029cbd3958d24091
 
 build:
-  noarch: python
   number: 0
 
-requirements:
-  host:
-    - python {{ python_min }}
-
 outputs:
-  - name: {{ name }}
-    script: install_airflow.sh
+  - package:
+      name: ${{ pypi_name }}
     build:
       noarch: python
+      script:
+        file: install_airflow.sh
     requirements:
       host:
-        - python {{ python_min }}
+        - python ${{ python_min }}.*
         - gitpython ==3.1.45
         - gitdb ==4.0.12
         - hatchling ==1.27.0
@@ -40,78 +40,80 @@ outputs:
         - trove-classifiers ==2025.9.11.17
         - pip
       run:
-        - python >={{ python_min }},<{{ python_over }}
-        - apache-airflow-task-sdk >=1.1.5
-        - apache-airflow-core =={{ version }}
+        - python >=${{ python_min }},<${{ python_over }}
+        - apache-airflow-task-sdk ==1.1.6
+        - apache-airflow-core ==${{ version }}
         # temporary constriant to avoid error fixed in
         # https://github.com/apache/airflow/pull/57335
         - structlog >=25.2.0,<25.5.0
-
-    test:
-      commands:
-        - pip check
-        - airflow --help
-        - airflow db --help
-        - airflow db check
-      imports:
-        - airflow
-
-      requires:
-        - python {{ python_min }}
-        - pip
-
+    tests:
+      - python:
+          imports:
+            - airflow
+          pip_check: true
+          python_version: ${{ python_min }}.*
+      - requirements:
+          run:
+            - python ${{ python_min }}.*
+            - pip
+        script:
+          - airflow --help
+          - airflow db --help
+          - airflow db check
   # alternative name for the package
-  - name: apache-airflow
+  - package:
+      name: ${{ name }}
     build:
       noarch: python
     requirements:
       host:
         # needed to make sure each python version gets a unique build string
-        - python {{ python_min }}
+        - python ${{ python_min }}.*
       run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-all-core
+        - python >=${{ python_min }},<${{ python_over }}
+        - ${{ pin_subpackage(pypi_name, exact=true) }}
+    tests:
+      - python:
+          imports:
+            - airflow
+          pip_check: true
+          python_version: ${{ python_min }}.*
+  - package:
+      name: ${{ name }}-with-all-core
     build:
       noarch: python
     requirements:
       host:
-        - python {{ python_min }}
+        - python ${{ python_min }}.*
       run:
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >=${{ python_min }},<${{ python_over }}
+        - ${{ pin_subpackage(pypi_name, exact=true) }}
         - apache-airflow-core-with-all
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
-
-  - name: {{ name }}-with-all
+    tests:
+      - python:
+          imports:
+            - airflow
+          python_version: ${{ python_min }}.*
+      - requirements:
+          run:
+            - python ${{ python_min }}.*
+            - pip
+        script:
+          - pip check
+  - package:
+      name: ${{ name }}-with-all
     build:
       noarch: python
     requirements:
       host:
-        - python {{ python_min }}
+        - python ${{ python_min }}.*
       run:
         # Some packages require pandas >=2.2.3 and others require older.
         # Since we can't have it both ways, we're leaving out packages
         # requiring the older pandas for now.
         #
-        - python >={{ python_min }},<{{ python_over }}
-        - {{ pin_subpackage(name, max_pin='x.x.x.x.x.x') }}
+        - python >=${{ python_min }},<${{ python_over }}
+        - ${{ pin_subpackage(pypi_name, exact=true) }}
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
         - apache-airflow-providers-amazon-with-s3fs
         - apache-airflow-providers-common-sql-with-pandas
@@ -229,17 +231,14 @@ outputs:
         - apache-airflow-providers-yandex >=4.0.0
         - apache-airflow-providers-ydb >=1.4.0
         - apache-airflow-providers-zendesk >=4.9.0
-    test:
-      imports:
-        - airflow
-      commands:
-        - pip check
-      requires:
-        - python {{ python_min }}
-        - pip
+    tests:
+      - python:
+          imports:
+            - airflow
+          pip_check: true
+          python_version: ${{ python_min }}.*
 
 about:
-  home: http://airflow.apache.org
   license: Apache-2.0
   license_file:
     - LICENSE
@@ -260,8 +259,9 @@ about:
     When workflows are defined as code, they become more maintainable,
     versionable, testable, and collaborative.
 
-  doc_url: http://pythonhosted.org/airflow/profiling.html
-  dev_url: https://github.com/apache/airflow
+  homepage: http://airflow.apache.org
+  repository: https://github.com/apache/airflow
+  documentation: http://pythonhosted.org/airflow/profiling.html
 
 extra:
   recipe-maintainers:

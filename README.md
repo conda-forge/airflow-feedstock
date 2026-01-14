@@ -1,15 +1,14 @@
-About airflow-split-feedstock
-=============================
+About airflow-feedstock
+=======================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/airflow-feedstock/blob/main/LICENSE.txt)
 
-Home: http://airflow.apache.org
+Home: http://airflow.apache.org/
 
 Package license: Apache-2.0
 
 Summary: Airflow is a platform to programmatically author, schedule and monitor
 workflows
-
 
 Development: https://github.com/apache/airflow
 
@@ -25,7 +24,6 @@ when needed.
 
 When workflows are defined as code, they become more maintainable,
 versionable, testable, and collaborative.
-
 
 Current build status
 ====================
@@ -50,10 +48,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--all--core-green.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-all-core.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-all-core.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-all-core.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-apache--airflow-green.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) |
 
-Installing airflow-split
-========================
+Installing airflow
+==================
 
-Installing `airflow-split` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `airflow` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -139,17 +137,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating airflow-split-feedstock
-================================
+Updating airflow-feedstock
+==========================
 
-If you would like to improve the airflow-split recipe or build a new
+If you would like to improve the airflow recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/airflow-split-feedstock are
+Note that all branches in the conda-forge/airflow-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
