@@ -4,7 +4,7 @@ schema_version: 1
 context:
   name: airflow
   pypi_name: apache-airflow
-  version: 3.1.6
+  version: "3.1.7"
   python_over: 3.14
 
 recipe:
@@ -13,7 +13,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
-  sha256: 196ac8c893fae8003f511c62b3a89931ed751ed743743f32029cbd3958d24091
+  sha256: d717a1003d9c1c965bc6976bc8e745685510af155437c60dc0a1dbcc579e1c99
 
 build:
   number: 0
@@ -41,7 +41,7 @@ outputs:
         - pip
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - apache-airflow-task-sdk ==1.1.6
+        - apache-airflow-task-sdk ==1.1.7
         - apache-airflow-core ==${{ version }}
         # temporary constriant to avoid error fixed in
         # https://github.com/apache/airflow/pull/57335
@@ -55,7 +55,6 @@ outputs:
       - requirements:
           run:
             - python ${{ python_min }}.*
-            - pip
         script:
           - airflow --help
           - airflow db --help
