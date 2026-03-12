@@ -4,8 +4,8 @@ schema_version: 1
 context:
   name: airflow
   pypi_name: apache-airflow
-  version: "3.1.7"
-  python_over: 3.14
+  version: "3.1.8"
+  python_over: "3.14"
 
 recipe:
   name: ${{ name|lower }}-split
@@ -13,7 +13,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
-  sha256: d717a1003d9c1c965bc6976bc8e745685510af155437c60dc0a1dbcc579e1c99
+  sha256: b64f56aff0c30ebd271412f521376847c311df042a93fefb34f16e8fe9a9b20c
 
 build:
   number: 0
@@ -28,24 +28,18 @@ outputs:
     requirements:
       host:
         - python ${{ python_min }}.*
-        - gitpython ==3.1.45
-        - gitdb ==4.0.12
-        - hatchling ==1.27.0
-        - packaging ==25.0
-        - pathspec ==0.12.1
-        - pluggy ==1.5.0
-        - smmap ==5.0.2
-        # for all python (not just py < 3.11) so we can stay noarch: python
-        - tomli ==2.2.1
-        - trove-classifiers ==2025.9.11.17
         - pip
+        - hatchling ==1.29.0
+        - packaging ==26.0
+        - pathspec ==1.0.4
+        - pluggy ==1.5.0
+        # for all python (not just py < 3.11) so we can stay noarch: python
+        - tomli ==2.4.0
+        - trove-classifiers ==2026.1.14.14
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - apache-airflow-task-sdk ==1.1.7
+        - apache-airflow-task-sdk ==1.1.8
         - apache-airflow-core ==${{ version }}
-        # temporary constriant to avoid error fixed in
-        # https://github.com/apache/airflow/pull/57335
-        - structlog >=25.2.0,<25.5.0
     tests:
       - python:
           imports:
