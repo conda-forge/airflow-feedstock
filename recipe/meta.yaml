@@ -39,50 +39,47 @@ outputs:
       host:
         - python
         - gitdb ==4.0.12
-        - gitpython ==3.1.44
+        - gitpython ==3.1.45
         - hatchling ==1.27.0
-        - packaging ==24.2
+        - packaging ==25.0
         - pathspec ==0.12.1
-        - pluggy ==1.5.0
+        - pluggy ==1.6.0
         - smmap ==5.0.2
         - tomli ==2.2.1  # [py<311]
         # 2025.4.28.22 was not built on conda-forge
-        - trove-classifiers ==2025.5.1.12
+        - trove-classifiers ==2025.9.9.12
         - pip
       run:
         - python
-        - alembic >=1.13.1,<2.0
+        - alembic >=1.14.0,<2.0
         - argcomplete >=1.10
         - asgiref >=2.3.0
         - attrs >=22.1.0
         - blinker >=1.6.2
         - colorlog >=6.8.2
         - configupdater >=3.1.1
-        - connexion >=2.14.2,<3.0
-
-        # connexion[flask] 2.14.2 dependencies
-        - flask >=1.0.4,<2.3
-        - itsdangerous >=0.24
-
+        - connexion >=2.15.1,<3.0
         - cron-descriptor >=1.2.24
         - croniter >=2.0.2
         - cryptography >=41.0.0
         - deprecated >=1.2.13
         - dill >=0.2.2
         - eval_type_backport >=0.2.0  # [py<310]
-        - flask-caching >=2.0.0
+        - flask-caching >=2.3.1
+
+        - flask >=2.2,<3
         # add a constraint on flask-limiter (not an explicit dependency) to avoid
         # pulling in versions where flask_limiter.wrappers was removed (>=3.13),
         # which causes import error:
         #   ModuleNotFoundError: No module named 'flask_limiter.wrappers'
-        - flask-limiter <3.13
-        - flask-session >=0.4.0,<0.6
-        - flask-wtf >=1.1.0
-        - flask >=2.2.1,<2.3
+        # - flask-limiter <3.13
+        - flask-session >=0.8.0
+        - flask-wtf >=1.2.2
+        - flask >=2.3.3,<4
         - fsspec >=2023.10.0
         - google-re2 >=1.0  # [py<312]
         - google-re2 >=1.1  # [py>=312]
-        - gunicorn >=20.1.0
+        - gunicorn >=21.2.0
         - httpx >=0.25.0
         - importlib-metadata >=6.5  # [py<312]
         - importlib-resources >=5.2,!=6.2.0,!=6.3.0,!=6.3.1  # [py<39]
@@ -105,14 +102,14 @@ outputs:
         - pendulum >=3.0.0,<4.0  # [py>=312]
         - pluggy >=1.5.0
         - psutil >=5.8.0
-        - pygments >=2.0.1
+        - pygments >=2.16.9
         - pyjwt >=2.0.0
         - python-daemon >=3.0.0
         - python-dateutil >=2.7.0
         - python-nvd3 >=0.15.0
         - python-slugify >=5.0
         - requests >=2.27.0,<3
-        - requests-toolbelt >=0.4.0
+        - requests-toolbelt >=1.0.0
         - rfc3339-validator >=0.1.4
         - rich-argparse >=1.0.0
         - rich >=12.4.4
@@ -123,12 +120,12 @@ outputs:
         - tenacity >=8.0.0,!=8.2.0
         - termcolor >=1.1.0
         - universal_pathlib >=0.2.2,!=0.2.4
-        - werkzeug >=2.0,<3
+        - werkzeug >=3.1.3,<4
         # see https://github.com/apache/airflow/blob/{{ version }}/airflow_pre_installed_providers.txt
         - apache-airflow-providers-common-compat
         - apache-airflow-providers-common-io
         - apache-airflow-providers-common-sql
-        - apache-airflow-providers-fab >=1.0.2
+        - apache-airflow-providers-fab >=1.5.4,<2.0
         - apache-airflow-providers-ftp
         - apache-airflow-providers-http
         - apache-airflow-providers-imap
