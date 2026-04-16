@@ -3,6 +3,10 @@ About airflow-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/airflow-feedstock/blob/main/LICENSE.txt)
 
+
+About airflow
+-------------
+
 Home: http://airflow.apache.org/
 
 Package license: Apache-2.0
@@ -25,15 +29,86 @@ when needed.
 When workflows are defined as code, they become more maintainable,
 versionable, testable, and collaborative.
 
+About apache-airflow-core
+-------------------------
+
+Home: http://airflow.apache.org/
+
+Package license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
+
+Summary: Core packages for Apache Airflow, schedule and API server
+
+Development: https://github.com/apache/airflow
+
+Documentation: http://pythonhosted.org/airflow/profiling.html
+
+Use airflow to author workflows as directed acyclic graphs (DAGs)
+of tasks. The airflow scheduler executes your tasks on an array of
+workers while following the specified dependencies. Rich command
+line utilities make performing complex surgeries on DAGs a snap.
+The rich user interface makes it easy to visualize pipelines
+running in production, monitor progress, and troubleshoot issues
+when needed.
+
+When workflows are defined as code, they become more maintainable,
+versionable, testable, and collaborative.
+
+About apache-airflow-core-with-all
+----------------------------------
+
+Home: http://airflow.apache.org/
+
+Package license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
+
+Summary: Core packages for Apache Airflow, schedule and API server
+
+Development: https://github.com/apache/airflow
+
+Documentation: http://pythonhosted.org/airflow/profiling.html
+
+Use airflow to author workflows as directed acyclic graphs (DAGs)
+of tasks. The airflow scheduler executes your tasks on an array of
+workers while following the specified dependencies. Rich command
+line utilities make performing complex surgeries on DAGs a snap.
+The rich user interface makes it easy to visualize pipelines
+running in production, monitor progress, and troubleshoot issues
+when needed.
+
+When workflows are defined as code, they become more maintainable,
+versionable, testable, and collaborative.
+
+About apache-airflow-task-sdk
+-----------------------------
+
+Home: https://github.com/apache/airflow
+
+Package license: Apache-2.0
+
+Summary: Python Task SDK for Apache Airflow DAG Authors
+
+Development: https://github.com/apache/airflow
+
+Documentation: https://github.com/apache/airflow/blob/main/task-sdk/README.md
+
+Use airflow to author workflows as directed acyclic graphs (DAGs)
+of tasks. The airflow scheduler executes your tasks on an array of
+workers while following the specified dependencies. Rich command
+line utilities make performing complex surgeries on DAGs a snap.
+The rich user interface makes it easy to visualize pipelines
+running in production, monitor progress, and troubleshoot issues
+when needed.
+
+When workflows are defined as code, they become more maintainable,
+versionable, testable, and collaborative.
+
 Current build status
 ====================
 
 
-<table><tr><td>All platforms:</td>
+<table><tr>
+    <td>All platforms:</td>
     <td>
-      <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=2673&branchName=main">
-        <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/airflow-feedstock?branchName=main">
-      </a>
+      <img src="https://img.shields.io/badge/noarch-disabled-lightgrey.svg" alt="noarch disabled">
     </td>
   </tr>
 </table>
@@ -47,6 +122,9 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--all-green.svg)](https://anaconda.org/conda-forge/airflow-with-all) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-all.svg)](https://anaconda.org/conda-forge/airflow-with-all) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-all.svg)](https://anaconda.org/conda-forge/airflow-with-all) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-all.svg)](https://anaconda.org/conda-forge/airflow-with-all) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-airflow--with--all--core-green.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/airflow-with-all-core.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/airflow-with-all-core.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/airflow-with-all-core.svg)](https://anaconda.org/conda-forge/airflow-with-all-core) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-apache--airflow-green.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/apache-airflow.svg)](https://anaconda.org/conda-forge/apache-airflow) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-apache--airflow--core-green.svg)](https://anaconda.org/conda-forge/apache-airflow-core) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/apache-airflow-core.svg)](https://anaconda.org/conda-forge/apache-airflow-core) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/apache-airflow-core.svg)](https://anaconda.org/conda-forge/apache-airflow-core) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/apache-airflow-core.svg)](https://anaconda.org/conda-forge/apache-airflow-core) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-apache--airflow--core--with--all-green.svg)](https://anaconda.org/conda-forge/apache-airflow-core-with-all) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/apache-airflow-core-with-all.svg)](https://anaconda.org/conda-forge/apache-airflow-core-with-all) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/apache-airflow-core-with-all.svg)](https://anaconda.org/conda-forge/apache-airflow-core-with-all) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/apache-airflow-core-with-all.svg)](https://anaconda.org/conda-forge/apache-airflow-core-with-all) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-apache--airflow--task--sdk-green.svg)](https://anaconda.org/conda-forge/apache-airflow-task-sdk) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/apache-airflow-task-sdk.svg)](https://anaconda.org/conda-forge/apache-airflow-task-sdk) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/apache-airflow-task-sdk.svg)](https://anaconda.org/conda-forge/apache-airflow-task-sdk) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/apache-airflow-task-sdk.svg)](https://anaconda.org/conda-forge/apache-airflow-task-sdk) |
 
 Installing airflow
 ==================
@@ -58,16 +136,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `airflow, airflow-with-all, airflow-with-all-core, apache-airflow` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `airflow, airflow-with-all, airflow-with-all-core, apache-airflow, apache-airflow-core, apache-airflow-core-with-all, apache-airflow-task-sdk` can be installed with `conda`:
 
 ```
-conda install airflow airflow-with-all airflow-with-all-core apache-airflow
+conda install airflow airflow-with-all airflow-with-all-core apache-airflow apache-airflow-core apache-airflow-core-with-all apache-airflow-task-sdk
 ```
 
 or with `mamba`:
 
 ```
-mamba install airflow airflow-with-all airflow-with-all-core apache-airflow
+mamba install airflow airflow-with-all airflow-with-all-core apache-airflow apache-airflow-core apache-airflow-core-with-all apache-airflow-task-sdk
 ```
 
 It is possible to list all of the versions of `airflow` available on your platform with `conda`:
