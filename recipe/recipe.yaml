@@ -33,7 +33,8 @@ outputs:
     build:
       noarch: python
       script:
-        file: install_airflow_task_sdk.sh
+        - cd "${SRC_DIR}/airflow-task-sdk"
+        - $PYTHON -m pip install . -vv --no-deps --no-build-isolation
     requirements:
       host:
         - python ${{ python_min }}.*
@@ -85,7 +86,8 @@ outputs:
         entry_points:
           - airflow = airflow.__main__:main
       script:
-        file: install_airflow_core.sh
+        - cd "${SRC_DIR}/airflow-core"
+        - $PYTHON -m pip install . -vv --no-deps --no-build-isolation
     requirements:
       host:
         - python ${{ python_min }}.*
@@ -235,7 +237,8 @@ outputs:
     build:
       noarch: python
       script:
-        file: install_airflow.sh
+        - cd "${SRC_DIR}/airflow"
+        - $PYTHON -m pip install . -vv --no-deps --no-build-isolation
     requirements:
       host:
         - python ${{ python_min }}.*
