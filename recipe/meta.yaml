@@ -72,7 +72,7 @@ outputs:
         # pulling in versions where flask_limiter.wrappers was removed (>=3.13),
         # which causes import error:
         #   ModuleNotFoundError: No module named 'flask_limiter.wrappers'
-        # - flask-limiter <3.13
+        - flask-limiter <3.13
         - flask-session >=0.8.0
         - flask-wtf >=1.2.2
         - flask >=2.3.3,<4
