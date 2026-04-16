@@ -231,7 +231,7 @@ outputs:
       repository: https://github.com/apache/airflow
       documentation: http://pythonhosted.org/airflow/profiling.html
   - package:
-      name: ${{ pypi_name }}
+      name: apache-airflow
     build:
       noarch: python
       script:
@@ -266,7 +266,7 @@ outputs:
           - airflow db check
   # alternative name for the package
   - package:
-      name: ${{ name }}
+      name: airflow
     build:
       noarch: python
     requirements:
@@ -275,7 +275,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(pypi_name, exact=true) }}
+        - ${{ pin_subpackage('apache-airflow', exact=true) }}
     tests:
       - python:
           imports:
@@ -283,7 +283,7 @@ outputs:
           pip_check: true
           python_version: ${{ python_min }}.*
   - package:
-      name: ${{ name }}-with-all-core
+      name: airflow-with-all-core
     build:
       noarch: python
     requirements:
@@ -291,7 +291,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(pypi_name, exact=true) }}
+        - ${{ pin_subpackage('apache-airflow', exact=true) }}
         - apache-airflow-core-with-all
     tests:
       - python:
@@ -305,7 +305,7 @@ outputs:
         script:
           - pip check
   - package:
-      name: ${{ name }}-with-all
+      name: airflow-with-all
     build:
       noarch: python
     requirements:
@@ -317,7 +317,7 @@ outputs:
         # requiring the older pandas for now.
         #
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(pypi_name, exact=true) }}
+        - ${{ pin_subpackage('apache-airflow', exact=true) }}
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
         - apache-airflow-providers-amazon-with-s3fs
         - apache-airflow-providers-common-sql-with-pandas
