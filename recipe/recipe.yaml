@@ -4,7 +4,7 @@ schema_version: 1
 context:
   name: airflow
   pypi_name: apache-airflow
-  version: "3.1.8"
+  version: "3.2.0"
   python_over: "3.14"
 
 recipe:
@@ -13,7 +13,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
-  sha256: b64f56aff0c30ebd271412f521376847c311df042a93fefb34f16e8fe9a9b20c
+  sha256: 06f644d874d629903a2a04accd4c240e1ef703a2bbc14832927cf30bb56ea381
 
 build:
   number: 0
