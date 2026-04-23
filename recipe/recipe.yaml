@@ -5,6 +5,7 @@ context:
   name: airflow
   pypi_name: apache-airflow
   version: "3.1.8"
+  task_sdk_version: "1.1.8"  # manually update with each airflow release
   python_over: "3.14"
 
 recipe:
@@ -12,19 +13,232 @@ recipe:
   version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
-  sha256: b64f56aff0c30ebd271412f521376847c311df042a93fefb34f16e8fe9a9b20c
+  - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
+    sha256: b64f56aff0c30ebd271412f521376847c311df042a93fefb34f16e8fe9a9b20c
+    target_directory: airflow
+  - url: https://pypi.org/packages/source/a/apache-airflow-core/apache_airflow_core-${{ version }}.tar.gz
+    sha256: 484aa133b3a8684d64e0bac4f0354938a430bd9e4a7bcc2f142b3e59fc8c2a1c
+    target_directory: airflow-core
+  - url: https://pypi.org/packages/source/a/apache-airflow-task-sdk/apache_airflow_task_sdk-${{ task_sdk_version }}.tar.gz
+    sha256: d9b6027906a0e179c7ddc550c13717663785460a539b933741f22c47d10f4930
+    target_directory: airflow-task-sdk
 
 build:
-  number: 0
+  number: 2
 
 outputs:
   - package:
-      name: ${{ pypi_name }}
+      name: apache-airflow-task-sdk
+      version: ${{ task_sdk_version }}
     build:
       noarch: python
       script:
-        file: install_airflow.sh
+        - cd "${SRC_DIR}/airflow-task-sdk"
+        - $PYTHON -m pip install . -vv --no-deps --no-build-isolation
+    requirements:
+      host:
+        - python ${{ python_min }}.*
+        - pip
+        - hatchling ==1.29.0
+        - packaging ==26.0
+        - pathspec ==1.0.4
+        - pluggy ==1.6.0
+        - tomli ==2.4.0
+        - trove-classifiers ==2026.1.14.14
+      run:
+        - python >=${{ python_min }},<${{ python_over }}
+        - apache-airflow-core ==${{ version }}
+        - asgiref >=2.3.0
+        - attrs >=24.2.0,!=25.2.0
+        - babel >=2.17.0
+        - fsspec >=2023.10.0
+        - httpx >=0.27.0
+        - jinja2 >=3.1.5
+        - methodtools >=0.4.7
+        - msgspec >=0.19.0
+        - python-dateutil >=2.7.0
+        - psutil >=6.1.0
+        - structlog >=25.4.0
+        - greenback >=1.2.1
+        - tenacity >=8.3.0
+        - pendulum >=3.1.0
+        - colorlog >=6.8.2
+        - pydantic >2.11.0
+        - pygtrie >=2.5.0
+    tests:
+      - python:
+          imports:
+            - airflow.sdk
+          pip_check: true
+          python_version: ${{ python_min }}.*
+    about:
+      summary: Python Task SDK for Apache Airflow DAG Authors
+      license: Apache-2.0
+      license_file: airflow-task-sdk/LICENSE
+      homepage: https://github.com/apache/airflow
+      repository: https://github.com/apache/airflow
+      documentation: https://github.com/apache/airflow/blob/main/task-sdk/README.md
+  - package:
+      name: apache-airflow-core
+    build:
+      noarch: python
+      python:
+        entry_points:
+          - airflow = airflow.__main__:main
+      script:
+        - cd "${SRC_DIR}/airflow-core"
+        - $PYTHON -m pip install . -vv --no-deps --no-build-isolation
+    requirements:
+      host:
+        - python ${{ python_min }}.*
+        - pip
+        - gitdb ==4.0.12
+        - gitpython ==3.1.46
+        - hatchling ==1.29.0
+        - packaging ==26.0
+        - pathspec ==1.0.4
+        - pluggy ==1.6.0
+        - smmap ==5.0.2
+        - tomli ==2.4.0
+        - trove-classifiers ==2026.1.14.14
+      run:
+        - python >=${{ python_min }},<${{ python_over }}
+        - a2wsgi >=1.10.8
+        - aiosqlite >=0.20.0,<0.22.0
+        - alembic >=1.13.1,<2.0
+        - argcomplete >=1.10
+        - asgiref >=2.3.0
+        - attrs >=22.1.0,!=25.2.0
+        - cadwyn >=5.2.1
+        - colorlog >=6.8.2
+        - cron-descriptor >=1.2.24
+        - croniter >=2.0.2
+        - cryptography >=41.0.0
+        - deprecated >=1.2.13
+        - dill >=0.2.2
+        - uvicorn >=0.37.0
+        - fastapi >=0.116.0,<0.118.0
+        - starlette >=0.45.0
+        - httpx >=0.25.0
+        - importlib-metadata >=7.0
+        - itsdangerous >=2.0
+        - jinja2 >=3.1.5
+        - jsonschema >=4.19.1
+        - lazy-object-proxy >=1.2.0
+        - libcst >=1.8.2
+        - linkify-it-py >=2.0.0
+        - lockfile >=0.12.2
+        - methodtools >=0.4.7
+        - natsort >=8.4.0
+        - opentelemetry-api >=1.27.0
+        - opentelemetry-exporter-otlp >=1.27.0
+        - packaging >=25.0
+        - pathspec >=0.9.0
+        - pendulum >=3.1.0
+        - pluggy >=1.5.0
+        - psutil >=5.8.0
+        - pydantic >=2.11.0
+        - pygments >=2.0.1,!=2.19.0
+        - pyjwt >=2.11.0
+        - python-daemon >=3.0.0
+        - python-dateutil >=2.7.0
+        - python-slugify >=5.0
+        - requests >=2.32.0,<3
+        - rich-argparse >=1.0.0
+        - rich >=13.6.0
+        - setproctitle >=1.3.3
+        - sqlalchemy >=1.4.54
+        - greenlet !=0.4.17
+        - sqlalchemy-jsonfield >=1.0
+        - sqlalchemy-utils >=0.41.2
+        - svcs >=25.1.0
+        - tabulate >=0.9.0
+        - tenacity >=8.3.0
+        - termcolor >=3.0.0
+        - typing-extensions >=4.14.1
+        - universal-pathlib >=0.2.6,<0.3.0
+        - uuid6 >=2024.7.10
+        - apache-airflow-task-sdk ==${{ task_sdk_version }}
+        - apache-airflow-providers-common-compat >=1.7.4
+        - apache-airflow-providers-common-io >=1.6.3
+        - apache-airflow-providers-common-sql >=1.28.1
+        - apache-airflow-providers-smtp >=2.3.1
+        - apache-airflow-providers-standard >=1.9.0
+        - msgspec >=0.19.0
+        - pygtrie >=2.5.0
+        - structlog >=25.4.0
+    tests:
+      - python:
+          imports:
+            - airflow
+          pip_check: true
+          python_version: ${{ python_min }}.*
+      - requirements:
+          run:
+            - python ${{ python_min }}.*
+            - natsort >=8.4.0
+        script:
+          - airflow --help
+    about:
+      summary: Core packages for Apache Airflow, schedule and API server
+      license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
+      license_file:
+        - airflow-core/LICENSE
+        - airflow-core/NOTICE
+      homepage: http://airflow.apache.org
+      repository: https://github.com/apache/airflow
+      documentation: http://pythonhosted.org/airflow/profiling.html
+  - package:
+      name: apache-airflow-core-with-all
+    build:
+      noarch: python
+    requirements:
+      host:
+        - python ${{ python_min }}.*
+      run:
+        - python >=${{ python_min }},<${{ python_over }}
+        - ${{ pin_subpackage('apache-airflow-core', upper_bound='x.x.x.x.x.x') }}
+        # graphviz extra
+        - python-graphviz >=0.20
+
+        # kerberos extra
+        - pykerberos >=1.1.13
+        - requests-kerberos >=0.14.0
+        - thrift_sasl >=0.4.2
+
+        # otel extra
+        - opentelemetry-exporter-prometheus >=0.51b0
+
+        # sentry extra
+        - sentry-sdk >=2.30.0
+        - flask >=0.11
+        - blinker >=1.1
+        - markupsafe
+
+        # statsd extra
+        - statsd >=3.3.0
+    tests:
+      - python:
+          imports:
+            - airflow
+          pip_check: true
+          python_version: ${{ python_min }}.*
+    about:
+      summary: Core packages for Apache Airflow, schedule and API server
+      license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
+      license_file:
+        - airflow-core/LICENSE
+        - airflow-core/NOTICE
+      homepage: http://airflow.apache.org
+      repository: https://github.com/apache/airflow
+      documentation: http://pythonhosted.org/airflow/profiling.html
+  - package:
+      name: apache-airflow
+    build:
+      noarch: python
+      script:
+        - cd "${SRC_DIR}/airflow"
+        - $PYTHON -m pip install . -vv --no-deps --no-build-isolation
     requirements:
       host:
         - python ${{ python_min }}.*
@@ -38,8 +252,8 @@ outputs:
         - trove-classifiers ==2026.1.14.14
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - apache-airflow-task-sdk ==1.1.8
-        - apache-airflow-core ==${{ version }}
+        - ${{ pin_subpackage('apache-airflow-task-sdk', exact=true) }}
+        - ${{ pin_subpackage('apache-airflow-core', exact=true) }}
     tests:
       - python:
           imports:
@@ -55,7 +269,7 @@ outputs:
           - airflow db check
   # alternative name for the package
   - package:
-      name: ${{ name }}
+      name: airflow
     build:
       noarch: python
     requirements:
@@ -64,7 +278,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(pypi_name, exact=true) }}
+        - ${{ pin_subpackage('apache-airflow', exact=true) }}
     tests:
       - python:
           imports:
@@ -72,7 +286,7 @@ outputs:
           pip_check: true
           python_version: ${{ python_min }}.*
   - package:
-      name: ${{ name }}-with-all-core
+      name: airflow-with-all-core
     build:
       noarch: python
     requirements:
@@ -80,7 +294,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(pypi_name, exact=true) }}
+        - ${{ pin_subpackage('apache-airflow', exact=true) }}
         - apache-airflow-core-with-all
     tests:
       - python:
@@ -94,7 +308,7 @@ outputs:
         script:
           - pip check
   - package:
-      name: ${{ name }}-with-all
+      name: airflow-with-all
     build:
       noarch: python
     requirements:
@@ -106,7 +320,7 @@ outputs:
         # requiring the older pandas for now.
         #
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage(pypi_name, exact=true) }}
+        - ${{ pin_subpackage('apache-airflow', exact=true) }}
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
         - apache-airflow-providers-amazon-with-s3fs
         - apache-airflow-providers-common-sql-with-pandas
@@ -161,8 +375,6 @@ outputs:
         - apache-airflow-providers-edge3 >=1.0.0
         - apache-airflow-providers-elasticsearch >=5.5.2
         - apache-airflow-providers-exasol >=4.6.1
-        # temporary constraint because of bad dependency
-        - pyexasol !=1.1.1
         # doesn't work with pandas >=2.2.3
         # - apache-airflow-providers-fab >=2.2.0
         - apache-airflow-providers-facebook >=3.7.0
@@ -224,6 +436,10 @@ outputs:
         - apache-airflow-providers-yandex >=4.0.0
         - apache-airflow-providers-ydb >=1.4.0
         - apache-airflow-providers-zendesk >=4.9.0
+
+        # temporary constraints because of bad dependencies
+        - snowflake-connector-python !=4.4.0
+        - pyexasol !=1.1.1,!=2.0.0
     tests:
       - python:
           imports:
@@ -234,8 +450,8 @@ outputs:
 about:
   license: Apache-2.0
   license_file:
-    - LICENSE
-    - NOTICE
+    - airflow/LICENSE
+    - airflow/NOTICE
   summary: |
     Airflow is a platform to programmatically author, schedule and monitor
     workflows
