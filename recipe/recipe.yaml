@@ -4,7 +4,7 @@ schema_version: 1
 context:
   name: airflow
   pypi_name: apache-airflow
-  version: "3.1.8"
+  version: "3.2.1"
   task_sdk_version: "1.1.8"  # manually update with each airflow release
   python_over: "3.14"
 
@@ -14,17 +14,17 @@ recipe:
 
 source:
   - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
-    sha256: b64f56aff0c30ebd271412f521376847c311df042a93fefb34f16e8fe9a9b20c
+    sha256: 0369c10195401c3b6866f81c03a98c97395c3ceb10fe8e1498ef0bb748b11e8d
     target_directory: airflow
   - url: https://pypi.org/packages/source/a/apache-airflow-core/apache_airflow_core-${{ version }}.tar.gz
-    sha256: 484aa133b3a8684d64e0bac4f0354938a430bd9e4a7bcc2f142b3e59fc8c2a1c
+    sha256: 737688a2df62b4827419161fccfb6c90e15d5eb4254c06a52014434d354931c1
     target_directory: airflow-core
   - url: https://pypi.org/packages/source/a/apache-airflow-task-sdk/apache_airflow_task_sdk-${{ task_sdk_version }}.tar.gz
     sha256: d9b6027906a0e179c7ddc550c13717663785460a539b933741f22c47d10f4930
     target_directory: airflow-task-sdk
 
 build:
-  number: 2
+  number: 0
 
 outputs:
   - package:
