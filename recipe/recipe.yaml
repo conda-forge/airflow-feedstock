@@ -66,6 +66,7 @@ outputs:
         - colorlog >=6.8.2
         - pydantic >2.11.0
         - pygtrie >=2.5.0
+    # tests section intentionally omitted because of circular dependencies
     about:
       summary: Python Task SDK for Apache Airflow DAG Authors
       license: Apache-2.0
@@ -164,6 +165,7 @@ outputs:
         - structlog >=25.4.0
         - pyyaml>=6.0.3
         - pluggy>=1.5.0
+    # tests section intentionally omitted because of circular dependencies
     about:
       summary: Core packages for Apache Airflow, schedule and API server
       license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
@@ -202,6 +204,7 @@ outputs:
 
         # statsd extra
         - statsd >=3.3.0
+    # tests section intentionally omitted because of circular dependencies
     about:
       summary: Core packages for Apache Airflow, schedule and API server
       license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
