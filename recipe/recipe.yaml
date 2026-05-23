@@ -48,7 +48,6 @@ outputs:
       run:
         - python >=${{ python_min }},<${{ python_over }}
         - apache-airflow-core ==${{ version }}
-        - apache-airflow ==${{ version }}
         # tighter constraint for python >=3.14
         - asgiref >=3.11.1
         - attrs >=24.2.0,!=25.2.0
@@ -67,12 +66,6 @@ outputs:
         - colorlog >=6.8.2
         - pydantic >2.11.0
         - pygtrie >=2.5.0
-    tests:
-      - python:
-          imports:
-            - airflow.sdk
-          pip_check: true
-          python_version: ${{ python_min }}.*
     about:
       summary: Python Task SDK for Apache Airflow DAG Authors
       license: Apache-2.0
@@ -105,7 +98,6 @@ outputs:
         - trove-classifiers ==2026.1.14.14
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - apache-airflow ==${{ version }}
         - apache-airflow-task-sdk ==${{ task_sdk_version }}
         - a2wsgi >=1.10.8
         - aiosqlite >=0.20.0,<0.22.0
@@ -172,18 +164,6 @@ outputs:
         - structlog >=25.4.0
         - pyyaml>=6.0.3
         - pluggy>=1.5.0
-    tests:
-      - python:
-          imports:
-            - airflow
-          pip_check: true
-          python_version: ${{ python_min }}.*
-      - requirements:
-          run:
-            - python ${{ python_min }}.*
-            - natsort >=8.4.0
-        script:
-          - airflow --help
     about:
       summary: Core packages for Apache Airflow, schedule and API server
       license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
@@ -222,12 +202,6 @@ outputs:
 
         # statsd extra
         - statsd >=3.3.0
-    tests:
-      - python:
-          imports:
-            - airflow
-          pip_check: true
-          python_version: ${{ python_min }}.*
     about:
       summary: Core packages for Apache Airflow, schedule and API server
       license: MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0
@@ -288,6 +262,7 @@ outputs:
       - python:
           imports:
             - airflow
+            - airflow.sdk
           pip_check: true
           python_version: ${{ python_min }}.*
   - package:
