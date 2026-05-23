@@ -48,6 +48,7 @@ outputs:
       run:
         - python >=${{ python_min }},<${{ python_over }}
         - apache-airflow-core ==${{ version }}
+        - apache-airflow ==${{ version }}
         # tighter constraint for python >=3.14
         - asgiref >=3.11.1
         - attrs >=24.2.0,!=25.2.0
@@ -104,6 +105,8 @@ outputs:
         - trove-classifiers ==2026.1.14.14
       run:
         - python >=${{ python_min }},<${{ python_over }}
+        - apache-airflow ==${{ version }}
+        - apache-airflow-task-sdk ==${{ task_sdk_version }}
         - a2wsgi >=1.10.8
         - aiosqlite >=0.20.0,<0.22.0
         - alembic >=1.13.1,<2.0
@@ -159,7 +162,6 @@ outputs:
         - typing-extensions >=4.14.1
         - universal-pathlib >=0.3.8
         - uuid6 >=2024.7.10
-        - apache-airflow-task-sdk ==${{ task_sdk_version }}
         - apache-airflow-providers-common-compat >=1.7.4
         - apache-airflow-providers-common-io >=1.6.3
         - apache-airflow-providers-common-sql >=1.28.1
@@ -200,7 +202,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage('apache-airflow-core', upper_bound='x.x.x.x.x.x') }}
+        - apache-airflow-core == ${{ version }}
         # graphviz extra
         - python-graphviz >=0.20
 
@@ -255,8 +257,8 @@ outputs:
         - trove-classifiers ==2026.1.14.14
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage('apache-airflow-task-sdk', exact=true) }}
-        - ${{ pin_subpackage('apache-airflow-core', exact=true) }}
+        - apache-airflow-task-sdk ==${{ task_sdk_version }}
+        - apache-airflow-core == ${{ version }}
     tests:
       - python:
           imports:
@@ -281,7 +283,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage('apache-airflow', exact=true) }}
+        - apache-airflow ==${{ version }}
     tests:
       - python:
           imports:
@@ -297,7 +299,7 @@ outputs:
         - python ${{ python_min }}.*
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage('apache-airflow', exact=true) }}
+        - apache-airflow ==${{ version }}
         - apache-airflow-core-with-all
     tests:
       - python:
@@ -323,7 +325,7 @@ outputs:
         # requiring the older pandas for now.
         #
         - python >=${{ python_min }},<${{ python_over }}
-        - ${{ pin_subpackage('apache-airflow', exact=true) }}
+        - apache-airflow ==${{ version }}
         - apache-airflow-core-with-all
         # apache-airflow[aiobotocore]
         - apache-airflow-providers-amazon-with-aiobotocore >=9.6.0
