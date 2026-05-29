@@ -101,22 +101,23 @@ outputs:
         - python >=${{ python_min }},<${{ python_over }}
         - apache-airflow-task-sdk ==${{ task_sdk_version }}
         - a2wsgi >=1.10.8
+        - cachetools >=6.0.0
         - aiosqlite >=0.20.0,<0.22.0
         - alembic >=1.13.1,<2.0
         - argcomplete >=1.10
         # tighter constraint for python >=3.14
         - asgiref >=3.11.1
         - attrs >=22.1.0,!=25.2.0
-        - cadwyn >=6.0.4
+        - cadwyn >=6.1.1
         - colorlog >=6.8.2
         - cron-descriptor >=1.2.24
         - croniter >=2.0.2
         - cryptography >=44.0.3
         - deprecated >=1.2.13
         - dill >=0.2.2
-        - uvicorn >=0.37.0
         - fastapi >=0.129.0
-        - starlette >=0.45.0,<1
+        - uvicorn >=0.37.0
+        - starlette >=1.0.1
         - httpx >=0.25.0
         - importlib-metadata >=7.0
         - itsdangerous >=2.0
