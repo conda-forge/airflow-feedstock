@@ -44,7 +44,7 @@ outputs:
         - pathspec ==1.1.1
         - pluggy ==1.6.0
         - tomli ==2.4.1
-        - trove-classifiers ==22026.5.20.19
+        - trove-classifiers ==2026.5.20.19
       run:
         - python >=${{ python_min }},<${{ python_over }}
         - apache-airflow-core ==${{ version }}
