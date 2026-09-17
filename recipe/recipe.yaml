@@ -4,8 +4,8 @@ schema_version: 1
 context:
   name: airflow
   pypi_name: apache-airflow
-  version: "3.3.1"
-  task_sdk_version: "1.3.1"  # manually update with each airflow release
+  version: "3.3.2"
+  task_sdk_version: "1.3.2"  # manually update with each airflow release
   python_over: "3.15"
 
 recipe:
@@ -14,13 +14,13 @@ recipe:
 
 source:
   - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
-    sha256: a62ee9c46b7b8c919a46a88ee9346e0b36bc4ff10d6f9ac7cde5a6165da52164
+    sha256: cdbe0dcd47ff2e9ab267fcc050bc6e4fa6e40fb86bf3671e05d9672206da59bb
     target_directory: airflow
   - url: https://pypi.org/packages/source/a/apache-airflow-core/apache_airflow_core-${{ version }}.tar.gz
-    sha256: 0c4ae4f3aea72dc2087b615305ea97ff0247b266bf6fa6661877ce1e1d9a951b
+    sha256: 53f38e7749a2689a1d67c6e661284ecddaa687c1f7f3cae2d76b2eca7758210f
     target_directory: airflow-core
   - url: https://pypi.org/packages/source/a/apache-airflow-task-sdk/apache_airflow_task_sdk-${{ task_sdk_version }}.tar.gz
-    sha256: 21c1086c133ede94defde2b455541cadadf564f7e6d189d1af22c6ef186bb6e3
+    sha256: d9a1c7785684a215df3927b028a44b2b6927dacebd54c0d281b5906febc3efef
     target_directory: airflow-task-sdk
 
 build:
@@ -39,12 +39,11 @@ outputs:
       host:
         - python ${{ python_min }}.*
         - pip
-        - hatchling ==1.30.1
-        - packaging ==26.2
+        - hatchling ==1.32.0
+        - packaging ==26.3
         - pathspec ==1.1.1
         - pluggy ==1.6.0
-        # tightest of upstream's floors (python <3.11)
-        - tomli ==2.4.1
+        - tomlkit ==0.15.1
         - trove-classifiers ==2026.6.1.19
       run:
         - python >=${{ python_min }},<${{ python_over }}
@@ -99,14 +98,13 @@ outputs:
         - python ${{ python_min }}.*
         - pip
         - gitdb ==4.0.12
-        - gitpython ==3.1.50
-        - hatchling ==1.30.1
-        - packaging ==26.2
+        - gitpython ==3.1.62
+        - hatchling ==1.32.0
+        - packaging ==26.3
         - pathspec ==1.1.1
         - pluggy ==1.6.0
         - smmap ==5.0.3
-        # tightest of upstream's floors (python <3.11)
-        - tomli ==2.4.1
+        - tomlkit ==0.15.1
         - trove-classifiers ==2026.6.1.19
       run:
         - python >=${{ python_min }},<${{ python_over }}
@@ -235,13 +233,11 @@ outputs:
       host:
         - python ${{ python_min }}.*
         - pip
-        - hatchling ==1.30.1
-        - packaging ==26.2
+        - hatchling ==1.32.0
+        - packaging ==26.3
         - pathspec ==1.1.1
         - pluggy ==1.6.0
-        # tightest of upstream's floors (python <3.11)
-        # for all python (not just py < 3.11) so we can stay noarch: python
-        - tomli ==2.4.1
+        - tomlkit ==0.15.1
         - trove-classifiers ==2026.6.1.19
       run:
         - python >=${{ python_min }},<${{ python_over }}
