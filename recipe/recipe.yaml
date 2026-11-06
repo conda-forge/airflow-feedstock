@@ -536,10 +536,9 @@ outputs:
         - apache-airflow-providers-amazon-with-s3fs
         - apache-airflow ==${{ version }}
 
-        # temporary constraint because of bad dependencies
-        - pyexasol !=1.1.1,!=2.0.0
-        # temporary constraint because of bad dependencies
-        - snowflake-connector-python !=4.4.0
+        # temporary constraint because of incorrect constraint in
+        # azure-storage-file-share 12.27.0
+        - azure-core >=1.38.3
     tests:
       - python:
           imports:
