@@ -4,8 +4,8 @@ schema_version: 1
 context:
   name: airflow
   pypi_name: apache-airflow
-  version: "3.3.2"
-  task_sdk_version: "1.3.2"  # manually update with each airflow release
+  version: "3.4.0"
+  task_sdk_version: "1.4.0"  # manually update with each airflow release
   python_over: "3.15"
 
 recipe:
@@ -14,13 +14,13 @@ recipe:
 
 source:
   - url: https://pypi.org/packages/source/${{ pypi_name[0] }}/${{ pypi_name }}/apache_airflow-${{ version }}.tar.gz
-    sha256: cdbe0dcd47ff2e9ab267fcc050bc6e4fa6e40fb86bf3671e05d9672206da59bb
+    sha256: 831e2c96654720944ec2a73df285524cbee84403a1175b89aa341bb10d3be754
     target_directory: airflow
   - url: https://pypi.org/packages/source/a/apache-airflow-core/apache_airflow_core-${{ version }}.tar.gz
-    sha256: 53f38e7749a2689a1d67c6e661284ecddaa687c1f7f3cae2d76b2eca7758210f
+    sha256: 2779881392fb4915b370f58a003d4375e92acbeb0167b0ef8208869e7e255ec4
     target_directory: airflow-core
   - url: https://pypi.org/packages/source/a/apache-airflow-task-sdk/apache_airflow_task_sdk-${{ task_sdk_version }}.tar.gz
-    sha256: d9a1c7785684a215df3927b028a44b2b6927dacebd54c0d281b5906febc3efef
+    sha256: 90ca443fcef88201d237ea15f2676a79c8250b5141f1221cb74ff1d709af5c2e
     target_directory: airflow-task-sdk
 
 build:
@@ -39,29 +39,32 @@ outputs:
       host:
         - python ${{ python_min }}.*
         - pip
-        - hatchling ==1.32.0
+        - hatchling ==1.33.0
         - packaging ==26.3
         - pathspec ==1.1.1
-        - pluggy ==1.6.0
-        - tomlkit ==0.15.1
-        - trove-classifiers ==2026.6.1.19
+        - pluggy ==1.7.0
+        - tomlkit ==0.15.2
+        - trove-classifiers ==2026.9.21.13
       run:
         - python >=${{ python_min }},<${{ python_over }}
-        - apache-airflow-core >=3.3.0,<3.4.0
+        - apache-airflow-core >=3.4.0,<3.5.0
         # tightest of upstream's floors (python >=3.14)
         - asgiref >=3.11.1
         - attrs >=24.2.0,!=25.2.0
         - babel >=2.17.0
+        - cadwyn >=8.1.0
         - fsspec >=2023.10.0
-        - httpx >=0.27.0
+        - greenback >=1.2.1
+        - httpx2 >=2.0.0
         - jinja2 >=3.1.5
         - methodtools >=0.4.7
         - msgspec >=0.19.0
-        - python-dateutil >=2.7.0
         - psutil >=6.1.0
+        - python-dateutil >=2.7.0
+        - pyyaml >=6.0.3
         - structlog >=26.1.0
-        - greenback >=1.2.1
         - tenacity >=8.3.0
+        - truststore >=0.10.0
         - pendulum >=3.1.0
         - colorlog >=6.8.2
         - pydantic >2.11.0
@@ -98,14 +101,14 @@ outputs:
         - python ${{ python_min }}.*
         - pip
         - gitdb ==4.0.12
-        - gitpython ==3.1.62
-        - hatchling ==1.32.0
+        - gitpython ==3.2.1
+        - hatchling ==1.33.0
         - packaging ==26.3
         - pathspec ==1.1.1
-        - pluggy ==1.6.0
+        - pluggy ==1.7.0
         - smmap ==5.0.3
-        - tomlkit ==0.15.1
-        - trove-classifiers ==2026.6.1.19
+        - tomlkit ==0.15.2
+        - trove-classifiers ==2026.9.21.13
       run:
         - python >=${{ python_min }},<${{ python_over }}
         - a2wsgi >=1.10.8
@@ -116,7 +119,7 @@ outputs:
         # tightest of upstream's floors (python >=3.14)
         - asgiref >=3.11.1
         - attrs >=22.1.0,!=25.2.0
-        - cadwyn >=6.1.1
+        - cadwyn >=8.1.0
         - colorlog >=6.8.2
         - cron-descriptor >=1.2.24
         - croniter >=6.2.2
@@ -124,10 +127,10 @@ outputs:
         - deprecated >=1.2.13
         - dill >=0.2.2
         # fastapi[standard-no-fastapi-cloud-cli] needs nothing extra on conda-forge
-        - fastapi >=0.129.0,<0.137.0
+        - fastapi >=0.142.0
         - uvicorn >=0.37.0
-        - starlette >=1.0.1
-        - httpx >=0.25.0
+        - starlette >=1.3.1
+        - httpx2 >=2.0.0
         # tightest of upstream's floors (python >=3.12)
         - importlib_metadata >=7.0
         - itsdangerous >=2.0
@@ -148,7 +151,7 @@ outputs:
         - pendulum >=3.1.0
         - pluggy >=1.5.0
         - psutil >=5.8.0
-        - pydantic >=2.11.0
+        - pydantic >=2.12.0
         - pygments >=2.0.1,!=2.19.0
         - pyjwt >=2.11.0
         - python-daemon >=3.0.0
@@ -158,7 +161,7 @@ outputs:
         - rich-argparse >=1.0.0
         - rich >=13.6.0
         - setproctitle >=1.3.3
-        - sqlalchemy >=2.0.50
+        - sqlalchemy >=2.0.50,!=2.1.0
         # start sqlalchemy[asyncio]
         - greenlet !=0.4.17
         # end sqlalchemy[asyncio]
@@ -173,7 +176,7 @@ outputs:
         - apache-airflow-providers-common-compat >=1.7.4
         - apache-airflow-providers-common-io >=1.6.3
         - apache-airflow-providers-common-sql >=1.28.1
-        - apache-airflow-providers-smtp >=2.3.1
+        - apache-airflow-providers-smtp >=3.2.0
         - apache-airflow-providers-standard >=1.9.0
         - msgspec >=0.19.0
         - pygtrie >=2.5.0
@@ -233,12 +236,12 @@ outputs:
       host:
         - python ${{ python_min }}.*
         - pip
-        - hatchling ==1.32.0
+        - hatchling ==1.33.0
         - packaging ==26.3
         - pathspec ==1.1.1
-        - pluggy ==1.6.0
-        - tomlkit ==0.15.1
-        - trove-classifiers ==2026.6.1.19
+        - pluggy ==1.7.0
+        - tomlkit ==0.15.2
+        - trove-classifiers ==2026.9.21.13
       run:
         - python >=${{ python_min }},<${{ python_over }}
         - apache-airflow-task-sdk ==${{ task_sdk_version }}
@@ -248,7 +251,9 @@ outputs:
           imports:
             - airflow
           pip_check: true
-          python_version: ${{ python_min }}.*
+          python_version:
+            - ${{ python_min }}.*
+            - "*"
       - requirements:
           run:
             - python ${{ python_min }}.*
@@ -274,7 +279,9 @@ outputs:
             - airflow
             - airflow.sdk
           pip_check: true
-          python_version: ${{ python_min }}.*
+          python_version:
+            - ${{ python_min }}.*
+            - "*"
   - package:
       name: airflow-with-all-core
     build:
@@ -290,7 +297,9 @@ outputs:
       - python:
           imports:
             - airflow
-          python_version: ${{ python_min }}.*
+          python_version:
+            - ${{ python_min }}.*
+            - "*"
       - requirements:
           run:
             - python ${{ python_min }}.*
@@ -527,16 +536,17 @@ outputs:
         - apache-airflow-providers-amazon-with-s3fs
         - apache-airflow ==${{ version }}
 
-        # temporary constraint because of bad dependencies
-        - pyexasol !=1.1.1,!=2.0.0
-        # temporary constraint because of bad dependencies
-        - snowflake-connector-python !=4.4.0
+        # temporary constraint because of incorrect constraint in
+        # azure-storage-file-share 12.27.0
+        - azure-core >=1.38.3
     tests:
       - python:
           imports:
             - airflow
           pip_check: true
-          python_version: ${{ python_min }}.*
+          python_version:
+            - ${{ python_min }}.*
+            - "*"
 
 about:
   license: Apache-2.0
